@@ -9,7 +9,7 @@ def cargar_platos(ruta_archivo: str) -> list:
     raw_lines = r.readlines()
     r.close()
     
-    Plato = namedtuple('Plato', ['nombre', 'categoria', 'tiempo_prep', 'precio', 'ingredientes'])
+    Plato = namedtuple('Plato', ['nombre', 'categoria', 'tiempo', 'precio', 'ingredientes'])
 
     platos_ls = [line.strip('\n').split(',') for line in raw_lines]
     platos_named_tuple = []
