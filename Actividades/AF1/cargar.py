@@ -34,8 +34,8 @@ def cargar_ingredientes(ruta_archivo: str) -> dict:
     r.close()
 
     ingredientes_ls = [line.strip('\n').split(',') for line in raw_lines]
-    ingredientes_ls = [ingredientes_ls[0], int(ingredientes_ls[1])]
+    ingredientes_ls = [[line[0], int(line[1])] for line in ingredientes_ls]
     
-    ingredientes_dict = {ingredientes_ls[i][0] : ingredientes_ls[i][1] for i in range len(ingredientes_ls)}
+    ingredientes_dict = {ingredientes_ls[i][0] : ingredientes_ls[i][1] for i in range(len(ingredientes_ls))}
 
     return ingredientes_dict
