@@ -5,7 +5,10 @@
 def platos_por_categoria(lista_platos: list) -> dict:
     cat_platos_dict = {}
     for plato in lista_platos:
-        cat_platos_dict[plato.categoria] = plato
+        if plato.categoria not in cat_platos_dict.keys():
+            cat_platos_dict[plato.categoria] = [plato]
+        else:
+            cat_platos_dict[plato.categoria].append(plato)
     return cat_platos_dict
 
 
