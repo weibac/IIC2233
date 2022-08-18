@@ -5,7 +5,7 @@ from curses import raw
 # los datos vienen en este orden el el .csv:
 # nombre,categoria,tiempo_preparacion,precio,ingrediente_1,...,ingrediente_n
 def cargar_platos(ruta_archivo: str) -> list:
-    r = open(ruta_archivo, 'r')
+    r = open(ruta_archivo, 'r', encoding='utf-8') #IMPORTANTE SI NO VA ENCODING ES DESCUENTO
     raw_lines = r.readlines()
     r.close()
     
@@ -29,7 +29,7 @@ def cargar_platos(ruta_archivo: str) -> list:
 # los datos vienen en este orden el el .csv:
 # nombre,cantidad
 def cargar_ingredientes(ruta_archivo: str) -> dict:
-    r = open(ruta_archivo, 'r')
+    r = open(ruta_archivo, 'r', encoding='utf-8') #IMPORTANTE SI NO VA ENCODING ES DESCUENTO
     raw_lines = r.readlines()
     r.close()
 
