@@ -41,11 +41,12 @@ def preparar_plato(plato, ingredientes: dict) -> bool:
 def resumen_orden(lista_platos: list) -> dict:
     precio_total = 0
     tiempo_total = 0
-    cantidad_platos = len(lista_platos)
+    cantidad_platos = 0
     nombres_platos = []
     for plato in lista_platos:
         precio_total += plato.precio
         tiempo_total += plato.tiempo
+        cantidad_platos += 1
         nombres_platos.append(plato.nombre)
     
     orden_dict = {
