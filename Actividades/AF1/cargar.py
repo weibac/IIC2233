@@ -17,7 +17,7 @@ def cargar_platos(ruta_archivo: str) -> list:
         line[2] = int(line[2])
         line[3] = int(line[3])
         line[4] = set(line[4].split(';'))
-        platos_named_tuple.append(Plato(*tuple(line))) # * es para unpack arguments (tal vez es fuente bug)
+        platos_named_tuple.append(Plato(*tuple(line)))  # * es para unpack arguments (tal vez es fuente bug)
     
     return platos_named_tuple
 
@@ -29,7 +29,7 @@ def cargar_platos(ruta_archivo: str) -> list:
 # los datos vienen en este orden el el .csv:
 # nombre,cantidad
 def cargar_ingredientes(ruta_archivo: str) -> dict:
-    r = open(ruta_archivo, 'r', encoding='utf-8') # IMPORTANTE SI NO VA ENCODING ES DESCUENTO
+    r = open(ruta_archivo, 'r', encoding='utf-8')  # IMPORTANTE SI NO VA ENCODING ES DESCUENTO
     raw_lines = r.readlines()
     r.close()
 
