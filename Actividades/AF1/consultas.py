@@ -39,4 +39,18 @@ def preparar_plato(plato, ingredientes: dict) -> bool:
 #  de la lista de platos.
 # precio total, tiempo total, cantidad de platos, platos
 def resumen_orden(lista_platos: list) -> dict:
-    pass
+    precio_total = 0
+    tiempo_total = 0
+    cantidad_platos = len(lista_platos)
+    for plato in lista_platos:
+        precio_total += plato.precio
+        tiempo_total += plato.tiempo
+    
+    orden_dict = {
+        'precio total': precio_total,
+        'tiempo total': tiempo_total,
+        'cantidad platos': cantidad_platos
+    }
+
+    return orden_dict
+
