@@ -42,14 +42,17 @@ def resumen_orden(lista_platos: list) -> dict:
     precio_total = 0
     tiempo_total = 0
     cantidad_platos = len(lista_platos)
+    nombres_platos = []
     for plato in lista_platos:
         precio_total += plato.precio
         tiempo_total += plato.tiempo
+        nombres_platos.append(plato.nombre)
     
     orden_dict = {
         'precio total': precio_total,
         'tiempo total': tiempo_total,
-        'cantidad platos': cantidad_platos
+        'cantidad platos': cantidad_platos,
+        'platos': nombres_platos
     }
 
     return orden_dict
