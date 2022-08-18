@@ -9,7 +9,7 @@ def cargar_platos(ruta_archivo: str) -> list:
     raw_lines = r.readlines()
     r.close()
     
-    Plato = namedtuple('Plato_type', ['nombre', 'categoria', 'tiempo_prep' ,'precio' ,'ingredientes'])
+    Plato = namedtuple('Plato_type', ['nombre', 'categoria', 'tiempo_prep', 'precio', 'ingredientes'])
 
     platos_ls = [line.strip('\n').split(',') for line in raw_lines]
     platos_named_tuple = []
@@ -21,7 +21,7 @@ def cargar_platos(ruta_archivo: str) -> list:
     
     return platos_named_tuple
 
-    
+
 
 
 
@@ -35,7 +35,7 @@ def cargar_ingredientes(ruta_archivo: str) -> dict:
 
     ingredientes_ls = [line.strip('\n').split(',') for line in raw_lines]
     ingredientes_ls = [[line[0], int(line[1])] for line in ingredientes_ls]
-    
+
     ingredientes_dict = {ingredientes_ls[i][0] : ingredientes_ls[i][1] for i in range(len(ingredientes_ls))}
 
     return ingredientes_dict
