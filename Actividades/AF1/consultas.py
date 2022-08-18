@@ -5,14 +5,15 @@
 def platos_por_categoria(lista_platos: list) -> dict:
     cat_platos_dict = {}
     for plato in lista_platos:
-        cat_platos_dict[plato[1]] = plato
+        cat_platos_dict[plato.categoria] = plato
     return cat_platos_dict
 
 
 
 # Debe devolver los platos que no tengan ninguno de los ingredientes descartados
 def descartar_platos(ingredientes_descartados: set, lista_platos: list) -> list:
-    platos_filtrados = [plato for plato in lista_platos if set(plato[4]) & ingredientes_descartados == set()]
+    platos_filtrados = [plato for plato in lista_platos if set(plato.ingredientes) & ingredientes_descartados == set()]
+    return platos_filtrados
     # & es interseccion y set() es ocnjunto vacio
 
 

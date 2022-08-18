@@ -5,7 +5,7 @@ from curses import raw
 # los datos vienen en este orden el el .csv:
 # nombre,categoria,tiempo_preparacion,precio,ingrediente_1,...,ingrediente_n
 def cargar_platos(ruta_archivo: str) -> list:
-    r = open(ruta_archivo, 'r', encoding='utf-8') #IMPORTANTE SI NO VA ENCODING ES DESCUENTO
+    r = open(ruta_archivo, 'r', encoding='utf-8') # IMPORTANTE SI NO VA ENCODING ES DESCUENTO
     raw_lines = r.readlines()
     r.close()
     
@@ -16,7 +16,7 @@ def cargar_platos(ruta_archivo: str) -> list:
     for line in platos_ls:
         line[2] = int(line[2])
         line[3] = int(line[3])
-        line[4] = line[4].split(';')
+        line[4] = set(line[4].split(';'))
         platos_named_tuple.append(Plato(*tuple(line))) # * es para unpack arguments
     
     return platos_named_tuple
