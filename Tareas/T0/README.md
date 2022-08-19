@@ -1,4 +1,4 @@
-# Tarea X: Nombre de la tarea :school_satchel:
+# Tarea 0: Star Advanced 🚀🌌
 
 
 Un buen ```README.md``` puede marcar una gran diferencia en la facilidad con la que corregimos una tarea, y consecuentemente cómo funciona su programa, por lo en general, entre más ordenado y limpio sea éste, mejor será 
@@ -17,15 +17,28 @@ en cierta línea del código o comentar una función>
 
 ### Cosas implementadas y no implementadas :white_check_mark: :x:
 
-* <Nombre item pauta<sub>1</sub>>: Hecha completa
-* <Nombre item pauta<sub>2</sub>>: Me faltó hacer <insertar qué cosa faltó>
-    * <Nombre subitem pauta<sub>2.1</sub>>: Hecha completa 
-    * <Nombre subitem pauta<sub>2.2</sub>>: Me faltó hacer <insertar qué cosa faltó>
-    * ...
-* <Nombre item pauta<sub>3</sub>>: Me faltó hacer <insertar qué cosa faltó>
-* ...
-* <Nombre item pauta<sub>n</sub>>: Me faltó hacer <insertar qué cosa faltó>
-
+Explicación: mantén el emoji correspondiente, de manera honesta, para cada item. Si quieres, también puedes agregarlos a los títulos:
+- ❌ si **NO** completaste lo pedido
+- ✅ si completaste **correctamente** lo pedido
+- 🟠 si el item está **incompleto** o tiene algunos errores
+#### Programación Orientada a Objetos (18pts) (22%%)
+##### ❌✅🟠 Menú de Inicio
+##### ❌✅🟠 Funcionalidades		
+##### ❌✅🟠 Puntajes
+#### Flujo del Juego (30pts) (36%) 
+##### ❌✅🟠 Menú de Juego
+##### ❌✅🟠 Tablero		
+##### ❌✅🟠 Bestias	
+##### ❌✅🟠 Guardado de partida		
+#### Término del Juego 14pts (17%)
+##### ❌✅🟠 Fin del juego	
+##### ❌✅🟠 Puntajes	
+#### Genera: 15 pts (15%)
+##### ❌✅🟠 Menús
+##### ❌✅🟠 Parámetros
+##### ❌✅🟠 PEP-8
+#### Bonus: 3 décimas
+##### ❌✅🟠 
 ## Ejecución :computer:
 El módulo principal de la tarea a ejecutar es  ```archivo.py```. Además se debe crear los siguientes archivos y directorios adicionales:
 1. ```archivo.ext``` en ```ubicación```
@@ -95,4 +108,4 @@ Para realizar mi tarea saqué código de:
 
 
 ## Descuentos
-La guía de descuentos se encuentra [link](https://github.com/IIC2233/syllabus/blob/master/Tareas/Descuentos.md).
+La guía de descuentos se encuentra [link](https://github.com/IIC2233/Syllabus/blob/master/Tareas/Descuentos.md).
