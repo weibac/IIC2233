@@ -1,7 +1,7 @@
 
-def input_valido(set_opciones):
+def input_valido(set_opciones, mensaje):
     valido = False
-    inp = input('To opción aquí: ')
+    inp = input(mensaje)
     while not valido:
         if not inp.isdigit():
             inp = input('Por favor introduce un número: ')
@@ -10,7 +10,6 @@ def input_valido(set_opciones):
         else:
             valido = True
     return int(inp)
-
 
 
 def menu_inicio():
@@ -22,8 +21,13 @@ Selecciona una opción:
 [3] Ver ranking de puntajes
 [0] Salir
 ''')
-    return input_valido(set(range(0,4)))
+    return input_valido(set(range(0, 4)), 'Tu opción aquí')
+
+def nueva_partida():
+    x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ')
+    y = input_valido(set(range(3, 16)), 'Largo del tablero (min = 3, max = 15): ')
+    return (x, y)
 
 
 
-print(menu_inicio())
+print(nueva_partida())
