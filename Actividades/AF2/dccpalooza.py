@@ -51,7 +51,7 @@ class DCCPalooza:
 
     def ejecutar_evento(self):
         # COMPLETAR
-        if self.prob_evento:
+        if random() > self.prob_evento:
             evento_choice = choice([0, 1, 2])
             if evento_choice == 0:
                 for a in range(len(self.artistas)):
