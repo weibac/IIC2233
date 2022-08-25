@@ -1,13 +1,46 @@
 from parametros import PROB_BESTIA, POND_PUNT
 from math import ceil
-from random import shuffle
+from random import randint
 
 
-def crear_tablero(x, y):
-    casillas = x * y
+def crear_tableros(dim_x, dim_y):
+    casillas = dim_x * dim_y
     bestias = ceil(casillas * PROB_BESTIA)
-    tablero_lineal = ['N' for a in range(bestias)] + [' ' for a in range(casillas - bestias)]
-    print(tablero_lineal)
-    shuffle(tablero_lineal)
-    tablero = [tablero_lineal[a * x:(a + 1) * x] for a in range(y)]
-    return tablero
+    
+    tablero_real = [[0 for a in range(dim_x)] for b in range(dim_y)]
+    i = 0
+    while i < bestias:
+        n_casilla = randint(0, casillas - 1)
+        pos_y = n_casilla // dim_x
+        pos_x = n_casilla % dim_x
+        if tablero_real[pos_y][pos_x] != 'N':
+            tablero_real[pos_y][pos_x] = 'N'
+            i += 1
+    
+    for y in range(len(tablero_real)):
+        for x in range(len(tablero_real[y])):
+            if tablero_real[y][x] != 'N':
+                # 3 de arriba
+                if y > 0:
+                    if x > 0 and tablero_real[y - 1][x - 1] == 'N':
+                        tablero_real[y][x] += 1
+                    if tablero_real[y - 1][x] == 'N':
+                        tablero_real[y][x] += 1
+                    if x < len(tablero_real[y]) - 1 and tablero_real[y - 1][x + 1] == 'N':
+                        tablero_real[y][x] += 1
+                # izquierda
+                if x > 0 and tablero_real[y][x - 1] == 'N':
+                        tablero_real[y][x] += 1
+                # derecha
+                if x < len(tablero_real) - 1 and tablero_real[y][x + 1] == 'N':
+                        tablero_real[y][x] += 1
+                # 3 de abajo
+                if y < len(tablero_real) - 1:
+                    if x > 0 and tablero_real[y + 1][x - 1] == 'N':
+                        tablero_real[y][x] += 1
+                    if tablero_real[y + 1][x] == 'N':
+                        tablero_real[y][x] += 1
+                    if x < len(tablero_real[y]) - 1 and tablero_real[y + 1][x + 1] == 'N':
+                        tablero_real[y][x] += 1
+    return tablero_real
+
