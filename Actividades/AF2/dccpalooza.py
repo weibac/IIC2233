@@ -46,7 +46,7 @@ class DCCPalooza:
     def nuevo_dia(self):
         # COMPLETAR
         if self.funcionando:
-            self.dia += 1
+            self.__dia += 1
             print('Comienza un nuevo dia')
 
     def ejecutar_evento(self):
