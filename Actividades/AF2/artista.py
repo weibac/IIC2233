@@ -48,8 +48,8 @@ class Artista:
     @property
     def animo(self):
         # COMPLETAR
-        return int(self._afinidad_con_publico * 0.5) + int(self._afinidad_con_staff * 0.5)
-
+        return int(self.afinidad_con_publico * 0.5) + int(self.afinidad_con_staff * 0.5)
+    
     def recibir_suministros(self, suministro):
         # COMPLETAR
         if suministro.valor_de_satisfaccion < 0:
@@ -83,6 +83,7 @@ class ArtistaPop(Artista):
         print(f"{self.nombre} hará un {self.accion}")
         self.afinidad_con_publico += AFINIDAD_ACCION_POP
 
+    @property
     def animo(self):
         # COMPLETAR
         animo = super().animo
@@ -106,6 +107,7 @@ class ArtistaRock(Artista):
         print(f"{self.nombre} hará un {self.accion}")
         self.afinidad_con_publico += AFINIDAD_ACCION_ROCK
 
+    @property
     def animo(self):
         # COMPLETAR
         animo = super().animo
@@ -129,6 +131,7 @@ class ArtistaTrapChileno(Artista):
         print(f"{self.nombre} hará un {self.accion}")
         self.afinidad_con_publico += AFINIDAD_ACCION_TRAP_CHILENO
 
+    @property
     def animo(self):
         # COMPLETAR
         animo = super().animo
@@ -152,6 +155,7 @@ class ArtistaReggaeton(Artista):
         print(f"{self.nombre} hará un {self.accion}")
         self.afinidad_con_publico += AFINIDAD_ACCION_REG
 
+    @property
     def animo(self):
         # COMPLETAR
         animo = super().animo
