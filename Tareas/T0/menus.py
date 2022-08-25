@@ -23,6 +23,7 @@ Selecciona una opción:
 ''')
     return input_valido(set(range(0, 4)), 'Tu opción aquí: ')
 
+
 def nueva_partida():
     print('\nHas seleccionado iniciar una nueva partida')
     x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ')

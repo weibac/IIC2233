@@ -2,6 +2,7 @@ from parametros import PROB_BESTIA, POND_PUNT
 from math import ceil
 from random import shuffle
 
+
 def crear_tablero(x, y):
     casillas = x * y
     bestias = ceil(casillas * PROB_BESTIA)
