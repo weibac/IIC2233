@@ -141,7 +141,7 @@ class ArtistaTrapChileno(Artista):
 
 class ArtistaReggaeton(Artista):
     def __init__(self, *args, **kwargs):
-        #COMPLETAR
+        # COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Perrear"
         self._afinidad_con_publico = AFINIDAD_PUBLICO_REG
