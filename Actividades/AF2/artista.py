@@ -71,7 +71,7 @@ Animo: {self.animo}'''
 
 
 class ArtistaPop(Artista):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
         #COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Cambio de vestuario"
@@ -94,7 +94,7 @@ class ArtistaPop(Artista):
 
 
 class ArtistaRock(Artista):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
         #COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Solo de guitarra"
@@ -117,7 +117,7 @@ class ArtistaRock(Artista):
 
 
 class ArtistaTrapChileno(Artista):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
         #COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Malianteo"
@@ -140,7 +140,7 @@ class ArtistaTrapChileno(Artista):
 
 
 class ArtistaReggaeton(Artista):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
         # COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Perrear"
