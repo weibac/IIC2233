@@ -60,11 +60,11 @@ class DCCPalooza:
                         print('Llueve! :C')
             elif evento_choice == 1:
                 self.cant_publico -= PUBLICO_TERREMOTO
-                print('TERREMOTO! CORRAN!\nSe han ido {PUBLICO_TERREMOTO} personas.')
+                print(f'TERREMOTO! CORRAN!\nSe han ido {PUBLICO_TERREMOTO} personas.')
             else:
                 for a in range(len(self.artistas)):
                     if self.artistas[a].nombre == self.artista_actual:
                         self.artistas[a].afininidad_con_publico -= AFINIDAD_OLA_CALOR
                         print('Qué calor! :/')
                 self.cant_publico -= PUBLICO_OLA_CALOR
-                print('Nos estamos asando!\nSe han ido {PUBLICO_OLA_CALOR} personas.')
+                print(f'Nos estamos asando!\nSe han ido {PUBLICO_OLA_CALOR} personas.')
