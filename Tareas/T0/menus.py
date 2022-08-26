@@ -15,8 +15,9 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
 
         elif modo_revisar == 'coords':
             letras = set(aux_revisar.keys())
+            letras_lower = {l.lower() for l in letras}
             numeros = set(aux_revisar.values())
-            if not set(inp) <= (letras | numeros):
+            if not set(inp) <= (letras | letras_lower | numeros):
                 inp = input('Por favor coloca solo letras y números: ')
             elif not inp[0].isalpha():
                 inp = input('Por favor coloca la coordenada letra al principio: ')
