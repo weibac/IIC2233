@@ -6,4 +6,4 @@ if inp == 1:
     tablero.print_tablero(game.tablero_real)
     
 elif inp == 0:
-    sys.exit('\nVuelve pronto!')
+    sys.exit('\nGracias por jugar!')

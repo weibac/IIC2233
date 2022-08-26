@@ -50,6 +50,6 @@ class Partida:
                             tablero_real[y][x] += 1
 
         self.tablero_real = tablero_real
-        self.visibilidad_tablero = [[True for a in range(self.dim_x)] for b in range(self.dim_y)]
+        self.visibilidad_tablero = [[False for a in range(self.dim_x)] for b in range(self.dim_y)]
 
 
