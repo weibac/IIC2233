@@ -1,15 +1,18 @@
 from juego import Partida
 from tablero import print_tablero
+from menus import input_valido, inicio_str
 import sys
-import menus
+
 
 
 def menu_inicio():
-    print(menus.inicio_str)
-    inp = menus.input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
+    print(inicio_str)
+    inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
     if inp == 1:
-        game = Partida(*nueva_partida())
-        print_tablero(game.tablero_real)
+        partida = Partida(*nueva_partida())
+        print_tablero(partida.tablero_real)
+        while partida.jugando:
+            menu_juego(partida)
 
     elif inp == 0:
         sys.exit('\nGracias por jugar!')
@@ -17,9 +20,15 @@ def menu_inicio():
 
 def nueva_partida():
     print('\nHas seleccionado iniciar una nueva partida')
-    nom = menus.input_valido({}, 'Nombre de usuario (alfanumérico): ', 'username')
-    x = menus.input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ', 'int')
-    y = menus.input_valido(set(range(3, 16)), 'Largo del tablero (min = 3, max = 15): ', 'int')
+    nom = input_valido(None, 'Nombre de usuario (alfanumérico): ', 'username')
+    x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ', 'int')
+    y = input_valido(set(range(3, 16)), 'Largo del tablero (min = 3, max = 15): ', 'int')
     return nom, x, y
+
+
+def menu_juego(partida):
+    print('TODO: Aqui va tablero')
+    coords = input_valido(partida.letras_num, 'Coordenadas (separadas por espacio): ', 'coords')
+    print(coords)
 
 menu_inicio()

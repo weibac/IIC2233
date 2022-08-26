@@ -1,14 +1,17 @@
 from parametros import PROB_BESTIA, POND_PUNT
 from math import ceil
 from random import randint
+from string import ascii_uppercase as letras
 
 class Partida:
     def __init__(self, nom, dim_x, dim_y):
+        self.jugando = True
         self.username = nom
         self.dim_x = dim_x
         self.dim_y = dim_y
         self.casillas = self.dim_x * self.dim_y
         self.bestias = ceil(self.casillas * PROB_BESTIA)
+        self.letras_num = {letras[a] : str(a) for a in range(dim_x)}
         self.tablero = None
         self.visibilidad_tablero = None
         self.crear_tableros()
@@ -53,4 +56,14 @@ class Partida:
         self.tablero_real = tablero_real
         self.visibilidad_tablero = [[False for a in range(self.dim_x)] for b in range(self.dim_y)]
 
+    def interpretar_casilla(inp):
+        if inp[0].isdigit():
+            x = inp[1].upper()
+            y = inp[0]
+        else:
+            x = inp[0]
+            y = inp[1].upper()
+        return x, y
 
+    # def descubrir_casilla(x, y):
+        # TODO
