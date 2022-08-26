@@ -40,7 +40,7 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 #### Bonus: 3 décimas
 ##### ❌✅🟠 
 ## Ejecución :computer:
-El módulo principal de la tarea a ejecutar es  ```archivo.py```. Además se debe crear los siguientes archivos y directorios adicionales:
+El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear los siguientes archivos y directorios adicionales:
 1. ```archivo.ext``` en ```ubicación```
 2. ```directorio``` en ```ubicación```
 3. ...
@@ -54,12 +54,21 @@ La lista de librerías externas que utilicé fue la siguiente:
 2. ```librería_2```: ```función() / módulo``` (debe instalarse)
 3. ...
 
+sys
+math: ceil
+random: randint
+string: ascii_uppercase
+
 ### Librerías propias
 Por otro lado, los módulos que fueron creados fueron los siguientes:
 
 1. ```librería_1```: Contiene a ```ClaseA```, ```ClaseB```, (ser general, tampoco es necesario especificar cada una)...
 2. ```librería_2```: Hecha para <insertar descripción **breve** de lo que hace o qué contiene>
 3. ...
+
+menus
+juego
+archivos
 
 ## Supuestos y consideraciones adicionales :thinking:
 Los supuestos que realicé durante la tarea son los siguientes:
