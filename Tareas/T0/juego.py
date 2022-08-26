@@ -3,6 +3,7 @@ from math import ceil
 from random import randint
 from string import ascii_uppercase as letras
 
+
 class Partida:
     def __init__(self, nom, dim_x, dim_y):
         self.jugando = True
@@ -12,7 +13,7 @@ class Partida:
         self.casillas = self.dim_x * self.dim_y
         self.descubiertas = 0
         self.bestias = ceil(self.casillas * PROB_BESTIA)
-        self.letras_num = {letras[a] : a for a in range(dim_x)}
+        self.letras_num = {letras[a]: a for a in range(dim_x)}
         self.tablero_real = None
         self.tablero_visible = None
         self.crear_tableros()
@@ -20,7 +21,7 @@ class Partida:
     def crear_tableros(self):
         tablero_real = [[0 for a in range(self.dim_x)] for b in range(self.dim_y)]
         i = 0
-        while i < self.bestias: # poner bestias
+        while i < self.bestias:  # poner bestias
             n_casilla = randint(0, self.casillas - 1)
             pos_y = n_casilla // self.dim_x
             pos_x = n_casilla % self.dim_x
@@ -28,7 +29,7 @@ class Partida:
                 tablero_real[pos_y][pos_x] = 'N'
                 i += 1
 
-        for y in range(len(tablero_real)): # contar cuantas bestias adyacentes
+        for y in range(len(tablero_real)):  # contar cuantas bestias adyacentes
             for x in range(len(tablero_real[y])):
                 if tablero_real[y][x] != 'N':
                     # 3 de arriba
@@ -57,16 +58,15 @@ class Partida:
         self.tablero_real = tablero_real
         self.tablero_visible = [[' ' for a in range(self.dim_x)] for b in range(self.dim_y)]
 
-    def interpretar_coords(self, coords): 
+    def interpretar_coords(self, coords):
         x = int(coords[1:])
         y = self.letras_num[coords[0].upper()]
         return x, y
 
     def probar_casilla(self, x, y):
-        
         if self.tablero_real[y][x] == 'N':
             self.jugando = False
-    
+
     def casilla_descubierta(self, x, y):
         self.tablero_visible[y][x] = self.tablero_real[y][x]
         self.descubiertas += 1

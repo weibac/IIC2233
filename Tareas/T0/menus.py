@@ -4,7 +4,7 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
     inp = input(mensaje)
 
     while not valido:
-        if modo_revisar == 'int':        
+        if modo_revisar == 'int':
             if not inp.isdigit():
                 inp = input('Por favor introduce un número: ')
             elif int(inp) not in aux_revisar:
@@ -15,7 +15,7 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
 
         elif modo_revisar == 'coords':
             letras = set(aux_revisar.keys())
-            letras_lower = {l.lower() for l in letras}
+            letras_lower = {letra.lower() for letra in letras}
             numeros = {str(n) for n in aux_revisar.values()}
             if not set(inp) <= (letras | letras_lower | numeros):
                 inp = input('Por favor coloca solo letras y números: ')
@@ -25,7 +25,7 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
                 inp = input('Después de la letra, por favor coloca la coordenada número: ')
             else:
                 valido = True
-                print('EXITO :D') # TODO: ELIMINAR
+                print('EXITO :D')  # TODO: ELIMINAR
 
         elif modo_revisar == 'username':
             if not inp.isalnum():
@@ -35,8 +35,6 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
         else:
             print(f'Hey! No tienes definido el parámetro {modo_revisar}')
     return inp
-
-
 
 
 inicio_str = '''
