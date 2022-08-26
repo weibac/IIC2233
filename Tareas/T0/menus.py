@@ -16,16 +16,16 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
         elif modo_revisar == 'coords':
             letras = set(aux_revisar.keys())
             numeros = set(aux_revisar.values())
-            if not set(inp.split()) <= letras | numeros | {' '}:
-                inp = input('Por favor coloca solo letras, numeros y espacios: ')           
+            if not set(inp) <= (letras | numeros):
+                inp = input('Por favor coloca solo letras y números: ')
+            elif not inp[0].isalpha():
+                inp = input('Por favor coloca la coordenada letra al principio: ')
+            elif not inp[1:].isdigit():
+                inp = input('Después de la letra, por favor coloca la coordenada número: ')
             else:
-                inp = inp.strip(' ')
-                inp = join([c for c in inp if (c != ' ') or (' ' not in inp)]).split(' ')
-                if inp[0] <= letras and inp[1] <= numeros \
-                or inp[1] <= letras and inp[0] <= numeros:
-                    valido = True
-                else:
-                    inp = input('Parece que mezclaste letras y numeros. Intenta de nuevo: ')
+                inp = [inp[0], inp[1:]]
+                valido = True
+                print('EXITO :D') # TODO: ELIMINAR
 
         elif modo_revisar == 'username':
             if not inp.isalnum():

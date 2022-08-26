@@ -28,7 +28,7 @@ def nueva_partida():
 
 def menu_juego(partida):
     print('TODO: Aqui va tablero')
-    coords = input_valido(partida.letras_num, 'Coordenadas (separadas por espacio): ', 'coords')
+    coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
     print(coords)
 
 menu_inicio()
