@@ -3,10 +3,9 @@ from math import ceil
 from random import randint
 
 class Partida:
-    def __init__(self, dim_x, dim_y):
-        self.dim_x = dim_x
-        self.dim_y = dim_y
-        self.casillas = dim_x * dim_y
+    def __init__(self, tuple_dims):
+        self.dim_x, self.dim_y = tuple_dims
+        self.casillas = self.dim_x * self.dim_y
         self.bestias = ceil(self.casillas * PROB_BESTIA)
         self.tablero = None
         self.visibilidad_tablero = None
