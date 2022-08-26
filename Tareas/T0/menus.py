@@ -16,7 +16,7 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
         elif modo_revisar == 'coords':
             letras = set(aux_revisar.keys())
             letras_lower = {l.lower() for l in letras}
-            numeros = set(aux_revisar.values())
+            numeros = {str(n) for n in aux_revisar.values()}
             if not set(inp) <= (letras | letras_lower | numeros):
                 inp = input('Por favor coloca solo letras y números: ')
             elif not inp[0].isalpha():
@@ -24,7 +24,6 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
             elif not inp[1:].isdigit():
                 inp = input('Después de la letra, por favor coloca la coordenada número: ')
             else:
-                inp = [inp[0], inp[1:]]
                 valido = True
                 print('EXITO :D') # TODO: ELIMINAR
 
@@ -46,5 +45,13 @@ Selecciona una opción:
 [1] Nueva partida
 [2] Cargar partida
 [3] Ver ranking de puntajes
+[0] Salir
+'''
+
+juego_str = '''
+Selecciona una opción:
+[1] Descubrir sector
+[2] Guardar partida
+[3] Salir de la partida
 [0] Salir
 '''

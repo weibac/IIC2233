@@ -10,10 +10,11 @@ class Partida:
         self.dim_x = dim_x
         self.dim_y = dim_y
         self.casillas = self.dim_x * self.dim_y
+        self.descubiertas = 0
         self.bestias = ceil(self.casillas * PROB_BESTIA)
-        self.letras_num = {letras[a] : str(a) for a in range(dim_x)}
-        self.tablero = None
-        self.visibilidad_tablero = None
+        self.letras_num = {letras[a] : a for a in range(dim_x)}
+        self.tablero_real = None
+        self.tablero_visible = None
         self.crear_tableros()
 
     def crear_tableros(self):
@@ -54,16 +55,18 @@ class Partida:
                             tablero_real[y][x] += 1
 
         self.tablero_real = tablero_real
-        self.visibilidad_tablero = [[False for a in range(self.dim_x)] for b in range(self.dim_y)]
+        self.tablero_visible = [[' ' for a in range(self.dim_x)] for b in range(self.dim_y)]
 
-    def interpretar_casilla(inp):
-        if inp[0].isdigit():
-            x = inp[1].upper()
-            y = inp[0]
-        else:
-            x = inp[0]
-            y = inp[1].upper()
+    def interpretar_coords(self, coords): 
+        x = int(coords[1:])
+        y = self.letras_num[coords[0].upper()]
         return x, y
 
-    # def descubrir_casilla(x, y):
-        # TODO
+    def probar_casilla(self, x, y):
+        
+        if self.tablero_real[y][x] == 'N':
+            self.jugando = False
+    
+    def casilla_descubierta(self, x, y):
+        self.tablero_visible[y][x] = self.tablero_real[y][x]
+        self.descubiertas += 1

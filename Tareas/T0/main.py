@@ -1,6 +1,6 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str
+from menus import input_valido, inicio_str, juego_str
 import sys
 
 
@@ -10,7 +10,6 @@ def menu_inicio():
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
     if inp == 1:
         partida = Partida(*nueva_partida())
-        print_tablero(partida.tablero_real)
         while partida.jugando:
             menu_juego(partida)
 
@@ -27,8 +26,11 @@ def nueva_partida():
 
 
 def menu_juego(partida):
-    print('TODO: Aqui va tablero')
-    coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
-    print(coords)
+    print_tablero(partida.tablero_real) # TODO: cambiar al visible
+    print(juego_str)
+    inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
+    if inp == 1:
+        coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
+        partida.probar_casilla(*partida.interpretar_coords(coords))
 
 menu_inicio()
