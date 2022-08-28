@@ -8,13 +8,14 @@ import sys
 def menu_inicio():
     print(inicio_str)
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
+
     if inp == 1:
         partida = Partida(*nueva_partida())
         while partida.jugando:
             menu_juego(partida)
 
     elif inp == 0:
-        sys.exit('\nGracias por jugar!')
+        sys.exit()
 
 
 def nueva_partida():
@@ -30,14 +31,20 @@ def menu_juego(partida):
     print_tablero(partida.tablero_visible)  
     print(juego_str.format(partida.turno))
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
+
     if inp == 1:
-        coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
-        result = partida.probar_casilla(*partida.interpretar_coords(coords))
+        coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')
+        result = partida.probar_casilla(coords[0], coords[1])  # TODO: verify que no estaba ya descubiertta
         if result == 'bestia':
             print(perder_str.format(partida.username, partida.calcular_puntaje()))
             print_tablero(partida.tablero_real)
+
     elif inp == 2:
         print('Guardando partida...')
         guardar_partida(partida)
+        print('Tu partida se ha guardado')
+        partida.jugando = False
+
 
 menu_inicio()
+print('\nGracias por jugar!')

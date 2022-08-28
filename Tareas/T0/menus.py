@@ -14,9 +14,9 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
                 valido = True
 
         elif modo_revisar == 'coords':
-            letras = set(aux_revisar.keys())
+            letras = set(aux_revisar.letras_num.keys())
             letras_lower = {letra.lower() for letra in letras}
-            numeros = {str(n) for n in aux_revisar.values()}
+            numeros = {str(n) for n in aux_revisar.letras_num.values()}
             if not set(inp) <= (letras | letras_lower | numeros):
                 inp = input('Por favor coloca solo letras y números: ')
             elif not inp[0].isalpha():
@@ -24,7 +24,11 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
             elif not inp[1:].isdigit():
                 inp = input('Después de la letra, por favor coloca la coordenada número: ')
             else:
-                valido = True
+                inp = aux_revisar.interpretar_coords(inp)
+                if inp in aux_revisar.descubiertas:
+                    inp = input('Ya has descubierto ese sector. Prueba con otro: ')
+                else:
+                    valido = True
 
         elif modo_revisar == 'username':
             if not inp.isalnum():
@@ -56,6 +60,6 @@ Selecciona una opción:
 
 perder_str = '''
 Oh no! {}, te ha comido una bestia Nexus!
-Tu puntaje en esta partida fue de: {}')
+Tu puntaje en esta partida fue de: {}
 Este era el tablero:
 '''

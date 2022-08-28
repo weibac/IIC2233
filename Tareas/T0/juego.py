@@ -12,7 +12,7 @@ class Partida:
         self.jugando = True
         self.turno = 0
         self.casillas = self.dim_x * self.dim_y
-        self.descubiertas = 0
+        self.descubiertas = []
         self.bestias = ceil(self.casillas * PROB_BESTIA)
         self.letras_num = {letras[a]: a for a in range(dim_x)}
         self.tablero_real = None
@@ -55,6 +55,10 @@ class Partida:
                             tablero_real[y][x] += 1
                         if x < len(tablero_real[y]) - 1 and tablero_real[y + 1][x + 1] == 'N':
                             tablero_real[y][x] += 1
+        
+        for y in range(len(tablero_real)):
+            for x in range(len(tablero_real[y])):
+                tablero_real[y][x] = str(tablero_real[y][x])
 
         self.tablero_real = tablero_real
         self.tablero_visible = [[' ' for a in range(self.dim_x)] for b in range(self.dim_y)]
@@ -71,8 +75,8 @@ class Partida:
             return 'bestia'
         else:
             self.tablero_visible[y][x] = self.tablero_real[y][x]
-            self.descubiertas += 1
+            self.descubiertas.append((x, y))
             return 'no bestia'
 
     def calcular_puntaje(self):
-        return self.bestias * self.descubiertas * POND_PUNT
+        return self.bestias * len(self.descubiertas) * POND_PUNT
