@@ -1,6 +1,7 @@
 from juego import Partida
 from tablero import print_tablero
 from menus import input_valido, inicio_str, juego_str, perder_str
+from archivos import guardar_partida
 import sys
 
 
@@ -27,7 +28,7 @@ def nueva_partida():
 
 def menu_juego(partida):
     print_tablero(partida.tablero_visible)  
-    print(juego_str)
+    print(juego_str.format(partida.turno))
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
     if inp == 1:
         coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
@@ -35,5 +36,8 @@ def menu_juego(partida):
         if result == 'bestia':
             print(perder_str.format(partida.username, partida.calcular_puntaje()))
             print_tablero(partida.tablero_real)
+    elif inp == 2:
+        print('Guardando partida...')
+        guardar_partida(partida)
 
 menu_inicio()

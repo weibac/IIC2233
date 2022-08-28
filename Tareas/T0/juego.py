@@ -6,10 +6,11 @@ from string import ascii_uppercase as letras
 
 class Partida:
     def __init__(self, nom, dim_x, dim_y):
-        self.jugando = True
         self.username = nom
         self.dim_x = dim_x
         self.dim_y = dim_y
+        self.jugando = True
+        self.turno = 0
         self.casillas = self.dim_x * self.dim_y
         self.descubiertas = 0
         self.bestias = ceil(self.casillas * PROB_BESTIA)
@@ -61,10 +62,10 @@ class Partida:
     def interpretar_coords(self, coords):
         x = self.letras_num[coords[0].upper()]
         y = int(coords[1:])
-
         return x, y
 
     def probar_casilla(self, x, y):
+        self.turno += 1
         if self.tablero_real[y][x] == 'N':
             self.jugando = False
             return 'bestia'

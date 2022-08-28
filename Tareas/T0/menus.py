@@ -46,6 +46,7 @@ Selecciona una opción:
 '''
 
 juego_str = '''
+Turno {}
 Selecciona una opción:
 [1] Descubrir sector
 [2] Guardar partida
