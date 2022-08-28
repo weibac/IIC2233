@@ -59,14 +59,19 @@ class Partida:
         self.tablero_visible = [[' ' for a in range(self.dim_x)] for b in range(self.dim_y)]
 
     def interpretar_coords(self, coords):
-        x = int(coords[1:])
-        y = self.letras_num[coords[0].upper()]
+        x = self.letras_num[coords[0].upper()]
+        y = int(coords[1:])
+
         return x, y
 
     def probar_casilla(self, x, y):
         if self.tablero_real[y][x] == 'N':
             self.jugando = False
+            return 'bestia'
+        else:
+            self.tablero_visible[y][x] = self.tablero_real[y][x]
+            self.descubiertas += 1
+            return 'no bestia'
 
-    def casilla_descubierta(self, x, y):
-        self.tablero_visible[y][x] = self.tablero_real[y][x]
-        self.descubiertas += 1
+    def calcular_puntaje(self):
+        return self.bestias * self.descubiertas * POND_PUNT

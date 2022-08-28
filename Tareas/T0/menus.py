@@ -25,7 +25,6 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
                 inp = input('Después de la letra, por favor coloca la coordenada número: ')
             else:
                 valido = True
-                print('EXITO :D')  # TODO: ELIMINAR
 
         elif modo_revisar == 'username':
             if not inp.isalnum():
@@ -53,3 +52,4 @@ Selecciona una opción:
 [3] Salir de la partida
 [0] Salir
 '''
+
