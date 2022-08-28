@@ -53,3 +53,8 @@ Selecciona una opción:
 [0] Salir
 '''
 
+perder_str = '''
+Oh no! {}, te ha comido una bestia Nexus!
+Tu puntaje en esta partida fue de: {}')
+Este era el tablero:
+'''

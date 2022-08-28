@@ -1,9 +1,9 @@
 from parametros import (AFINIDAD_HIT, AFINIDAD_INICIAL, AFINIDAD_PUBLICO_POP,
                         AFINIDAD_STAFF_POP, AFINIDAD_PUBLICO_ROCK,
-                        AFINIDAD_STAFF_ROCK, AFINIDAD_PUBLICO_TRAP_CHILENO ,
-                        AFINIDAD_STAFF_TRAP_CHILENO , AFINIDAD_PUBLICO_REG,
+                        AFINIDAD_STAFF_ROCK, AFINIDAD_PUBLICO_TRAP_CHILENO,
+                        AFINIDAD_STAFF_TRAP_CHILENO, AFINIDAD_PUBLICO_REG,
                         AFINIDAD_STAFF_REG, AFINIDAD_ACCION_POP,
-                        AFINIDAD_ACCION_ROCK, AFINIDAD_ACCION_TRAP_CHILENO ,
+                        AFINIDAD_ACCION_ROCK, AFINIDAD_ACCION_TRAP_CHILENO,
                         AFINIDAD_ACCION_REG, AFINIDAD_MIN, AFINIDAD_MAX)
 
 
@@ -72,7 +72,7 @@ Animo: {self.animo}'''
 
 class ArtistaPop(Artista):
     def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
-        #COMPLETAR
+        # COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Cambio de vestuario"
         self._afinidad_con_publico = AFINIDAD_PUBLICO_POP
@@ -96,7 +96,7 @@ class ArtistaPop(Artista):
 
 class ArtistaRock(Artista):
     def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
-        #COMPLETAR
+        # OMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Solo de guitarra"
         self._afinidad_con_publico = AFINIDAD_PUBLICO_ROCK
@@ -120,7 +120,7 @@ class ArtistaRock(Artista):
 
 class ArtistaTrapChileno(Artista):
     def __init__(self, nombre, hit_del_momento, genero, dia_presentacion):
-        #COMPLETAR
+        # COMPLETAR
         super().__init__(nombre, hit_del_momento, genero, dia_presentacion)
         self.accion = "Malianteo"
         self._afinidad_con_publico = AFINIDAD_PUBLICO_TRAP_CHILENO

@@ -1,6 +1,6 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str, juego_str
+from menus import input_valido, inicio_str, juego_str, perder_str
 import sys
 
 
@@ -33,9 +33,7 @@ def menu_juego(partida):
         coords = input_valido(partida.letras_num, 'Coordenadas (ej.: B10): ', 'coords')
         result = partida.probar_casilla(*partida.interpretar_coords(coords))
         if result == 'bestia':
-            print('Oh no! Te ha comido una bestia Nexus!')
-            print('Este era el tablero esta ronda:')
+            print(perder_str.format(partida.username, partida.calcular_puntaje()))
             print_tablero(partida.tablero_real)
-            print(f'Tu puntaje esta ronda fue de: {partida.calcular_puntaje()}')
 
 menu_inicio()
