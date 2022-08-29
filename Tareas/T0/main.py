@@ -54,7 +54,7 @@ def nueva_partida():  # TODO: Tal vez mover a menus.py
 def menu_juego(partida):
     print_tablero(partida.tablero_visible)
     print(juego_str.format(partida.turno))
-    inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
+    inp = input_valido(set(range(0, 3)), 'Tu opción aquí: ', 'int')
 
     if inp == 1:
         coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')  # TODO: 0 para volver

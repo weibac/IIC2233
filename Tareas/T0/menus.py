@@ -56,7 +56,6 @@ Turno {}
 Selecciona una opción:
 [1] Descubrir sector
 [2] Guardar partida
-[3] Salir de la partida
 [0] Salir al menú de inicio
 '''
 
