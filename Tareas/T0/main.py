@@ -3,7 +3,7 @@ from tablero import print_tablero
 from menus import input_valido, inicio_str, juego_str, end_str, partidas_str, ranking_str, salir_str
 from archivos import guardar_partida, encontrar_partidas, cargar_datos_partida
 from archivos import guardar_puntaje, cargar_puntajes
-import sys
+from sys import exit
 
 
 def menu_inicio():
@@ -39,10 +39,10 @@ def menu_inicio():
         print(ranking_str(puntajes))
 
     elif inp == 0:
-        sys.exit('\nGracias por jugar!')
+        exit('\nGracias por jugar!')
 
 
-def nueva_partida():  # TODO: Tal vez mover a menus.py
+def nueva_partida():
     print('\nHas seleccionado iniciar una nueva partida')
     nom = input_valido(None, 'Nombre de usuario (alfanumérico máx. 16 caracteres): ', 'username')
     x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ', 'int')
@@ -57,7 +57,7 @@ def menu_juego(partida):
     inp = input_valido(set(range(0, 3)), 'Tu opción aquí: ', 'int')
 
     if inp == 1:
-        coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')  # TODO: 0 para volver
+        coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')
         print('')
         partida.probar_casilla(coords[0], coords[1])
         partida.turno += 1
