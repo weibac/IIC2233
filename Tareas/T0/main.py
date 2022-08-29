@@ -35,8 +35,6 @@ def menu_inicio():
                 while partida.jugando:
                     menu_juego(partida)
 
-    elif inp == 0:
-        sys.exit()
 
 
 def nueva_partida():
@@ -55,6 +53,7 @@ def menu_juego(partida):
 
     if inp == 1:
         coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')
+        print('')
         result = partida.probar_casilla(coords[0], coords[1])
         if result == 'bestia':
             print(perder_str.format(partida.username, partida.calcular_puntaje()))

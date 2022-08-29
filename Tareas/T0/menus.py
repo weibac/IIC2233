@@ -69,5 +69,5 @@ def partidas_str(partidas):
     str_partidas_out = 'Selecciona una de las partidas guardadas:\n'
     for a in range(len(partidas)):
         str_partidas_out += f'[{a + 1}] {partidas[a]}\n'
-    str_partidas_out += '[0] Volver atrás'                  # TODO 
+    str_partidas_out += '[0] Volver atrás'
     return str_partidas_out
