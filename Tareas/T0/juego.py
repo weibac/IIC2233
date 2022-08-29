@@ -72,11 +72,11 @@ class Partida:
         self.turno += 1
         if self.tablero_real[y][x] == 'N':
             self.jugando = False
-            return 'bestia'
         else:
             self.tablero_visible[y][x] = self.tablero_real[y][x]
             self.descubiertas.append((x, y))
-            return 'no bestia'
+            if len(self.descubiertas) + self.bestias >= self.casillas:
+                self.jugando = False
 
     def calcular_puntaje(self):
         return self.bestias * len(self.descubiertas) * POND_PUNT

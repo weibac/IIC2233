@@ -1,7 +1,8 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str, juego_str, perder_str, partidas_str
+from menus import input_valido, inicio_str, juego_str, end_str, partidas_str
 from archivos import guardar_partida, encontrar_partidas, cargar_datos_partida
+from archivos import guardar_puntaje
 import sys
 
 
@@ -11,8 +12,7 @@ def menu_inicio():
 
     if inp == 1:
         partida = Partida(*nueva_partida())
-        while partida.jugando:
-            menu_juego(partida)
+        jugar(partida)
 
     elif inp == 2:
         partidas = encontrar_partidas()
@@ -32,9 +32,7 @@ def menu_inicio():
                 partida.descubiertas = descubiertas
                 partida.tablero_real = tablero_real
                 partida.tablero_visible = tablero_visible
-                while partida.jugando:
-                    menu_juego(partida)
-
+                jugar(partida)
 
 
 def nueva_partida():
@@ -52,17 +50,26 @@ def menu_juego(partida):
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
 
     if inp == 1:
-        coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')
+        coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')  # TODO: 0 para volver
         print('')
-        result = partida.probar_casilla(coords[0], coords[1])
-        if result == 'bestia':
-            print(perder_str.format(partida.username, partida.calcular_puntaje()))
-            print_tablero(partida.tablero_real)
+        partida.probar_casilla(coords[0], coords[1])
 
     elif inp == 2:
         print('Guardando partida...')
         guardar_partida(partida)
         print('Tu partida se ha guardado\n')
+
+
+def jugar(partida):
+    while partida.jugando:
+        menu_juego(partida)
+
+    # Una vez que acaba el juego
+    puntaje = partida.calcular_puntaje()
+    victoria = len(partida.descubiertas) + partida.bestias >= partida.casillas
+    guardar_puntaje(puntaje, victoria, partida)
+    print(end_str(victoria).format(partida.username, puntaje))
+    print_tablero(partida.tablero_real)
 
 
 menu_inicio()

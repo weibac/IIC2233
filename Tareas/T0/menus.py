@@ -58,11 +58,22 @@ Selecciona una opción:
 [0] Salir
 '''
 
-perder_str = '''
-Oh no! {}, te ha comido una bestia Nexus!
+end_str = '''
 Tu puntaje en esta partida fue de: {}
 Este era el tablero (las bestias están marcadas con N):
 '''
+
+
+def end_str(victoria):
+    if victoria:
+        end_str = 'Victoria! {}, has encontrado a todas las bestias!'
+    else:
+        end_str = 'Oh no! {}, te ha comido una bestia Nexus!'
+    end_str += '''
+Tu puntaje en esta partida fue de: {}
+Este era el tablero (las bestias están marcadas con N):
+'''
+    return end_str
 
 
 def partidas_str(partidas):
