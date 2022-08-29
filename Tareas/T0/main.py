@@ -37,12 +37,12 @@ def menu_inicio():
     elif inp == 3:
         puntajes = cargar_puntajes()
         print(ranking_str(puntajes))
-    
+
     elif inp == 0:
         sys.exit('\nGracias por jugar!')
 
 
-def nueva_partida(): # TODO: Tal vez mover a menus.py
+def nueva_partida():  # TODO: Tal vez mover a menus.py
     print('\nHas seleccionado iniciar una nueva partida')
     nom = input_valido(None, 'Nombre de usuario (alfanumérico máx. 16 caracteres): ', 'username')
     x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ', 'int')
@@ -52,7 +52,7 @@ def nueva_partida(): # TODO: Tal vez mover a menus.py
 
 
 def menu_juego(partida):
-    print_tablero(partida.tablero_visible)  
+    print_tablero(partida.tablero_visible)
     print(juego_str.format(partida.turno))
     inp = input_valido(set(range(0, 4)), 'Tu opción aquí: ', 'int')
 
@@ -74,8 +74,6 @@ def menu_juego(partida):
             menu_inicio()
         elif inp == 2:
             menu_inicio()
-            
-
 
 
 def jugar(partida):

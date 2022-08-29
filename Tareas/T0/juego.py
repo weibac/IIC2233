@@ -55,7 +55,7 @@ class Partida:
                             tablero_real[y][x] += 1
                         if x < len(tablero_real[y]) - 1 and tablero_real[y + 1][x + 1] == 'N':
                             tablero_real[y][x] += 1
-        
+
         for y in range(len(tablero_real)):
             for x in range(len(tablero_real[y])):
                 tablero_real[y][x] = str(tablero_real[y][x])
