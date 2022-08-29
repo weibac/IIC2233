@@ -45,7 +45,7 @@ class Partida:
                     if x > 0 and tablero_real[y][x - 1] == 'N':
                         tablero_real[y][x] += 1
                     # derecha
-                    if x < len(tablero_real) - 1 and tablero_real[y][x + 1] == 'N':
+                    if x < len(tablero_real[0]) - 1 and tablero_real[y][x + 1] == 'N':
                         tablero_real[y][x] += 1
                     # 3 de abajo
                     if y < len(tablero_real) - 1:

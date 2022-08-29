@@ -97,7 +97,6 @@ def ranking_str(puntajes):
         puntajes = puntajes[10]
     n = 1
     for p in puntajes:
-        print(p[2])
         victoria = 'Victoria' if p[2] == 'True' else 'Derrota'
         dimensiones = f'{p[4]}*{p[5]}'
         ranking_str += f'{n:4}{p[0]:^9}{p[1]:10}{victoria:11}{p[3]:^8}{dimensiones:25}\n'

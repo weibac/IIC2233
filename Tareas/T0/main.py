@@ -81,14 +81,12 @@ def menu_juego(partida):
 def jugar(partida):
     while partida.jugando:
         menu_juego(partida)
-
-    # Una vez que acaba el juego TODO: volver a menu inicio (o preguntar si)
     puntaje = partida.calcular_puntaje()
     victoria = len(partida.descubiertas) + partida.bestias >= partida.casillas
     guardar_puntaje(puntaje, victoria, partida)
     print(end_str(victoria).format(partida.username, puntaje))
     print_tablero(partida.tablero_real)
-    print('Volviendo al menu de inicio...\n')
+    print('\nPartida guardada. Volviendo al menu de inicio...\n')
 
 
 while True:
