@@ -21,7 +21,7 @@ def cargar_datos_partida(nombre):
     with open(ruta, mode='r', encoding='utf-8') as archivo:
         lines = [line.strip('\n') for line in archivo.readlines()]
         turno = int(lines[0])
-        descubiertas = [tuple(fila.split(',')) for fila in lines[1].split(';')]
+        descubiertas = {tuple(fila.split(',')) for fila in lines[1].split(';')}
         tablero_real = [fila.split(',') for fila in lines[2].split(';')]
         tablero_visible = [fila.split(',') for fila in lines[3].split(';')]
     return turno, descubiertas, tablero_real, tablero_visible

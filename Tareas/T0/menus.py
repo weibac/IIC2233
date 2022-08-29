@@ -93,7 +93,7 @@ def ranking_str(puntajes):
 '''
     puntajes.sort(key=por_puntaje)
     if len(puntajes) > 10:
-        puntajes = puntajes[10]
+        puntajes = puntajes[:10]
     n = 1
     for p in puntajes:
         victoria = 'Victoria' if p[2] == 'True' else 'Derrota'

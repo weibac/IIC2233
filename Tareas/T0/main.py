@@ -19,7 +19,7 @@ def menu_inicio():
         if partidas == []:
             print('No hay partidas para cargar\n')
         else:
-            partidas_dict = {a + 1:partidas[a] for a in range(len(partidas))}
+            partidas_dict = {a + 1: partidas[a] for a in range(len(partidas))}
             print(partidas_str(partidas))
             inp = input_valido(set(partidas_dict.keys() | {0}), 'Tu elección: ', 'int')
             if inp == 0:
@@ -60,6 +60,7 @@ def menu_juego(partida):
         coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')  # TODO: 0 para volver
         print('')
         partida.probar_casilla(coords[0], coords[1])
+        partida.turno += 1
 
     elif inp == 2:
         print('Guardando partida...')
