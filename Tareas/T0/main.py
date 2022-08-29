@@ -1,8 +1,8 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str, juego_str, end_str, partidas_str
+from menus import input_valido, inicio_str, juego_str, end_str, partidas_str, ranking_str
 from archivos import guardar_partida, encontrar_partidas, cargar_datos_partida
-from archivos import guardar_puntaje
+from archivos import guardar_puntaje, cargar_puntajes
 import sys
 
 
@@ -34,10 +34,14 @@ def menu_inicio():
                 partida.tablero_visible = tablero_visible
                 jugar(partida)
 
+    elif inp == 3:
+        puntajes = cargar_puntajes()
+        print(ranking_str(puntajes))
 
-def nueva_partida():
+
+def nueva_partida(): # TODO: Tal vez mover a menus.py
     print('\nHas seleccionado iniciar una nueva partida')
-    nom = input_valido(None, 'Nombre de usuario (alfanumérico): ', 'username')
+    nom = input_valido(None, 'Nombre de usuario (alfanumérico máx. 16 caracteres): ', 'username')
     x = input_valido(set(range(3, 16)), 'Ancho del tablero (min = 3, max = 15): ', 'int')
     y = input_valido(set(range(3, 16)), 'Largo del tablero (min = 3, max = 15): ', 'int')
     print('')
@@ -64,7 +68,7 @@ def jugar(partida):
     while partida.jugando:
         menu_juego(partida)
 
-    # Una vez que acaba el juego
+    # Una vez que acaba el juego TODO: volver a menu inicio (o preguntar si)
     puntaje = partida.calcular_puntaje()
     victoria = len(partida.descubiertas) + partida.bestias >= partida.casillas
     guardar_puntaje(puntaje, victoria, partida)

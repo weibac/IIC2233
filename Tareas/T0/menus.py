@@ -33,6 +33,8 @@ def input_valido(aux_revisar, mensaje, modo_revisar):
         elif modo_revisar == 'username':
             if not inp.isalnum():
                 inp = input('Por favor usa un nombre que tenga solo letras o números: ')
+            elif len(inp) > 8:
+                inp = input('Por favor usa un nombre de 8 o menos letras o números: ')
             else:
                 valido = True
         else:
@@ -58,11 +60,6 @@ Selecciona una opción:
 [0] Salir
 '''
 
-end_str = '''
-Tu puntaje en esta partida fue de: {}
-Este era el tablero (las bestias están marcadas con N):
-'''
-
 
 def end_str(victoria):
     if victoria:
@@ -82,3 +79,23 @@ def partidas_str(partidas):
         str_partidas_out += f'[{a + 1}] {partidas[a]}\n'
     str_partidas_out += '[0] Volver atrás'
     return str_partidas_out
+
+
+def ranking_str(puntajes):
+    ranking_str = '''Ranking de las 10 mejores partidas:
+ N° Puntaje  Nombre    Resultado  Turnos  Dimensiones tablero (x*y)
+'''
+    puntajes.sort(key=por_puntaje)
+    if len(puntajes) > 10:
+        puntajes = puntajes[10]
+    n = 1
+    for p in puntajes:
+        print(p[2])
+        victoria = 'Victoria' if p[2] == 'True' else 'Derrota'
+        dimensiones = f'{p[4]}*{p[5]}'
+        ranking_str += f'{n:4}{p[0]:^9}{p[1]:10}{victoria:11}{p[3]:^8}{dimensiones:25}\n'
+        n += 1
+    return ranking_str
+
+def por_puntaje(p):
+    return -int(p[0])

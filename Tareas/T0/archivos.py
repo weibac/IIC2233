@@ -28,6 +28,13 @@ def cargar_datos_partida(nombre):
 
 
 def guardar_puntaje(puntaje, victoria, partd):
-    data = [str(a) for a in [puntaje, victoria, partd.username, partd.dim_x, partd.dim_y]]
+    data = [puntaje, partd.username, victoria, partd.turno, partd.dim_x, partd.dim_y]
+    data = [str(a) for a in data]
     with open('puntajes.txt', mode='a', encoding='utf-8') as archivo:
         archivo.writelines(','.join(data) + '\n')
+
+
+def cargar_puntajes():
+    with open('puntajes.txt', mode='r', encoding='utf-8') as archivo:
+        data = [line.strip('\n').split(',') for line in archivo.readlines()]
+        return data
