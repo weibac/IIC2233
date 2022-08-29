@@ -63,3 +63,11 @@ Oh no! {}, te ha comido una bestia Nexus!
 Tu puntaje en esta partida fue de: {}
 Este era el tablero (las bestias están marcadas con N):
 '''
+
+
+def partidas_str(partidas):
+    str_partidas_out = 'Selecciona una de las partidas guardadas:\n'
+    for a in range(len(partidas)):
+        str_partidas_out += f'[{a + 1}] {partidas[a]}\n'
+    str_partidas_out += '[0] Volver atrás'                  # TODO 
+    return str_partidas_out

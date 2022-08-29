@@ -1,7 +1,7 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str, juego_str, perder_str
-from archivos import cargar_datos_partida, guardar_partida
+from menus import input_valido, inicio_str, juego_str, perder_str, partidas_str
+from archivos import guardar_partida, encontrar_partidas, cargar_datos_partida
 import sys
 
 
@@ -15,15 +15,25 @@ def menu_inicio():
             menu_juego(partida)
 
     elif inp == 2:
-        nombre, turno, descubiertas, tablero_real, tablero_visible = cargar_datos_partida()
-        if nombre:
-            partida = Partida(nombre, len(tablero_real[0]), len(tablero_real))
-            partida.turno = turno
-            partida.descubiertas = descubiertas
-            partida.tablero_real = tablero_real
-            partida.tablero_visible = tablero_visible
-            while partida.jugando:
-                menu_juego(partida)
+        partidas = encontrar_partidas()
+        if partidas == []:
+            print('No hay partidas para cargar\n')
+        else:
+            partidas_dict = {a + 1:partidas[a] for a in range(len(partidas))}
+            print(partidas_str(partidas))
+            inp = input_valido(set(partidas_dict.keys() | {0}), 'Tu elección: ', 'int')
+            if inp == 0:
+                menu_inicio()
+            else:
+                nombre = partidas_dict[inp]
+                turno, descubiertas, tablero_real, tablero_visible = cargar_datos_partida(nombre)
+                partida = Partida(nombre, len(tablero_real[0]), len(tablero_real))
+                partida.turno = turno
+                partida.descubiertas = descubiertas
+                partida.tablero_real = tablero_real
+                partida.tablero_visible = tablero_visible
+                while partida.jugando:
+                    menu_juego(partida)
 
     elif inp == 0:
         sys.exit()
