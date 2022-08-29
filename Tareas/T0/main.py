@@ -1,6 +1,6 @@
 from juego import Partida
 from tablero import print_tablero
-from menus import input_valido, inicio_str, juego_str, end_str, partidas_str, ranking_str
+from menus import input_valido, inicio_str, juego_str, end_str, partidas_str, ranking_str, salir_str
 from archivos import guardar_partida, encontrar_partidas, cargar_datos_partida
 from archivos import guardar_puntaje, cargar_puntajes
 import sys
@@ -62,6 +62,16 @@ def menu_juego(partida):
         print('Guardando partida...')
         guardar_partida(partida)
         print('Tu partida se ha guardado\n')
+
+    elif inp == 0:
+        print(salir_str)
+        inp = input_valido(set(range(0, 3)), 'Tu opción aquí: ', 'int')
+        if inp == 1:
+            guardar_partida(partida)
+            menu_inicio()
+        elif inp == 2:
+            menu_inicio()
+
 
 
 def jugar(partida):

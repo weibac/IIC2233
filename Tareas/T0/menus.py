@@ -57,7 +57,14 @@ Selecciona una opción:
 [1] Descubrir sector
 [2] Guardar partida
 [3] Salir de la partida
-[0] Salir
+[0] Salir al menú de inicio
+'''
+
+salir_str = '''
+Quieres guardar la partida?
+[1] Si
+[2] No
+[0] No quiero salir
 '''
 
 
@@ -96,6 +103,7 @@ def ranking_str(puntajes):
         ranking_str += f'{n:4}{p[0]:^9}{p[1]:10}{victoria:11}{p[3]:^8}{dimensiones:25}\n'
         n += 1
     return ranking_str
+
 
 def por_puntaje(p):
     return -int(p[0])
