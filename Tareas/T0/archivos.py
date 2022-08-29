@@ -13,7 +13,7 @@ def guardar_partida(partida):
 
 
 def encontrar_partidas():
-    return [archivo[:-4] for archivo in os.listdir('partidas')]
+    return [archivo[:-4] for archivo in os.listdir('partidas') if archivo != '.gitignore']
 
 
 def cargar_datos_partida(nombre):
