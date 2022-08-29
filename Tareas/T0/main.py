@@ -37,6 +37,9 @@ def menu_inicio():
     elif inp == 3:
         puntajes = cargar_puntajes()
         print(ranking_str(puntajes))
+    
+    elif inp == 0:
+        sys.exit('\nGracias por jugar!')
 
 
 def nueva_partida(): # TODO: Tal vez mover a menus.py
@@ -71,6 +74,7 @@ def menu_juego(partida):
             menu_inicio()
         elif inp == 2:
             menu_inicio()
+            
 
 
 
@@ -84,7 +88,8 @@ def jugar(partida):
     guardar_puntaje(puntaje, victoria, partida)
     print(end_str(victoria).format(partida.username, puntaje))
     print_tablero(partida.tablero_real)
+    print('Volviendo al menu de inicio...\n')
 
 
-menu_inicio()
-print('\nGracias por jugar!')
+while True:
+    menu_inicio()
