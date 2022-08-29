@@ -12,7 +12,7 @@ class Partida:
         self.jugando = True
         self.turno = 0
         self.casillas = self.dim_x * self.dim_y
-        self.descubiertas = []
+        self.descubiertas = set()
         self.bestias = ceil(self.casillas * PROB_BESTIA)
         self.letras_num = {letras[a]: a for a in range(dim_x)}
         self.tablero_real = None
@@ -74,8 +74,37 @@ class Partida:
             self.jugando = False
         else:
             self.tablero_visible[y][x] = self.tablero_real[y][x]
-            self.descubiertas.append((x, y))
-            if len(self.descubiertas) + self.bestias >= self.casillas:
+            self.descubiertas.add((x, y))
+            # 3 de arriba
+            if y > 0:
+                if x > 0:
+                    self.tablero_visible[y - 1][x - 1] = self.tablero_real[y - 1][x - 1]
+                    self.descubiertas.add((x - 1, y - 1))
+                self.tablero_visible[y - 1][x] = self.tablero_real[y - 1][x]
+                self.descubiertas.add((x, y - 1))
+                if x < self.dim_x - 1:
+                    self.tablero_visible[y - 1][x + 1] = self.tablero_real[y - 1][x + 1]
+                    self.descubiertas.add((x + 1, y - 1))
+            # izquierda
+            if x > 0:
+                self.tablero_visible[y][x - 1] = self.tablero_real[y][x - 1]
+                self.descubiertas.add((x - 1, y))
+            # derecha
+            if x < self.dim_x - 1:
+                self.tablero_visible[y][x + 1] = self.tablero_real[y][x + 1]
+                self.descubiertas.add((x + 1, y))
+            # 3 de abajo
+            if y < self.dim_y - 1:
+                if x > 0:
+                    self.tablero_visible[y + 1][x - 1] = self.tablero_real[y + 1][x - 1]
+                    self.descubiertas.add((x - 1, y + 1))
+                self.tablero_visible[y + 1][x] = self.tablero_real[y + 1][x]
+                self.descubiertas.add((x, y + 1))
+                if x < self.dim_x - 1:
+                    self.tablero_visible[y + 1][x + 1] = self.tablero_real[y + 1][x + 1]
+                    self.descubiertas.add((x + 1, y + 1))
+
+            if len(self.descubiertas) == self.casillas:
                 self.jugando = False
 
     def calcular_puntaje(self):

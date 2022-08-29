@@ -80,7 +80,7 @@ def jugar(partida):
     while partida.jugando:
         menu_juego(partida)
     puntaje = partida.calcular_puntaje()
-    victoria = len(partida.descubiertas) + partida.bestias >= partida.casillas
+    victoria = len(partida.descubiertas) == partida.casillas
     guardar_puntaje(puntaje, victoria, partida)
     print(end_str(victoria).format(partida.username, puntaje))
     print_tablero(partida.tablero_real)
