@@ -22,14 +22,9 @@ def cargar_datos_partida(nombre):
         lines = [line.strip('\n') for line in archivo.readlines()]
         turno = int(lines[0])
         descubiertas = [tuple(fila.split(',')) for fila in lines[1].split(';')]
-        tablero_real = leer_tablero_archivo(lines[2])
-        tablero_visible = leer_tablero_archivo(lines[3])
+        tablero_real = [fila.split(',') for fila in lines[2].split(';')]
+        tablero_visible = [fila.split(',') for fila in lines[3].split(';')]
     return turno, descubiertas, tablero_real, tablero_visible
-
-
-def leer_tablero_archivo(tablero_str):  # TODO: LLEVAR A CARGAR_DATOS_PARTIDA
-    tablero = [fila.split(',') for fila in tablero_str.split(';')]
-    return tablero
 
 
 def guardar_puntaje(puntaje, victoria, partd):
