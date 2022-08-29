@@ -1,7 +1,7 @@
 from juego import Partida
 from tablero import print_tablero
 from menus import input_valido, inicio_str, juego_str, perder_str
-from archivos import guardar_partida
+from archivos import cargar_datos_partida, guardar_partida
 import sys
 
 
@@ -13,6 +13,17 @@ def menu_inicio():
         partida = Partida(*nueva_partida())
         while partida.jugando:
             menu_juego(partida)
+
+    elif inp == 2:
+        nombre, turno, descubiertas, tablero_real, tablero_visible = cargar_datos_partida()
+        if nombre:
+            partida = Partida(nombre, len(tablero_real[0]), len(tablero_real))
+            partida.turno = turno
+            partida.descubiertas = descubiertas
+            partida.tablero_real = tablero_real
+            partida.tablero_visible = tablero_visible
+            while partida.jugando:
+                menu_juego(partida)
 
     elif inp == 0:
         sys.exit()
@@ -34,7 +45,7 @@ def menu_juego(partida):
 
     if inp == 1:
         coords = input_valido(partida, 'Coordenadas (ej.: B10): ', 'coords')
-        result = partida.probar_casilla(coords[0], coords[1])  # TODO: verify que no estaba ya descubiertta
+        result = partida.probar_casilla(coords[0], coords[1])
         if result == 'bestia':
             print(perder_str.format(partida.username, partida.calcular_puntaje()))
             print_tablero(partida.tablero_real)
@@ -42,8 +53,7 @@ def menu_juego(partida):
     elif inp == 2:
         print('Guardando partida...')
         guardar_partida(partida)
-        print('Tu partida se ha guardado')
-        partida.jugando = False
+        print('Tu partida se ha guardado\n')
 
 
 menu_inicio()

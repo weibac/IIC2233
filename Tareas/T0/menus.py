@@ -61,5 +61,5 @@ Selecciona una opción:
 perder_str = '''
 Oh no! {}, te ha comido una bestia Nexus!
 Tu puntaje en esta partida fue de: {}
-Este era el tablero:
+Este era el tablero (las bestias están marcadas con N):
 '''
