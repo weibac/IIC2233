@@ -61,6 +61,7 @@ def menu_juego(partida):
         print('')
         partida.probar_casilla(coords[0], coords[1])
         partida.turno += 1
+        print('')
 
     elif inp == 2:
         print('Guardando partida...')
@@ -72,6 +73,7 @@ def menu_juego(partida):
         inp = input_valido(set(range(0, 3)), 'Tu opción aquí: ', 'int')
         if inp == 1:
             guardar_partida(partida)
+            print('Tu partida se ha guardado\n')
             menu_inicio()
         elif inp == 2:
             menu_inicio()
