@@ -22,53 +22,55 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 - ✅ si completaste **correctamente** lo pedido
 - 🟠 si el item está **incompleto** o tiene algunos errores
 #### Programación Orientada a Objetos (18pts) (22%%)
-##### ❌✅🟠 Menú de Inicio
-##### ❌✅🟠 Funcionalidades		
-##### ❌✅🟠 Puntajes
+##### ✅ Menú de Inicio
+##### ✅ Funcionalidades		
+##### ✅ Puntajes
 #### Flujo del Juego (30pts) (36%) 
-##### ❌✅🟠 Menú de Juego
-##### ❌✅🟠 Tablero		
-##### ❌✅🟠 Bestias	
-##### ❌✅🟠 Guardado de partida		
-#### Término del Juego 14pts (17%)
-##### ❌✅🟠 Fin del juego	
-##### ❌✅🟠 Puntajes	
-#### Genera: 15 pts (15%)
-##### ❌✅🟠 Menús
-##### ❌✅🟠 Parámetros
-##### ❌✅🟠 PEP-8
+##### ✅ Menú de Juego
+##### ✅ Tablero		
+##### ✅ Bestias	
+##### ✅ Guardado de partida		
+#### Término del Juego (14pts) (17%)
+##### ✅🟠 Fin del juego	(no estoy 100% seguro de si funciona bien)
+##### ✅ Puntajes	
+#### Genera: (15 pts) (15%)
+##### ✅ Menús
+##### ✅ Parámetros
+##### ✅ PEP-8
 #### Bonus: 3 décimas
-##### ❌✅🟠 
+##### ✅ 
 ## Ejecución :computer:
-El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear los siguientes archivos y directorios adicionales:
-1. ```archivo.ext``` en ```ubicación```
-2. ```directorio``` en ```ubicación```
-3. ...
+El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear o se van a crear los siguientes archivos y directorios adicionales:
+1. ```parametros.py``` en ```este directorio (T0)```
+2. ```tablero.py``` en ```este directorio (T0)```
+3. ```puntajes.txt``` debería crearse **automáticamente** en ```este directorio (T0)```
 
 
 ## Librerías :books:
 ### Librerías externas utilizadas
-La lista de librerías externas que utilicé fue la siguiente:
+La lista de librerías externas (ordenadas según el archivo en el cual se importan) que utilicé fue la siguiente:
 
-1. ```librería_1```: ```función() / módulo```
-2. ```librería_2```: ```función() / módulo``` (debe instalarse)
-3. ...
+#### archivos.py
+1. ```os```: ```path.join()``` para hacer rutas relativas compatibles con distintos sistemas operativos
+2. ```os```: ```listdir()``` para obtener los archivos guardados en la carpeta partidas
 
-sys
-math: ceil
-random: randint
-string: ascii_uppercase
+#### archivos.py
+1. ```math```: ```ceil()``` función techo usada al calcular la cantidad de bestias a poner
+2. ```random```: ```randint()``` usada para obtener ubicaciones aleatorias para las bestias
+3. ```string```: ```ascii_uppercase``` lista de ordenada letras usada para el procesamiento input de coordenadas por parte de usuario
+
+#### main.py
+1. ```sys```: ```exit``` para terminar la ejecución del programa cuando el usuario pide salir
+
 
 ### Librerías propias
 Por otro lado, los módulos que fueron creados fueron los siguientes:
 
-1. ```librería_1```: Contiene a ```ClaseA```, ```ClaseB```, (ser general, tampoco es necesario especificar cada una)...
-2. ```librería_2```: Hecha para <insertar descripción **breve** de lo que hace o qué contiene>
-3. ...
+1. ```archivos.py```: Contiene funciones para leer y escribir información de la carpeta partidas y el archivo puntajes.txt
+2. ```juego.py```: Contiene la clase Partida, que almacena los datos de cada partida y tiene métodos para crear el tablero, descurir casillas, y calcular el puntaje final.
+3. ```menus.py```: Asiste en la interacción con el usuario. Almacena o crea strings multilinea que se muestran en cada menu, y contiene una función que revisa si el input entregado por el usuario es válido.
 
-menus
-juego
-archivos
+
 
 ## Supuestos y consideraciones adicionales :thinking:
 Los supuestos que realicé durante la tarea son los siguientes:
@@ -78,7 +80,7 @@ Los supuestos que realicé durante la tarea son los siguientes:
 3. ...
 
 PD: <una última consideración (de ser necesaria) o comentario hecho anteriormente que se quiera **recalcar**>
-
+parametros.py y puntajes.py no se me subieron al repo porque no se usar bien todavia el .gitignore sorry
 
 -------
 
@@ -111,9 +113,8 @@ Lo importante es que expliquen qué hace la función y que si saben que alguna p
 
 ## Referencias de código externo :book:
 
-Para realizar mi tarea saqué código de:
-1. \<link de código>: este hace \<lo que hace> y está implementado en el archivo <nombre.py> en las líneas <número de líneas> y hace <explicación breve de que hace>
-
+Para realizar mi tarea me orienté con los siguientes materiales:
+1. [AskPython: Create Minesweeper using Python from the Basic to Advanced](https://www.askpython.com/python/examples/create-minesweeper-using-python): Leí el principio de este tutorial para ayudarme a programar la creación del tablero. Me sirvió la idea, pero no copié código directamente.
 
 
 ## Descuentos
