@@ -48,27 +48,30 @@ El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe c
 
 ## Librerías :books:
 ### Librerías externas utilizadas
-La lista de librerías externas que utilicé fue la siguiente:
+La lista de librerías externas (ordenadas según el archivo en el cual se importan) que utilicé fue la siguiente:
 
-1. ```librería_1```: ```función() / módulo```
-2. ```librería_2```: ```función() / módulo``` (debe instalarse)
-3. ...
+#### archivos.py
+1. ```os```: ```path.join()``` para hacer rutas relativas compatibles con distintos sistemas operativos
+2. ```os```: ```listdir()``` para obtener los archivos guardados en la carpeta partidas
 
-sys
-math: ceil
-random: randint
-string: ascii_uppercase
+#### archivos.py
+1. ```math```: ```ceil()``` función techo usada al calcular la cantidad de bestias a poner
+2. ```random```: ```randint()``` usada para obtener ubicaciones aleatorias para las bestias
+3. ```string```: ```ascii_uppercase``` lista de ordenada letras usada para el procesamiento input de coordenadas por parte de usuario
+
+#### main.py
+1. ```sys```: ```exit``` para terminar la ejecución del programa cuando el usuario pide salir
+
 
 ### Librerías propias
 Por otro lado, los módulos que fueron creados fueron los siguientes:
 
-1. ```librería_1```: Contiene a ```ClaseA```, ```ClaseB```, (ser general, tampoco es necesario especificar cada una)...
-2. ```librería_2```: Hecha para <insertar descripción **breve** de lo que hace o qué contiene>
-3. ...
+1. ```archivos.py```: Contiene funciones para leer y escribir información de la carpeta partidas y el archivo puntajes.txt
+2. ```juego.py```: Contiene la clase Partida, que almacena los datos de cada partida y tiene métodos para crear el tablero, descurir casillas, y calcular el puntaje final.
+3. ```menus.py```: Asiste en la interacción con el usuario. Almacena o crea strings multilinea que se muestran en cada menu, y contiene una función que revisa si el input entregado por el usuario es válido.
 
-menus
-juego
-archivos
+
+
 
 ## Supuestos y consideraciones adicionales :thinking:
 Los supuestos que realicé durante la tarea son los siguientes:
