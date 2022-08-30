@@ -72,7 +72,6 @@ Por otro lado, los módulos que fueron creados fueron los siguientes:
 
 
 
-
 ## Supuestos y consideraciones adicionales :thinking:
 Los supuestos que realicé durante la tarea son los siguientes:
 
@@ -114,9 +113,8 @@ Lo importante es que expliquen qué hace la función y que si saben que alguna p
 
 ## Referencias de código externo :book:
 
-Para realizar mi tarea saqué código de:
-1. \<link de código>: este hace \<lo que hace> y está implementado en el archivo <nombre.py> en las líneas <número de líneas> y hace <explicación breve de que hace>
-
+Para realizar mi tarea me orienté con los siguientes materiales:
+1. [AskPython: Create Minesweeper using Python from the Basic to Advanced](https://www.askpython.com/python/examples/create-minesweeper-using-python): Leí el principio de este tutorial para ayudarme a programar la creación del tablero. Me sirvió la idea, pero no copié código directamente.
 
 
 ## Descuentos
