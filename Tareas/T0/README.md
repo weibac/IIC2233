@@ -22,23 +22,23 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 - ✅ si completaste **correctamente** lo pedido
 - 🟠 si el item está **incompleto** o tiene algunos errores
 #### Programación Orientada a Objetos (18pts) (22%%)
-##### ❌✅🟠 Menú de Inicio
-##### ❌✅🟠 Funcionalidades		
-##### ❌✅🟠 Puntajes
+##### ✅ Menú de Inicio
+##### ✅ Funcionalidades		
+##### ✅ Puntajes
 #### Flujo del Juego (30pts) (36%) 
-##### ❌✅🟠 Menú de Juego
-##### ❌✅🟠 Tablero		
-##### ❌✅🟠 Bestias	
-##### ❌✅🟠 Guardado de partida		
-#### Término del Juego 14pts (17%)
-##### ❌✅🟠 Fin del juego	
-##### ❌✅🟠 Puntajes	
-#### Genera: 15 pts (15%)
-##### ❌✅🟠 Menús
-##### ❌✅🟠 Parámetros
-##### ❌✅🟠 PEP-8
+##### ✅ Menú de Juego
+##### ✅ Tablero		
+##### ✅ Bestias	
+##### ✅ Guardado de partida		
+#### Término del Juego (14pts) (17%)
+##### ✅🟠 Fin del juego	(no estoy 100% seguro de si funciona bien)
+##### ✅ Puntajes	
+#### Genera: (15 pts) (15%)
+##### ✅ Menús
+##### ✅ Parámetros
+##### ✅ PEP-8
 #### Bonus: 3 décimas
-##### ❌✅🟠 
+##### ✅ 
 ## Ejecución :computer:
 El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear los siguientes archivos y directorios adicionales:
 1. ```archivo.ext``` en ```ubicación```
