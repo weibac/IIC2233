@@ -40,10 +40,10 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 #### Bonus: 3 décimas
 ##### ✅ 
 ## Ejecución :computer:
-El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear los siguientes archivos y directorios adicionales:
-1. ```archivo.ext``` en ```ubicación```
-2. ```directorio``` en ```ubicación```
-3. ...
+El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear o se van a crear los siguientes archivos y directorios adicionales:
+1. ```parametros.py``` en ```este directorio (T0)```
+2. ```tablero.py``` en ```este directorio (T0)```
+3. ```puntajes.txt``` debería crearse **automáticamente** en ```este directorio (T0)```
 
 
 ## Librerías :books:
@@ -80,7 +80,7 @@ Los supuestos que realicé durante la tarea son los siguientes:
 3. ...
 
 PD: <una última consideración (de ser necesaria) o comentario hecho anteriormente que se quiera **recalcar**>
-
+parametros.py y puntajes.py no se me subieron al repo porque no se usar bien todavia el .gitignore sorry
 
 -------
 
