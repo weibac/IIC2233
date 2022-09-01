@@ -25,7 +25,13 @@ class DCCentralZoo:
 
     # MODIFICAR
     def calcular_estadisticas(self):
-        pass
+        visitantes_cuenta = 0
+        recaudacion_cuenta = 0
+        atracciones = self.atracciones_herbivoros + self.atracciones_carnivoros
+        for atraccion in atracciones:
+            visitantes_cuenta += atraccion.visitantes
+            recaudacion_cuenta += atraccion.recaudacion
+        return (visitantes_cuenta, recaudacion_cuenta)
 
     def construir_atraccion(self, tipo):
         if tipo == "carnivoros":
