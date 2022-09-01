@@ -63,7 +63,6 @@ class Herbivoro(Animal):
         self.adorabilidad += INCREMENTO_ADORABILIDAD
         print(f"Animal {self.especie} se come un kilogramo de vegetales")
 
-
     # MODIFICAR
     def exhibicion(self):
         super().exhibicion()
@@ -84,4 +83,3 @@ class Omnivoro(Carnivoro, Herbivoro):
     # MODIFICAR
     def exhibicion(self):
         super().exhibicion()
-
