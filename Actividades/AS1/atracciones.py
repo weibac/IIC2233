@@ -3,10 +3,11 @@ from fauna import Carnivoro, Herbivoro, Omnivoro
 from parametros import MULTIPLICADOR_RECAUDACION, EVENTO_HERBIVOROS \
                         ,EVENTO_CARNIVOROS, FEROCIDAD, ADORABILIDAD \
                         ,PROBABILIDAD_EVENTO, VISITANTES
+from abc import ABC, abstractmethod
 
 
 # MODIFICAR
-class Atraccion:
+class Atraccion(ABC):
 
     def __init__(self, numero):
         self.id = numero
@@ -25,32 +26,44 @@ class Atraccion:
             animal.alimentarse()
 
     # MODIFICAR
+    @property
     def visitantes(self):
-        pass
+        return randint(range(*VISITANTES))
 
     # MODIFICAR
+    @property
     def recaudacion(self):
-        pass
+        dinero = 0
+        for animal in self.animales:
+            animal.exhibicion()
+            dinero += animal.ganancia_actual
+        dinero = dineto * self.visitantes * MULTIPLICADOR_RECAUDACION
+        if random() > PROBABILIDAD_EVENTO:
+            dinero += self.evento()
+        return dinero
 
-    # MODIFICAR   
+    # MODIFICAR
+    @abstractmethod
     def crear_animales(self):
         pass
       
     # MODIFICAR  
+    @abstractmethod
     def __str__(self):
         pass
 
     # MODIFICAR
+    @abstractmethod
     def evento(self):
         pass
 
 
 # MODIFICAR
-class GranjaHerbivoros:
+class GranjaHerbivoros(Atraccion):
 
     # MODIFICAR
     def __init__(self, *args, **kwargs):
-        pass
+        super().__init__(*args, **kwargs)
 
     def crear_animales(self):
         tipo = choice(["Herbivoro", "Omnivoro"])
@@ -65,19 +78,20 @@ class GranjaHerbivoros:
 
     # MODIFICAR
     def __str__(self):
-        pass
-    
+        return f"Granja de Herbivoros {self.id}"
+
     # MODIFICAR
     def evento(self):
-        pass
-        
+        print(f"\nEVENTO {self}: AVISTAMIENTO DE BRACHIOSAURUS\n ")
+        return EVENTO_HERBIVOROS
+
 
 # MODIFICAR
-class PaseoCarnivoros:
+class PaseoCarnivoros(Atraccion):
 
     # MODIFICAR
     def __init__(self, *args, **kwargs):
-        pass
+        super().__init__(*args, **kwargs)
 
     def crear_animales(self):
         tipo = choice(["Carnivoro", "Omnivoro"])
@@ -92,8 +106,9 @@ class PaseoCarnivoros:
 
     # MODIFICAR
     def __str__(self):
-        pass
+        return f"Paseo de Carnivoros {self.id}"
     
     # MODIFICAR
     def evento(self):
-        pass
+        print(f"\nEVENTO {self}: SE ALIMENTARA AL TYRANOSAURUS\n ")
+        return EVENTO_CARNIVOROS
