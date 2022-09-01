@@ -28,7 +28,7 @@ class Atraccion(ABC):
     # MODIFICAR
     @property
     def visitantes(self):
-        return randint(range(*VISITANTES))
+        return randint(*VISITANTES)
 
     # MODIFICAR
     @property
