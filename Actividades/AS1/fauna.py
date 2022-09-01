@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 class Animal(ABC):
 
     # MODIFICAR
-    def __init__(self, especie: str, **kwargs):  # TODO: Tal vex kwargs se van
+    def __init__(self, especie: str, **kwargs):
         self.especie = especie
         self.ganancia_actual = 0
 
@@ -32,7 +32,7 @@ class Carnivoro(Animal):
 
     # MODIFICAR
     def __init__(self, ferocidad: int, **kwargs):
-        super().__init__(**kwargs) # TODO : tal vez malo
+        super().__init__(**kwargs)
         self.ferocidad = ferocidad
         self.ganancia_actual += GAN_CARNIVORO
 
@@ -53,7 +53,7 @@ class Herbivoro(Animal):
 
     # MODIFICAR
     def __init__(self, adorabilidad: int, **kwargs):
-        super().__init__(**kwargs)  # TODO : tal vez malo
+        super().__init__(**kwargs)
         self.adorabilidad = adorabilidad
         self.ganancia_actual += GAN_HERBIVORO
 
