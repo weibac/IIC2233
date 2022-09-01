@@ -37,7 +37,7 @@ class Atraccion(ABC):
         for animal in self.animales:
             animal.exhibicion()
             dinero += animal.ganancia_actual
-        dinero = dineto * self.visitantes * MULTIPLICADOR_RECAUDACION
+        dinero = dinero * self.visitantes * MULTIPLICADOR_RECAUDACION
         if random() > PROBABILIDAD_EVENTO:
             dinero += self.evento()
         return dinero
