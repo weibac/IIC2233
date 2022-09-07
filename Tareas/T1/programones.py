@@ -1,4 +1,4 @@
-from parametros import AUMENTAR_ATAQUE_FUEGO, AUMENTAR_VELOCIDAD_AGUA, AUMENTAR_VIDA_PLANTA, MAX_ATAQUE, MAX_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_EXPERIENCIA, MAX_DEFENSA, MAX_EXPERIENCIA, MAX_NIVEL, MAX_VELOCIDAD, MAX_VIDA, MIN_ATAQUE, MIN_AUMENTO_ENTRENAMIENTO, MIN_AUMENTO_EXPERIENCIA, MIN_DEFENSA, MIN_NIVEL, MIN_VELOCIDAD, MIN_VIDA, PONDERACIONES_LUCHA
+from parametros import AUMENTAR_ATAQUE_FUEGO, AUMENTAR_VELOCIDAD_AGUA, AUMENTAR_VIDA_PLANTA, MAX_ATAQUE, MAX_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_EXPERIENCIA, MAX_DEFENSA, MAX_EXPERIENCIA, MAX_NIVEL, MAX_VELOCIDAD, MAX_VIDA, MIN_ATAQUE, MIN_AUMENTO_ENTRENAMIENTO, MIN_AUMENTO_EXPERIENCIA, MIN_DEFENSA, MIN_NIVEL, MIN_VELOCIDAD, MIN_VIDA, ORDEN_VENTAJAS, PONDERACIONES_LUCHA
 from random import randint, choice
 from abc import ABC, abstractmethod
 
@@ -7,7 +7,7 @@ class Programon(ABC):
     def __init__(self, **kwargs) -> None:
         self.nombre = nombre
         self.tipo = tipo
-        self.ventajas = ['fuego', 'planta', 'agua']
+        self.ventajas = ORDEN_VENTAJAS
         self.__experiencia = 0
         self.__nivel = nivel
         self.nivel_megaev = nivel_megaev
@@ -134,7 +134,7 @@ class Programon(ABC):
         return puntaje
 
     #  TODO: PREGUNTAR COMO ESTRUCTURAR ESTO
-    
+
     def luchar(self, oponente):
         gana_self = None
         puntaje_self = self.puntaje_lucha(oponente)
