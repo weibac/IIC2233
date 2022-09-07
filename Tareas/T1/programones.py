@@ -40,11 +40,11 @@ class Programon(ABC):
             self.__nivel = MIN_NIVEL
         else:
             self.__nivel = value
+            print(f'{self.nombre} sube de nivel al nivel {self.nivel}!')
             self.vida += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
             self.ataque += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
             self.defensa += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
             self.velocidad += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
-            print(f'{self.nombre} sube de nivel!')  # TODO: tal vez hay que poner + info
 
     @property
     def vida(self):
@@ -57,7 +57,10 @@ class Programon(ABC):
         elif value < MIN_VIDA:
             self.__vida = MIN_VIDA
         else:
+            vida_antigua = self.__vida
             self.__vida = value
+            print(f'Aumento vida: {self.__vida - vida_antigua}')
+            print(f'La vida subió de {vida_antigua} a {self.__vida}')
 
     @property
     def ataque(self):
@@ -70,7 +73,10 @@ class Programon(ABC):
         elif value < MIN_ATAQUE:
             self.__ataque = MIN_ATAQUE
         else:
+            ataque_antiguo = self.__ataque
             self.__ataque = value
+            print(f'Aumento ataque: {self.__ataque - ataque_antiguo}')
+            print(f'El ataque subió de {ataque_antiguo} a {self.__ataque}')
 
     @property
     def defensa(self):
@@ -83,7 +89,10 @@ class Programon(ABC):
         elif value < MIN_DEFENSA:
             self.__defensa = MIN_DEFENSA
         else:
+            defensa_antigua = self.__defensa
             self.__defensa = value
+            print(f'Aumento defensa: {self.__defensa - defensa_antigua}')
+            print(f'La defensa subió de {defensa_antigua} a {self.__defensa}')
 
     @property
     def velocidad(self):
@@ -96,7 +105,10 @@ class Programon(ABC):
         elif value < MIN_VELOCIDAD:
             self.__velocidad = MIN_VELOCIDAD
         else:
+            velocidad_antigua = self.__velocidad
             self.__velocidad = value
+            print(f'Aumento velocidad: {self.__velocidad - velocidad_antigua}')
+            print(f'La velocidad subió de {velocidad_antigua} a {self.__velocidad}')
 
     def entrenamiento(self) -> None:
         aumento_exp = randint(MIN_AUMENTO_EXPERIENCIA, MAX_AUMENTO_EXPERIENCIA)
