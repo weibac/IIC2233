@@ -99,8 +99,9 @@ class Programon(ABC):
             self.__velocidad = value
 
     def entrenamiento(self) -> None:
-        # TODO: tal vez print
-        self.experiencia += randint(MIN_AUMENTO_EXPERIENCIA, MAX_AUMENTO_EXPERIENCIA)
+        aumento_exp = randint(MIN_AUMENTO_EXPERIENCIA, MAX_AUMENTO_EXPERIENCIA)
+        print(f'{self.nombre} entrenó duro y ganó {aumento_exp} de experiencia')
+        self.experiencia += aumento_exp
 
     def ventaja_tipo(self, oponente) -> int:
         if self.tipo == oponente.tipo:
