@@ -22,3 +22,8 @@ PONDERACIONES_LUCHA = (0.2, 0.3, 0.15, 0.15, 0.2, 40)
 AUMENTAR_ATAQUE_FUEGO = 38
 AUMENTAR_VIDA_PLANTA = 52
 AUMENTAR_VELOCIDAD_AGUA = 40
+
+RUTA_ENTRENADORES = ['datos', 'entrenadores.csv']
+RUTA_PROGRAMONES = ['datos', 'programones.csv']
+RUTA_EVOLUCIONES = ['datos', 'evoluciones.csv']
+RUTA_OBJETOS = ['datos', 'objetos.csv']
