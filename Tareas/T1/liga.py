@@ -4,7 +4,7 @@ class LigaProgramon:
         self.perdedores = perdedores
         self.ronda_actual = 0
         self.campeon = None
-    
+
     def resumen_campeonato(self):
         pass
 
