@@ -27,6 +27,14 @@ class Entrenador:
         # Objetos
         if type(self.objetos) == str:
             self.objetos = [self.objetos]
+        for a in range(len(self.objetos)):
+            if datos.objs[self.objetos[a]]['tipo'] == 'fuego':
+                self.objetos[a] = ProgramonFuego(datos.objs[self.objetos[a]])
+            elif datos.objs[self.objetos[a]]['tipo'] == 'planta':
+                self.objetos[a] = ProgramonPlanta(datos.objs[self.objetos[a]])
+            elif datos.objs[self.objetos[a]]['tipo'] == 'agua':
+                self.objetos[a] = ProgramonAgua(datos.objs[self.objetos[a]])
+            self.objetos[a].cargar_megaev(**datos.evols[self.objetos[a].nombre])
 
     @property
     def energia(self):
