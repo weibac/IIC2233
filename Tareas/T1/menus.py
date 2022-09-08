@@ -17,9 +17,9 @@ class Menu():
             print(self)
             inp = input('Por favor selecciona una opción: ')
             if not inp.isdigit():
-                print('Las opciones pueden ser solo números')
+                print('Las opciones pueden ser solo números\n')
             elif int(inp) not in opciones:
-                print(f'Las opciones solo son las siguientes: {opciones}')
+                print(f'Las opciones solo son las siguientes: {list(opciones)}\n')
             else:
                 inp = self.opciones_dict[int(inp)]
                 valido = True
