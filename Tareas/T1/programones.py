@@ -9,16 +9,16 @@ class Programon(ABC):
         self.tipo = tipo
         self.ventajas = ORDEN_VENTAJAS
         self.__experiencia = 0
-        self.__nivel = nivel
+        self.__nivel = int(nivel)
         self.nivel_megaev = None
         self.nombre_megaev = None
-        self.__vida = vida
-        self.__ataque = ataque
-        self.__defensa = defensa
-        self.__velocidad = velocidad
+        self.__vida = int(vida)
+        self.__ataque = int(ataque)
+        self.__defensa = int(defensa)
+        self.__velocidad = int(velocidad)
 
     def cargar_megaev(self, nombre, nivel, evolucion) -> None:
-        self.nivel_megaev = nivel
+        self.nivel_megaev = int(nivel)
         self.nombre_megaev = evolucion
 
     @property

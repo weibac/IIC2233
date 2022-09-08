@@ -24,6 +24,7 @@ class Entrenador:
                 self.programones[a] = ProgramonPlanta(datos.progmnes[self.programones[a]])
             elif datos.progmnes[self.programones[a]]['tipo'] == 'agua':
                 self.programones[a] = ProgramonAgua(datos.progmnes[self.programones[a]])
+            # Bonus megaevolucion
             self.programones[a].cargar_megaev(**datos.evols[self.programones[a].nombre])
         # Objetos
         if type(self.objetos) == str:
