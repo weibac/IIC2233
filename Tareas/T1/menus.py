@@ -1,6 +1,7 @@
 from email import header
 from typing import List
 
+
 class Menu():
     def __init__(self, header: str, ancho: int, opciones: List[str]) -> None:
         self.header = header

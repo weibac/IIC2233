@@ -15,11 +15,11 @@ class Programon(ABC):
         self.__ataque = ataque
         self.__defensa = defensa
         self.__velocidad = velocidad
-    
+
     @property
     def experiencia(self):
         return self.__experiencia
-    
+
     @experiencia.setter
     def experiencia(self, value):
         if value >= MAX_EXPERIENCIA:
