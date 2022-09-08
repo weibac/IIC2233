@@ -9,11 +9,25 @@ class Menu():
         self.espacio_der = self.espacio_izq + 1
         self.opciones = opciones
         self.opciones_dict = {a: self.opciones[a] for a in range(len(self.opciones))}
-    
+
+    def seleccionar_opcion(self) -> str:
+        opciones = self.opciones_dict.keys()
+        valido = False
+        while not valido:
+            print(self)
+            inp = input('Por favor selecciona una opción: ')
+            if not inp.isdigit():
+                print('Las opciones pueden ser solo números')
+            elif int(inp) not in opciones:
+                print(f'Las opciones solo son las siguientes: {opciones}')
+            else:
+                inp = self.opciones_dict[int(inp)]
+                valido = True
+        return inp
+
     def __str__(self) -> str:
         menu_str = ' ' * self.espacio_izq + self.header + ' ' * self.espacio_der + '\n' \
                  + '-' * self.ancho + '\n'
         for a in range(len(self.opciones)):
             menu_str += f'[{a}] {self.opciones_dict[a]}\n'
-        menu_str += '\n'
         return menu_str

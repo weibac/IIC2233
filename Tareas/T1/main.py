@@ -16,7 +16,7 @@ def setup():
     # Crear menus fijos
     menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, ANCHO_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
     menu_objetos = Menu(HEADER_MENU_OBJETOS, ANCHO_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
-    print(menu_entrenador)
-    print(menu_objetos)
+    print(menu_entrenador.seleccionar_opcion())
+
 
 setup()
