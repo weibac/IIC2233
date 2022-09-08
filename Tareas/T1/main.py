@@ -27,6 +27,8 @@ def setup():
     print(liga.entrenadores[2].programones)
     print(liga.entrenadores[2].programones[-1])
     print(liga.entrenadores[2].programones[0])
+    print(liga.entrenadores[2].objetos)
+    print(liga.entrenadores[2].objetos[0])
 
 
 setup()

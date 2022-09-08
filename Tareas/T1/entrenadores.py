@@ -1,3 +1,4 @@
+from objetos import Baya, Caramelo, Pocion
 from parametros import MAX_ENERGIA, MIN_ENERGIA
 from programones import ProgramonAgua, ProgramonFuego, ProgramonPlanta
 
@@ -28,13 +29,13 @@ class Entrenador:
         if type(self.objetos) == str:
             self.objetos = [self.objetos]
         for a in range(len(self.objetos)):
-            if datos.objs[self.objetos[a]]['tipo'] == 'fuego':
-                self.objetos[a] = ProgramonFuego(datos.objs[self.objetos[a]])
-            elif datos.objs[self.objetos[a]]['tipo'] == 'planta':
-                self.objetos[a] = ProgramonPlanta(datos.objs[self.objetos[a]])
-            elif datos.objs[self.objetos[a]]['tipo'] == 'agua':
-                self.objetos[a] = ProgramonAgua(datos.objs[self.objetos[a]])
-            self.objetos[a].cargar_megaev(**datos.evols[self.objetos[a].nombre])
+            if datos.objs[self.objetos[a]]['tipo'] == 'baya':
+                self.objetos[a] = Baya(**datos.objs[self.objetos[a]])
+            elif datos.objs[self.objetos[a]]['tipo'] == 'pocion':
+                self.objetos[a] = Pocion(**datos.objs[self.objetos[a]])
+            elif datos.objs[self.objetos[a]]['tipo'] == 'caramelo':
+                self.objetos[a] = Caramelo(**datos.objs[self.objetos[a]])
+
 
     @property
     def energia(self):
