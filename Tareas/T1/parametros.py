@@ -1,6 +1,6 @@
+# Niveles programones
 MIN_NIVEL = 1
 MAX_NIVEL = 100
-
 MIN_EXPERIENCIA = 0
 MAX_EXPERIENCIA = 100
 MIN_AUMENTO_ENTRENAMIENTO = 2  # TODO: REBALANCEAR
@@ -8,11 +8,13 @@ MAX_AUMENTO_ENTRENAMIENTO = 5  # TODO: REBALANCEAR
 MIN_AUMENTO_EXPERIENCIA = 50  # TODO: REBALANCEAR
 MAX_AUMENTO_EXPERIENCIA = 80  # TODO: REBALANCEAR
 
+# Megaevolución programones
 MEGA_VIDA = 52
 MEGA_ATAQUE = 38
 MEGA_DEFENSA = 50
 MEGA_VELOCIDAD = 40
 
+# Lucha  programones
 MIN_VIDA = 1
 MAX_VIDA = 255
 MIN_ATAQUE = 5
@@ -27,12 +29,17 @@ AUMENTAR_ATAQUE_FUEGO = 38
 AUMENTAR_VIDA_PLANTA = 52
 AUMENTAR_VELOCIDAD_AGUA = 40
 
+# Entrenadores
+MIN_ENERGIA = 0
+MAX_ENERGIA = 100
+
+# Rutas archivos
 RUTA_ENTRENADORES = ('datos', 'entrenadores.csv')
 RUTA_PROGRAMONES = ('datos', 'programones.csv')
 RUTA_EVOLUCIONES = ('datos', 'evoluciones.csv')
 RUTA_OBJETOS = ('datos', 'objetos.csv')
 
-
+# Menus
 HEADER_MENU_ENTRENADOR = 'Menú entrenador'
 ANCHO_MENU_ENTRENADOR = 32
 OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',

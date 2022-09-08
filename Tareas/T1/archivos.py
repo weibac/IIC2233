@@ -2,7 +2,7 @@ import os
 from typing import List, Dict
 
 
-def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, str]]:
+def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, list]]:
     """
     Implementa lectura dinámica de CSV
     """
@@ -21,12 +21,12 @@ def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, str]]:
     return lista_instancias
 
 
-def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, str]]:
+def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, list]]:
     dict_instancias = dict()
     for a in range(len(lista_instancias)):
         dict_instancias[lista_instancias[a]['nombre']] = lista_instancias[a]  # TODO: es hardcoding?
     return dict_instancias
 
 
-def cargar_archivo(ruta_ls: tuple) -> Dict[str, Dict[str, str]]:
+def cargar_archivo(ruta_ls: tuple) -> Dict[str, Dict[str, list]]:
     return lista_a_dict(archivo_a_lista(ruta_ls))
