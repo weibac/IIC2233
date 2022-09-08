@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 
 class Programon(ABC):
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, nombre, tipo, nivel, vida, ataque, defensa, velocidad) -> None:
         self.nombre = nombre
         self.tipo = tipo
         self.ventajas = ORDEN_VENTAJAS
@@ -17,7 +17,7 @@ class Programon(ABC):
         self.__defensa = defensa
         self.__velocidad = velocidad
 
-    def cargar_megaev(self, **kwargs) -> None:
+    def cargar_megaev(self, nombre, nivel, evolucion) -> None:
         self.nivel_megaev = nivel
         self.nombre_megaev = evolucion
 
@@ -167,26 +167,29 @@ class Programon(ABC):
     def accion_victoria(self):
         pass
 
+    def __str__(self) -> str:
+        return self.nombre
+
 
 class ProgramonFuego(Programon):
-    def __init__(self, **kwargs) -> None:
-        super().__init__()
+    def __init__(self, kwargs) -> None:
+        super().__init__(**kwargs)
 
     def accion_victoria(self) -> None:
         self.ataque += AUMENTAR_ATAQUE_FUEGO
 
 
 class ProgramonPlanta(Programon):
-    def __init__(self, **kwargs) -> None:
-        super().__init__()
+    def __init__(self, kwargs) -> None:
+        super().__init__(**kwargs)
 
     def accion_victoria(self) -> None:
         self.vida += AUMENTAR_VIDA_PLANTA
 
 
 class ProgramonAgua(Programon):
-    def __init__(self, **kwargs) -> None:
-        super().__init__()
+    def __init__(self, kwargs) -> None:
+        super().__init__(**kwargs)
 
     def accion_victoria(self) -> None:
         self.velocidad += AUMENTAR_VELOCIDAD_AGUA

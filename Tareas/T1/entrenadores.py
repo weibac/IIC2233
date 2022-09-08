@@ -1,18 +1,30 @@
 from parametros import MAX_ENERGIA, MIN_ENERGIA
+from programones import ProgramonAgua, ProgramonFuego, ProgramonPlanta
 
 
 class Entrenador:
-    def __init__(self, nombre, energia, programones, objetos) -> None:
+    def __init__(self, datos, nombre, energia, programones, objetos) -> None:
         self.nombre = nombre
         self.__energia = energia
         self.programones = programones
         self.objetos = objetos
-        self.arreglar_init()
+        self.arreglar_init(datos)
 
-    def arreglar_init(self):
+    def arreglar_init(self, datos):
+        # Energia
         self.__energia = int(self.__energia)
+        # Programones
         if type(self.programones) == str:
             self.programones = [self.programones]
+        for a in range(len(self.programones)):
+            if datos.progmnes[self.programones[a]]['tipo'] == 'fuego':
+                self.programones[a] = ProgramonFuego(datos.progmnes[self.programones[a]])
+            elif datos.progmnes[self.programones[a]]['tipo'] == 'planta':
+                self.programones[a] = ProgramonPlanta(datos.progmnes[self.programones[a]])
+            elif datos.progmnes[self.programones[a]]['tipo'] == 'agua':
+                self.programones[a] = ProgramonAgua(datos.progmnes[self.programones[a]])
+            self.programones[a].cargar_megaev(**datos.evols[self.programones[a].nombre])
+        # Objetos
         if type(self.objetos) == str:
             self.objetos = [self.objetos]
 
