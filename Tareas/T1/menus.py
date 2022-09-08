@@ -1,4 +1,3 @@
-from email import header
 from typing import List
 
 
@@ -22,9 +21,9 @@ class Menu():
             elif int(inp) not in opciones:
                 print(f'Las opciones solo son las siguientes: {list(opciones)}\n')
             else:
-                inp = self.opciones_dict[int(inp)]
+                accion = self.opciones_dict[int(inp)]
                 valido = True
-        return inp
+        return accion
 
     def __str__(self) -> str:
         menu_str = ' ' * self.espacio_izq + self.header + ' ' * self.espacio_der + '\n' \
