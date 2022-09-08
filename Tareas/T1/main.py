@@ -20,6 +20,8 @@ def setup():
     menu_objetos = Menu(HEADER_MENU_OBJETOS, ANCHO_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
 
     # Testing area
+    for nom in datos.entrens:
+        print(datos.entrens[nom])
     liga = LigaProgramon(datos)
     print(liga.entrenadores[0].nombre)
     print(liga.entrenadores[0].programones)

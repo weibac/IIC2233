@@ -7,6 +7,14 @@ class Entrenador:
         self.__energia = energia
         self.programones = programones
         self.objetos = objetos
+        self.arreglar_init()
+
+    def arreglar_init(self):
+        self.__energia = int(self.__energia)
+        if type(self.programones) == str:
+            self.programones = [self.programones]
+        if type(self.objetos) == str:
+            self.objetos = [self.objetos]
 
     @property
     def energia(self):
