@@ -1,4 +1,4 @@
-from parametros import AUMENTAR_ATAQUE_FUEGO, AUMENTAR_VELOCIDAD_AGUA, AUMENTAR_VIDA_PLANTA, MAX_ATAQUE, MAX_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_EXPERIENCIA, MAX_DEFENSA, MAX_EXPERIENCIA, MAX_NIVEL, MAX_VELOCIDAD, MAX_VIDA, MIN_ATAQUE, MIN_AUMENTO_ENTRENAMIENTO, MIN_AUMENTO_EXPERIENCIA, MIN_DEFENSA, MIN_NIVEL, MIN_VELOCIDAD, MIN_VIDA, ORDEN_VENTAJAS, PONDERACIONES_LUCHA
+from parametros import AUMENTAR_ATAQUE_FUEGO, AUMENTAR_VELOCIDAD_AGUA, AUMENTAR_VIDA_PLANTA, MAX_ATAQUE, MAX_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_EXPERIENCIA, MAX_DEFENSA, MAX_EXPERIENCIA, MAX_NIVEL, MAX_VELOCIDAD, MAX_VIDA, MEGA_ATAQUE, MEGA_DEFENSA, MEGA_VELOCIDAD, MEGA_VIDA, MIN_ATAQUE, MIN_AUMENTO_ENTRENAMIENTO, MIN_AUMENTO_EXPERIENCIA, MIN_DEFENSA, MIN_NIVEL, MIN_VELOCIDAD, MIN_VIDA, ORDEN_VENTAJAS, PONDERACIONES_LUCHA
 from random import randint, choice
 from abc import ABC, abstractmethod
 
@@ -10,11 +10,16 @@ class Programon(ABC):
         self.ventajas = ORDEN_VENTAJAS
         self.__experiencia = 0
         self.__nivel = nivel
-        self.nivel_megaev = nivel_megaev
+        self.nivel_megaev = None
+        self.nombre_megaev = None
         self.__vida = vida
         self.__ataque = ataque
         self.__defensa = defensa
         self.__velocidad = velocidad
+
+    def cargar_megaev(self, **kwargs) -> None:
+        self.nivel_megaev = nivel
+        self.nombre_megaev = evolucion
 
     @property
     def experiencia(self):
@@ -45,6 +50,14 @@ class Programon(ABC):
             self.ataque += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
             self.defensa += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
             self.velocidad += randint(MIN_AUMENTO_ENTRENAMIENTO, MAX_AUMENTO_ENTRENAMIENTO)
+            # Megaevolución
+            if self.__nivel >= self.nivel_megaev:
+                print(f'{self.nombre} megaevoluciona! Ahora se llama: {self.nombre_megaev}')
+                self.nombre = self.nombre_megaev
+                self.vida += MEGA_VIDA
+                self.ataque += MEGA_ATAQUE
+                self.defensa += MEGA_DEFENSA
+                self.velocidad += MEGA_VELOCIDAD
 
     @property
     def vida(self):
