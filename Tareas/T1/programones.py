@@ -159,8 +159,10 @@ class Programon(ABC):
         else:
             gana_self = choice(True, False)
         if gana_self:
+            print(f'{self} gana!')
             self.accion_victoria()
         else:
+            print(f'{oponente} gana!')
             oponente.accion_victoria()
 
     @abstractmethod
