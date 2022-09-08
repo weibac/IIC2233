@@ -7,9 +7,9 @@ def cargar_archivo(ruta_ls: list) -> List[dict]:
     Implementa lectura dinámica de CSV
     """
     lista_instancias = []
-    ruta = os.path.join(ruta_ls)
+    ruta = os.path.join(*ruta_ls)
     with open(ruta, mode='r', encoding='utf-8') as archivo:
-        lines = [line.strip('\n').split(',') for line in archivo.readlines()]
+        lines = [line.strip('\n').split(',') for line in archivo.readlines()] # TODO: tal vez deindent linea abajo
         for a in range(len(lines)):
             for b in range(len(lines[0])):
                 if ';' in lines[a][b]:

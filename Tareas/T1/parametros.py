@@ -23,10 +23,10 @@ AUMENTAR_ATAQUE_FUEGO = 38
 AUMENTAR_VIDA_PLANTA = 52
 AUMENTAR_VELOCIDAD_AGUA = 40
 
-RUTA_ENTRENADORES = ['datos', 'entrenadores.csv']
-RUTA_PROGRAMONES = ['datos', 'programones.csv']
-RUTA_EVOLUCIONES = ['datos', 'evoluciones.csv']
-RUTA_OBJETOS = ['datos', 'objetos.csv']
+RUTA_ENTRENADORES = ('datos', 'entrenadores.csv')
+RUTA_PROGRAMONES = ('datos', 'programones.csv')
+RUTA_EVOLUCIONES = ('datos', 'evoluciones.csv')
+RUTA_OBJETOS = ('datos', 'objetos.csv')
 
 
 HEADER_MENU_ENTRENADOR = 'Menú entrenador'
