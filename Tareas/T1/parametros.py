@@ -1,3 +1,23 @@
+# Rutas archivos
+RUTA_ENTRENADORES = ('datos', 'entrenadores.csv')
+RUTA_PROGRAMONES = ('datos', 'programones.csv')
+RUTA_EVOLUCIONES = ('datos', 'evoluciones.csv')
+RUTA_OBJETOS = ('datos', 'objetos.csv')
+
+# Menus
+HEADER_MENU_ENTRENADOR = 'Menú entrenador'
+ANCHO_MENU_ENTRENADOR = 32
+OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',
+                            'Crear objetos', 'Utilizar objeto', 'Estado entrenador',
+                            'Volver', 'Salir']
+HEADER_MENU_OBJETOS = 'Menú objetos'
+ANCHO_MENU_OBJETOS = 16
+OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
+
+# Entrenadores
+MIN_ENERGIA = 0
+MAX_ENERGIA = 100
+
 # Niveles programones
 MIN_NIVEL = 1
 MAX_NIVEL = 100
@@ -28,23 +48,3 @@ PONDERACIONES_LUCHA = (0.2, 0.3, 0.15, 0.15, 0.2, 40)
 AUMENTAR_ATAQUE_FUEGO = 38
 AUMENTAR_VIDA_PLANTA = 52
 AUMENTAR_VELOCIDAD_AGUA = 40
-
-# Entrenadores
-MIN_ENERGIA = 0
-MAX_ENERGIA = 100
-
-# Rutas archivos
-RUTA_ENTRENADORES = ('datos', 'entrenadores.csv')
-RUTA_PROGRAMONES = ('datos', 'programones.csv')
-RUTA_EVOLUCIONES = ('datos', 'evoluciones.csv')
-RUTA_OBJETOS = ('datos', 'objetos.csv')
-
-# Menus
-HEADER_MENU_ENTRENADOR = 'Menú entrenador'
-ANCHO_MENU_ENTRENADOR = 32
-OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',
-                            'Crear objetos', 'Utilizar objeto', 'Estado entrenador',
-                            'Volver', 'Salir']
-HEADER_MENU_OBJETOS = 'Menú objetos'
-ANCHO_MENU_OBJETOS = 16
-OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
