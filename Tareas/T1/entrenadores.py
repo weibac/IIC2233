@@ -9,9 +9,9 @@ class Entrenador:
         self.__energia = energia
         self.programones = programones
         self.objetos = objetos
-        self.arreglar_init(datos)
+        self.procesar_init(datos)
 
-    def arreglar_init(self, datos):
+    def procesar_init(self, datos):
         # Energia
         self.__energia = int(self.__energia)
         # Programones
@@ -36,7 +36,6 @@ class Entrenador:
                 self.objetos[a] = Pocion(**datos.objs[self.objetos[a]])
             elif datos.objs[self.objetos[a]]['tipo'] == 'caramelo':
                 self.objetos[a] = Caramelo(**datos.objs[self.objetos[a]])
-
 
     @property
     def energia(self):
