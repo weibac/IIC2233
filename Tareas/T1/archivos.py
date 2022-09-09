@@ -5,6 +5,8 @@ from typing import List, Dict
 def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, list]]:
     """
     Implementa lectura dinámica de CSV
+    Lee un archivo y entrega una lista de diccionarios
+    donde cada diccionario representa los pares {atributo: valor} de una instancia
     """
     ruta = os.path.join(*ruta_ls)
     with open(ruta, mode='r', encoding='utf-8') as archivo:
@@ -22,6 +24,11 @@ def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, list]]:
 
 
 def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, list]]:
+    """
+    Toma la lista output de la función archivo_a_lista() y crea un diccionario
+    con los diccionarios elementos de dicha lista como values
+    y el nombre de cada instancia como key
+    """
     dict_instancias = dict()
     for a in range(len(lista_instancias)):
         dict_instancias[lista_instancias[a]['nombre']] = lista_instancias[a]  # TODO: es hardcoding?
@@ -29,4 +36,7 @@ def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, 
 
 
 def cargar_archivo(ruta_ls: tuple) -> Dict[str, Dict[str, list]]:
+    """
+    Esta función se exporta
+    """
     return lista_a_dict(archivo_a_lista(ruta_ls))
