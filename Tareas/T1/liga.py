@@ -8,8 +8,8 @@ class LigaProgramon:
         self.ronda_actual = 0
         self.campeon = None
 
-    def resumen_campeonato(self):
+    def resumen_campeonato(self):  # TODO
         pass
 
-    def simular_ronda(self):
+    def simular_ronda(self):  # TODO
         pass

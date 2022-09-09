@@ -52,3 +52,9 @@ class Entrenador:
             self.__energia = value
             print(f'Pérdida energía: {energia_antigua - self.__energia}')
             print(f'La energía bajó de {energia_antigua} a {self.__energia}')
+
+    def estado_entrenador(self):  # TODO
+        pass
+
+    def crear_objetos(self):  # TODO
+        pass
