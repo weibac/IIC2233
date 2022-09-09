@@ -11,9 +11,11 @@ def setup():
     programones = cargar_archivo(RUTA_PROGRAMONES)
     evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
     objetos = cargar_archivo(RUTA_OBJETOS)
-    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])
+    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros 
     datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
-    # Agregar megaevolución
+
+    # Init Liga
+    liga = LigaProgramon(datos)
 
     # Crear menus fijos
     menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, ANCHO_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
@@ -22,7 +24,6 @@ def setup():
     # Testing area
     for nom in datos.progmnes:
         print(datos.progmnes[nom])
-    liga = LigaProgramon(datos)
     print(liga.entrenadores[2].nombre)
     print(liga.entrenadores[2].programones)
     print(liga.entrenadores[2].programones[-1])

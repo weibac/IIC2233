@@ -146,8 +146,6 @@ class Programon(ABC):
         puntaje = sum(parametros[a] * PONDERACIONES_LUCHA[a] for a in range(len(parametros)))
         return puntaje
 
-    #  TODO: PREGUNTAR COMO ESTRUCTURAR ESTO
-
     def luchar(self, oponente):
         gana_self = None
         puntaje_self = self.puntaje_lucha(oponente)
@@ -164,6 +162,7 @@ class Programon(ABC):
         else:
             print(f'{oponente} gana!')
             oponente.accion_victoria()
+        return gana_self
 
     @abstractmethod
     def accion_victoria(self):
