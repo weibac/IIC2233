@@ -19,26 +19,28 @@ class Objeto(ABC):
 class Baya(Objeto):
     def __init__(self, nombre, tipo) -> None:
         super().__init__(nombre, tipo)
+        self.mensaje = '{} come la baya {} y obtiene muchos nutrientes!'
 
     def aplicar_objeto(self, programon):
-        print(f'{programon} come la baya {self} y obtiene muchos nutrientes!')
+        print(self.mensaje.format(programon, self))
         programon.vida += randint(MIN_AUMENTO_BAYA, MAX_AUMENTO_BAYA)
 
 
 class Pocion(Objeto):
     def __init__(self, nombre, tipo) -> None:
         super().__init__(nombre, tipo)
+        self.mensaje = '{} se toma la pocion {} y queda muy contento!'
 
     def aplicar_objeto(self, programon):
-        print(f'{programon} se toma la pocion {self} y queda muy contento!')
+        print(self.mensaje.format(programon, self))
         programon.ataque += randint(MIN_AUMENTO_POCION, MAX_AUMENTO_POCION)
 
 
 class Caramelo(Baya, Pocion):
     def __init__(self, nombre, tipo) -> None:
         super().__init__(nombre, tipo)
+        self.mensaje = '{} come el caramelo {}! Es super rico y super nutritivo!'
 
     def aplicar_objeto(self, programon):
-        print(f'{programon} come el caramelo {self}! Es super rico y super nutritivo!')
         super().aplicar_objeto()
         programon.defensa += AUMENTO_DEFENSA
