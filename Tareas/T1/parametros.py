@@ -5,6 +5,7 @@ RUTA_EVOLUCIONES = ('datos', 'evoluciones.csv')
 RUTA_OBJETOS = ('datos', 'objetos.csv')
 
 # Menus
+OPCIONES_MENU_BASE = ['Volver', 'Salir']
 HEADER_MENU_ENTRENADOR = 'Menú entrenador'
 OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',
                             'Crear objeto', 'Utilizar objeto', 'Estado entrenador',
@@ -12,6 +13,8 @@ OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonat
 HEADER_MENU_OBJETOS = 'Menú objetos'
 OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
 HEADER_MENU_INICIO = 'Menú inicio: Selecciona a tu entrenador!'
+HEADER_MENU_USAR_OBJ = 'Objetos disponibles:'
+HEADER_MENU_PROGRAMONES = 'Elige uno de tus programones:'
 
 
 # Entrenadores

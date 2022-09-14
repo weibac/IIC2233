@@ -1,4 +1,4 @@
-from parametros import HEADER_MENU_ENTRENADOR, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
+from parametros import HEADER_MENU_ENTRENADOR, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, HEADER_MENU_PROGRAMONES, HEADER_MENU_USAR_OBJ, OPCIONES_MENU_BASE, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
 from menus import Menu
 from liga import LigaProgramon
 from archivos import cargar_archivo
@@ -17,7 +17,7 @@ def setup():
     # Init liga
     liga = LigaProgramon(datos)
 
-    # Crear menus fijos
+    # Crear menus fijos independientes de entrenador jugador
     opciones_menu_inicio = []  # TODO: tal vez cargar desde datos en vez de liga
     for entrenador in liga.entrenadores:
         nombres_programones = [programon.nombre for programon in entrenador.programones]
@@ -27,10 +27,23 @@ def setup():
 
     menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
     menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
-    MenusTuple = namedtuple('menus', ['inicio', 'entrenador', 'objeto'])
-    menus = MenusTuple(menu_inicio, menu_entrenador, menu_objetos)
 
-    return liga, menus
+    # Jugador selecciona su entrenador
+    indice_jugador = menu_inicio.seleccionar_opcion() - 1
+    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}')
+
+    # Crear menu fijo dependiente de entrenador jugador
+    opciones_menu_programones = []
+    for programon in liga.entrenadores[indice_jugador].programones:
+        opciones_menu_programones.append(programon.nombre)
+    opciones_menu_programones += OPCIONES_MENU_BASE
+    menu_programones = Menu(HEADER_MENU_PROGRAMONES, opciones_menu_programones)
+
+    # Empaquetar menus
+    MenusTuple = namedtuple('menus', ['inicio', 'entrenador', 'programones', 'objetos'])
+    menus = MenusTuple(menu_inicio, menu_entrenador, menu_programones, menu_objetos)
+
+    return liga, menus, indice_jugador
 
 
 def menu_objetos(menu_objetos, liga, indice_jugador):
@@ -46,8 +59,20 @@ def menu_objetos(menu_objetos, liga, indice_jugador):
     elif opcion == 5:
         pass
 
+def menu_usar_obj(menu_programones, liga, ind_jug):
+    opciones_menu_usar_obj = []
+    for objeto in liga.entrenadores[ind_jug].objetos:
+        opciones_menu_usar_obj.append(objeto.nombre.capitalize())
+    opciones_menu_usar_obj += OPCIONES_MENU_BASE
+    menu_usar_obj = Menu(HEADER_MENU_USAR_OBJ, opciones_menu_usar_obj)
 
-def menu_entrenador(menus, liga, indice_jugador):
+    ind_obj = menu_usar_obj.seleccionar_opcion() - 1
+    ind_prog = menu_programones.seleccionar_opcion() - 1
+    objeto_select = liga.entrenadores[ind_jug].objetos[ind_obj]
+    objeto_select.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
+
+
+def menu_entrenador(menus, liga, ind_jug):
     accion = menus.entrenador.seleccionar_opcion()
     if accion == 1:
         pass
@@ -56,25 +81,11 @@ def menu_entrenador(menus, liga, indice_jugador):
     elif accion == 3:
         liga.resumen_campeonato()
     elif accion == 4:
-        menu_objetos(menus.objeto, liga, indice_jugador)
+        menu_objetos(menus.objetos, liga, ind_jug)
     elif accion == 5:
-        pass
-        opciones_menu_objeto = []
-        bayas = []
-        pociones = []
-        caramelos = []
-        for objeto in liga.entrenadores[indice_jugador].objetos:
-            if objeto.tipo == 'baya':
-                bayas.append(objeto)
-            elif objeto.tipo == 'pocion':
-                pociones.append(objeto)
-            elif objeto.tipo == 'caramelo':
-                caramelos.append(objeto)
-        [lista for lista in [bayas, pociones, caramelos] if len(lista) > 0]
-        if len(bayas) > 0:
-            opciones_menu_objeto.append()
+        menu_usar_obj(menus.programones, liga, ind_jug)
     elif accion == 6:
-        liga.entrenadores[indice_jugador].estado_entrenador()
+        liga.entrenadores[ind_jug].estado_entrenador()
     elif accion == 7:
         pass
     elif accion == 8:
@@ -82,10 +93,9 @@ def menu_entrenador(menus, liga, indice_jugador):
 
 
 def main():
-    liga, menus = setup()
     print('\nBienvenid@ al DCCampeonato Programon!\n')
-    indice_jugador = menus.inicio.seleccionar_opcion() - 1
-    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}')
+    liga, menus, indice_jugador = setup()
+    # Idea para el flujo: menu_entrenador función recursiva con caso base hay un campeón y lo retorna
     menu_entrenador(menus, liga, indice_jugador)
 
 

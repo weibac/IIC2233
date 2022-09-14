@@ -9,7 +9,7 @@ class Objeto(ABC):
         self.tipo = tipo
 
     @abstractmethod
-    def aplicar_objeto(self):
+    def aplicar(self):
         pass
 
     def __str__(self) -> str:
@@ -21,7 +21,7 @@ class Baya(Objeto):
         super().__init__(nombre, tipo)
         self.mensaje = '{} come la baya {} y obtiene muchos nutrientes!'
 
-    def aplicar_objeto(self, programon):
+    def aplicar(self, programon):
         print(self.mensaje.format(programon, self))
         programon.vida += randint(MIN_AUMENTO_BAYA, MAX_AUMENTO_BAYA)
 
@@ -31,7 +31,7 @@ class Pocion(Objeto):
         super().__init__(nombre, tipo)
         self.mensaje = '{} se toma la pocion {} y queda muy contento!'
 
-    def aplicar_objeto(self, programon):
+    def aplicar(self, programon):
         print(self.mensaje.format(programon, self))
         programon.ataque += randint(MIN_AUMENTO_POCION, MAX_AUMENTO_POCION)
 
@@ -41,6 +41,6 @@ class Caramelo(Baya, Pocion):
         super().__init__(nombre, tipo)
         self.mensaje = '{} come el caramelo {}! Es super rico y super nutritivo!'
 
-    def aplicar_objeto(self, programon):
-        super().aplicar_objeto()
+    def aplicar(self, programon):
+        super().aplicar(programon)
         programon.defensa += AUMENTO_DEFENSA
