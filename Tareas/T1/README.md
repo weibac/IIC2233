@@ -51,7 +51,7 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 ##### ❌✅🟠 CSV dinámico
 
 ## Ejecución :computer:
-El módulo principal de la tarea a ejecutar es  ```archivo.py```. Además se debe crear los siguientes archivos y directorios adicionales:
+El módulo principal de la tarea a ejecutar es  ```main.py```. Además se debe crear los siguientes archivos y directorios adicionales:
 1. ```archivo.ext``` en ```ubicación```
 2. ```directorio``` en ```ubicación```
 3. ...
@@ -70,7 +70,12 @@ Por otro lado, los módulos que fueron creados fueron los siguientes:
 
 1. ```librería_1```: Contiene a ```ClaseA```, ```ClaseB```, (ser general, tampoco es necesario especificar cada una)...
 2. ```librería_2```: Hecha para <insertar descripción **breve** de lo que hace o qué contiene>
-3. ...
+1. ```parametros.py```: Contiene las constantes usadas por otros módulos
+2. ```archivos.py```: Contiene a la función ```cargar_archivo()```, que abre un archivo y carga sus datos en una representación ```Dict[str, Dict[str, str or list]]```. Implementa lectura dinámica de CSV.
+3. ```menus.py```: Contiene a la clase ```Menu```, hecha para obtener la string a imprimir los menús multilínea de selección múltiple numérica con los que interactua el usuario y revisar si la opción entregada por este es válida.
+4. ```liga.py```: Contiene a la clase ```LigaProgramon```
+5. ```entrenadores.py```: Contiene a la clase ```Entrenador```
+6. ```programones.py```: Contiene a la clase abstracta ```Programon``` y sus subclases ```ProgramonFuego```, ```ProgramonPlanta``` y ```ProgramonAgua```
 
 ## Supuestos y consideraciones adicionales :thinking:
 Los supuestos que realicé durante la tarea son los siguientes:
