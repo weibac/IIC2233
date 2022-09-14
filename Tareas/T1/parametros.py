@@ -13,6 +13,8 @@ OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonat
 HEADER_MENU_OBJETOS = 'Menú objetos'
 ANCHO_MENU_OBJETOS = 16
 OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
+HEADER_MENU_INICIO = 'Menú inicio'
+
 
 # Entrenadores
 MIN_ENERGIA = 0
