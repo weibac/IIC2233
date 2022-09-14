@@ -7,7 +7,7 @@ RUTA_OBJETOS = ('datos', 'objetos.csv')
 # Menus
 HEADER_MENU_ENTRENADOR = 'Menú entrenador'
 OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',
-                            'Crear objetos', 'Utilizar objeto', 'Estado entrenador',
+                            'Crear objeto', 'Utilizar objeto', 'Estado entrenador',
                             'Volver', 'Salir']
 HEADER_MENU_OBJETOS = 'Menú objetos'
 OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']

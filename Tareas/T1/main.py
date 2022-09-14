@@ -14,7 +14,7 @@ def setup():
     DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros 
     datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
 
-    # Init Liga
+    # Init liga
     liga = LigaProgramon(datos)
 
     # Crear menus fijos
@@ -33,14 +33,14 @@ def setup():
     return liga, menus
 
 
-def menu_objetos(menu_objetos, liga):
+def menu_objetos(menu_objetos, liga, indice_jugador):
     opcion = menu_objetos.seleccionar_opcion()
     if opcion == 1:
-        pass
+        liga.entrenadores[indice_jugador].crear_objeto('baya')
     elif opcion == 2:
-        pass
+        liga.entrenadores[indice_jugador].crear_objeto('pocion')
     elif opcion == 3:
-        pass
+        liga.entrenadores[indice_jugador].crear_objeto('caramelo')
     elif opcion == 4:
         pass
     elif opcion == 5:
@@ -56,7 +56,7 @@ def menu_entrenador(menus, liga, indice_jugador):
     elif accion == 3:
         liga.resumen_campeonato()
     elif accion == 4:
-        menu_objetos(menus.objeto, liga)
+        menu_objetos(menus.objeto, liga, indice_jugador)
     elif accion == 5:
         pass
         opciones_menu_objeto = []
