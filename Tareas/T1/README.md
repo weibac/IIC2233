@@ -15,6 +15,11 @@ Un buen ```README.md``` no tiene por que ser muy extenso tampoco, hay que ser **
 con detalles de último minuto y consideraciones como por ejemplo cambiar algo
 en cierta línea del código o comentar una función>
 
+### Consideraciones de formato:
+- Uso las comillas simples `'` como comillas principales y las dobles `"` como secundarias
+- Uso los nombres de variable `a`, `b`, `c`, ... para los iteradores de los `for in range()`
+
+
 ### Cosas implementadas y no implementadas :white_check_mark: :x:
 
 Explicación: mantén el emoji correspondiente, de manera honesta, para cada item. Si quieres, también puedes agregarlos a los títulos:
