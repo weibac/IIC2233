@@ -4,6 +4,7 @@ from programones import ProgramonAgua, ProgramonFuego, ProgramonPlanta
 from random import random, choice
 from typing import List
 
+
 class Entrenador:
     def __init__(self, datos, nombre, energia, programones, objetos) -> None:
         self.nombre = nombre
@@ -48,6 +49,7 @@ class Entrenador:
                 self.pociones_posibles.append(Pocion(**datos.objs[objeto['nombre']]))
             elif objeto['tipo'] == 'caramelo':
                 self.caramelos_posibles.append(Caramelo(**datos.objs[objeto['nombre']]))
+
     @property
     def energia(self):
         return self.__energia
@@ -67,7 +69,7 @@ class Entrenador:
     def estado_entrenador(self):  # TODO
         pass
 
-    def crear_objeto(self, tipo: str):  # TODO
+    def crear_objeto(self, tipo: str):
         if tipo == 'baya':
             prob_exito = PROB_EXITO_BAYA
             gasto = GASTO_ENERGIA_BAYA
