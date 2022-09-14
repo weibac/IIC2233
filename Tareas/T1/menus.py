@@ -28,7 +28,7 @@ class Menu():
 
     def __str__(self) -> str:
         menu_str = ' ' * self.espacio_izq + self.header + ' ' * self.espacio_der + '\n' \
-                 + '-' * self.ancho + '\n'
+                 + '─' * self.ancho + '\n'
         for a in range(len(self.opciones)):
             menu_str += f'[{a}] {self.opciones_dict[a]}\n'
         return menu_str
