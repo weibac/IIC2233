@@ -11,7 +11,7 @@ OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonat
                             'Volver', 'Salir']
 HEADER_MENU_OBJETOS = 'Menú objetos'
 OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
-HEADER_MENU_INICIO = 'Menú inicio'
+HEADER_MENU_INICIO = 'Menú inicio: Selecciona a tu entrenador!'
 
 
 # Entrenadores
