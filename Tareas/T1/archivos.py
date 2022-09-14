@@ -2,7 +2,7 @@ import os
 from typing import List, Dict
 
 
-def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, str or list]]:
+def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, str | list]]:
     """
     Implementa lectura dinámica de CSV
     Lee un archivo y entrega una lista de diccionarios
@@ -23,7 +23,7 @@ def archivo_a_lista(ruta_ls: tuple) -> List[Dict[str, str or list]]:
     return lista_instancias
 
 
-def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, str or list]]:
+def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, str | list]]:
     """
     Toma la lista output de la función archivo_a_lista() y crea un diccionario
     con los diccionarios elementos de dicha lista como values
@@ -35,7 +35,7 @@ def lista_a_dict(lista_instancias: List[Dict[str, str]]) -> Dict[str, Dict[str, 
     return dict_instancias
 
 
-def cargar_archivo(ruta_ls: tuple) -> Dict[str, Dict[str, str or list]]:
+def cargar_archivo(ruta_ls: tuple) -> Dict[str, Dict[str, str | list]]:
     """
     Esta función se exporta. Es la composición de las dos anteriores.
     """
