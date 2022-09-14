@@ -2,13 +2,14 @@ from typing import List
 
 
 class Menu():
-    def __init__(self, header: str, ancho: int, opciones: List[str]) -> None:
+    def __init__(self, header: str, opciones: List[str]) -> None:
         self.header = header
-        self.ancho = ancho
-        self.espacio_izq = int((self.ancho - len(self.header)) / 2)
-        self.espacio_der = self.espacio_izq + 1
         self.opciones = opciones
         self.opciones_dict = {a: self.opciones[a] for a in range(len(self.opciones))}
+        self.largos_opciones = [len(opciones[ind]) + 4 + ind // 10 for ind in range(len(opciones))]
+        self.ancho = max(self.largos_opciones)
+        self.espacio_izq = int((self.ancho - len(self.header)) / 2)
+        self.espacio_der = self.espacio_izq + 1
 
     def seleccionar_opcion(self) -> str:
         opciones = self.opciones_dict.keys()

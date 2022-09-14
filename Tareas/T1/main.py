@@ -1,4 +1,4 @@
-from parametros import ANCHO_MENU_ENTRENADOR, ANCHO_MENU_OBJETOS, HEADER_MENU_ENTRENADOR, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
+from parametros import HEADER_MENU_ENTRENADOR, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
 from menus import Menu
 from liga import LigaProgramon
 from archivos import cargar_archivo
@@ -18,17 +18,15 @@ def setup():
     liga = LigaProgramon(datos)
 
     # Crear menus fijos
-    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, ANCHO_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
-    menu_objetos = Menu(HEADER_MENU_OBJETOS, ANCHO_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
+    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
+    menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
 
     opciones_menu_inicio = []
     for entrenador in liga.entrenadores:
         nombres_programones = [programon.nombre for programon in entrenador.programones]
         opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
         opciones_menu_inicio.append(opcion)
-    ancho_menu_inicio = len(max(opciones_menu_inicio + [HEADER_MENU_INICIO], key=len))
-    menu_inicio = Menu(HEADER_MENU_INICIO, ancho_menu_inicio, opciones_menu_inicio)
-
+    menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
 
 
     # Testing area
