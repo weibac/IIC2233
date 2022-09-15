@@ -30,7 +30,7 @@ def setup():
 
     # Jugador selecciona su entrenador
     indice_jugador = menu_inicio.seleccionar_opcion() - 1
-    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}')
+    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}\n')
 
     # Crear menu fijo dependiente de entrenador jugador
     opciones_menu_programones = []

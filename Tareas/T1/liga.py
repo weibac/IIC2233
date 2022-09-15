@@ -22,7 +22,7 @@ class LigaProgramon:
         shuffle(orden_luchar)
         # Combate por parejas
         iterador = 1
-        while iterador <= len(orden_luchar) / 2:
+        while iterador < len(orden_luchar):
             # Desempaquetar entrenadores
             entrenador_1 = self.entrenadores[orden_luchar[iterador - 1]]
             entrenador_2 = self.entrenadores[orden_luchar[iterador]]
@@ -31,7 +31,9 @@ class LigaProgramon:
             # Elegir programones
             if orden_luchar[iterador - 1] == indice_jugador:
                 ind_prog_1 = indice_programon
+                ind_prog_2 = randint(0, len(entrenador_2.programones) - 1)
             elif orden_luchar[iterador] == indice_jugador:
+                ind_prog_1 = randint(0, len(entrenador_1.programones) - 1)
                 ind_prog_2 = indice_programon
             else:
                 ind_prog_1 = randint(0, len(entrenador_1.programones) - 1)
