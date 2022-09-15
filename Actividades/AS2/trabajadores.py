@@ -8,7 +8,7 @@ from parametros import ENERGIA_RECOLECTOR, ORO_RECOLECTADO, \
 
 
 # Completar
-class Recolector:
+class Recolector(Thread):
 
     def __init__(self, nombre: str, centro_urbano: CentroUrbano) -> None:
         self.nombre = nombre
@@ -16,6 +16,8 @@ class Recolector:
         self.energia = ENERGIA_RECOLECTOR
         self.oro = 0
         # Completar
+        super.__init__()
+        self.daemon = True
 
     def run(self) -> None:
         self.trabajar()
@@ -27,23 +29,32 @@ class Recolector:
 
     def trabajar(self) -> None:
         # Completar
-        pass
+        self.log('ha empezado su trabajo')
+        self.oro += ORO_RECOLECTADO
+        self.log(f'ha recolectado {ORO_RECOLECTADO} monedas de oro')
+        self.energia -= 1
+        sleep(TIEMPO_RECOLECCION)
 
     def ingresar_oro(self) -> None:
         # Completar
-        pass
+        self.centro_urbano += self.oro
+        self.oro = 0
+        self.log('ha depositado su oro')
+        self.log(f'hay {self.centro_urbano.oro} de oro en el centro urbano')
 
     def dormir(self) -> None:
         self.log("ha terminado su turno, procede a mimir")
 
 
 # Completar
-class Constructor:
+class Constructor(Thread):
 
     def __init__(self, nombre, centro_urbano: CentroUrbano) -> None:
         self.nombre = nombre
         self.centro_urbano = centro_urbano
         # Completar
+        super.__init__()
+        self.daemon = True
 
     def run(self) -> None:
         while self.retirar_oro():
@@ -57,8 +68,15 @@ class Constructor:
 
     def retirar_oro(self) -> bool:
         # Completar
-        pass
+        if self.centro_urbano.oro >= ORO_CHOZA:
+            self.centro_urbano.oro -= ORO_CHOZA
+            self.log(f'ha retirado {ORO_CHOZA} de oro y ahora queda {self.centro_urbano.oro}')
+            return True
+        else:
+            self.log(f'los {self.centro_urbano.oro} de oro disponibles no son suficientes')
+            return False
 
     def construir_choza(self) -> None:
         # Completar
-        pass
+        self.centro_urbano.chozas += 1
+        print(f'ha construido una choza. Ahora hay {self.centro_urbano.chozas}')
