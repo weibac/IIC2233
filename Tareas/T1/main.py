@@ -6,49 +6,7 @@ from collections import namedtuple
 from sys import exit
 
 
-def setup():
-    # Cargar archivos a base datos (named tuple)
-    entrenadores = cargar_archivo(RUTA_ENTRENADORES)
-    programones = cargar_archivo(RUTA_PROGRAMONES)
-    evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
-    objetos = cargar_archivo(RUTA_OBJETOS)
-    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
-    datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
-
-    # Init liga
-    liga = LigaProgramon(datos)
-
-    # Crear menus fijos independientes de entrenador jugador
-    opciones_menu_inicio = []  # TODO: tal vez cargar desde datos en vez de liga
-    for entrenador in liga.entrenadores:
-        nombres_programones = [programon.nombre for programon in entrenador.programones]
-        opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
-        opciones_menu_inicio.append(opcion)
-    menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
-
-    menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
-    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
-    menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
-
-    # Jugador selecciona su entrenador
-    indice_jugador = menu_inicio.seleccionar_opcion() - 1
-    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}\n')
-
-    # Crear menu fijo dependiente de entrenador jugador
-    opciones_menu_programones = []
-    for programon in liga.entrenadores[indice_jugador].programones:
-        opciones_menu_programones.append(programon.nombre)
-    opciones_menu_programones += OPCIONES_MENU_BASE
-    menu_programones = Menu(HEADER_MENU_PROGRAMONES, opciones_menu_programones)
-
-    # Empaquetar menus
-    MenusTuple = namedtuple('menus', ['inicio', 'fin', 'entrenador', 'programones', 'objetos'])
-    menus = MenusTuple(menu_inicio, menu_fin, menu_entrenador, menu_programones, menu_objetos)
-
-    return liga, menus, indice_jugador
-
-
-def salir(): # TODO: Preguntar si segur@ salir
+def salir():  # TODO: Preguntar si segur@ salir
     exit('Gracias por jugar!')
 
 
@@ -112,31 +70,81 @@ def menu_usar_obj(menu_programones, liga, ind_jug):
 
 
 def menu_entrenador(menus, liga, indice_jugador):
-    accion = menus.entrenador.seleccionar_opcion()
-    if accion == 1:
-        menu_entrenar(menus.programones, liga, indice_jugador)
-    elif accion == 2:
-        menu_simular_ronda(menus, liga, indice_jugador)
-    elif accion == 3:
-        liga.resumen_campeonato()  # TODO
-    elif accion == 4:
-        menu_objetos(menus.objetos, liga, indice_jugador)
-    elif accion == 5:
-        menu_usar_obj(menus.programones, liga, indice_jugador)
-    elif accion == 6:
-        liga.entrenadores[indice_jugador].estado_entrenador()  # TODO
-    elif accion == 7:
-        pass
-    elif accion == 8:
-        salir()
+    accion = None
+    while accion != 7:
+        accion = menus.entrenador.seleccionar_opcion()
+        if accion == 1:
+            menu_entrenar(menus.programones, liga, indice_jugador)
+        elif accion == 2:
+            menu_simular_ronda(menus, liga, indice_jugador)
+        elif accion == 3:
+            liga.resumen_campeonato()  # TODO
+        elif accion == 4:
+            menu_objetos(menus.objetos, liga, indice_jugador)
+        elif accion == 5:
+            menu_usar_obj(menus.programones, liga, indice_jugador)
+        elif accion == 6:
+            liga.entrenadores[indice_jugador].estado_entrenador()  # TODO
+        elif accion == 7:
+            pass
+        elif accion == 8:
+            salir()
+
+
+def setup():
+    # Cargar archivos a base datos (named tuple)
+    entrenadores = cargar_archivo(RUTA_ENTRENADORES)
+    programones = cargar_archivo(RUTA_PROGRAMONES)
+    evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
+    objetos = cargar_archivo(RUTA_OBJETOS)
+    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
+    datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
+
+    # Init liga
+    liga = LigaProgramon(datos)
+
+    # Crear menus fijos independientes de entrenador jugador
+    opciones_menu_inicio = []  # TODO: tal vez cargar desde datos en vez de liga
+    for entrenador in liga.entrenadores:
+        nombres_programones = [programon.nombre for programon in entrenador.programones]
+        opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
+        opciones_menu_inicio.append(opcion)
+    menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
+
+    menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
+    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
+    menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
+
+    # Empaquetar menus
+    menus = (menu_inicio, menu_fin, menu_entrenador, menu_objetos)
+
+    return liga, menus
+
+
+def menu_inicio(menus, liga):
+    # Jugador selecciona su entrenador
+    indice_jugador = menus[0].seleccionar_opcion() - 1
+    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}\n')
+
+    # Crear y empaquetar menu fijo dependiente de entrenador jugador (menu_programones)
+    opciones_menu_programones = []
+    for programon in liga.entrenadores[indice_jugador].programones:
+        opciones_menu_programones.append(programon.nombre)
+    opciones_menu_programones += OPCIONES_MENU_BASE
+    menu_programones = Menu(HEADER_MENU_PROGRAMONES, opciones_menu_programones)
+
+    # Re-Empaquetar menus
+    MenusTuple = namedtuple('menus', ['inicio', 'fin', 'entrenador', 'objetos', 'programones'])
+    menus = MenusTuple(*menus, menu_programones)
+
+    menu_entrenador(menus, liga, indice_jugador)
 
 
 def main():
     print('\nBienvenid@ al DCCampeonato Programon!\n')
-    liga, menus, indice_jugador = setup()
-    # Idea para el flujo: menu_entrenador función recursiva con caso base hay un campeón y lo retorna
+    liga, menus = setup()
     while liga.ronda_actual < 4:
-        menu_entrenador(menus, liga, indice_jugador)
+        menu_inicio(menus, liga)
 
 
 if __name__ == '__main__':
