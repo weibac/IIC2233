@@ -51,9 +51,9 @@ def menu_entrenar(menu_programones, liga, ind_jug):
         print(f'Entrenar a un programon cuesta {ENERGIA_ENTRENAMIENTO}\
  de energia pero solo tienes {liga.entrenadores[ind_jug].energia}')
     else:
-        liga.entrenadores[ind_jug].energia -= ENERGIA_ENTRENAMIENTO
         indice_programon = menu_programones.seleccionar_opcion() - 1
         liga.entrenadores[ind_jug].programones[indice_programon].entrenamiento()
+        liga.entrenadores[ind_jug].energia -= ENERGIA_ENTRENAMIENTO
 
 
 def menu_objetos(menu_objetos, liga, indice_jugador):
