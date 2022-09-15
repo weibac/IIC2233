@@ -5,6 +5,7 @@ from archivos import cargar_archivo
 from collections import namedtuple
 from sys import exit
 
+
 def main():
     datos = cargar_datos()
     print('\nBienvenid@ al DCCampeonato Programon!\n')
@@ -161,6 +162,8 @@ def menu_entrenar(menu_programones, liga, ind_jug):
             indice_programon = opcion
             liga.entrenadores[ind_jug].programones[indice_programon].entrenamiento()
             liga.entrenadores[ind_jug].energia -= ENERGIA_ENTRENAMIENTO
+            print('')
+
 
 def salir():  # TODO: Preguntar si segur@ salir
     exit('Gracias por jugar!')
@@ -180,33 +183,6 @@ def revisar_volver_salir(menu):
         salir()
     else:
         return opcion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

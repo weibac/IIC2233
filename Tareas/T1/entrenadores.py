@@ -3,6 +3,7 @@ from parametros import GASTO_ENERGIA_BAYA, GASTO_ENERGIA_CARAMELO, GASTO_ENERGIA
 from programones import ProgramonAgua, ProgramonFuego, ProgramonPlanta
 from random import random, choice
 from typing import List
+from beautifultable import BeautifulTable
 
 
 class Entrenador:
@@ -66,8 +67,23 @@ class Entrenador:
             print(f'Pérdida energía: {energia_antigua - self.__energia}')
             print(f'La energía bajó de {energia_antigua} a {self.__energia}')
 
-    def estado_entrenador(self):  # TODO
-        pass
+    def estado_entrenador(self):
+        str_objetos = ', '.join([objeto.nombre for objeto in self.objetos])
+        tabla_programones = BeautifulTable()
+        for programon in self.programones:
+            linea_tabla = []
+            linea_tabla.append(programon.nombre)
+            linea_tabla.append(programon.tipo)
+            linea_tabla.append(programon.nivel)
+            linea_tabla.append(programon.vida)
+            tabla_programones.rows.append(linea_tabla)
+        tabla_programones.columns.header = ['Nombre', 'Tipo', 'Nivel', 'Vida']
+        print('\nEstado entrenador:')
+        print(f'Nombre: {self.nombre}')
+        print(f'Energía: {self.energia}')
+        print(f'Objetos: {str_objetos}')
+        print('Programones:')
+        print(tabla_programones)
 
     def crear_objeto(self, tipo: str):
         if tipo == 'baya':
