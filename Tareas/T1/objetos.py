@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from random import randint
-from parametros import AUMENTO_DEFENSA, MAX_AUMENTO_BAYA, MAX_AUMENTO_POCION, MIN_AUMENTO_BAYA, MIN_AUMENTO_POCION
+from parametros import AUMENTO_DEFENSA, MAX_AUMENTO_BAYA, MAX_AUMENTO_POCION, MIN_AUMENTO_BAYA, \
+    MIN_AUMENTO_POCION
 
 
 class Objeto(ABC):

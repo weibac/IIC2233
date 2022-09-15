@@ -1,4 +1,8 @@
-from parametros import ENERGIA_ENTRENAMIENTO, HEADER_MENU_ENTRENADOR, HEADER_MENU_FIN_PARTIDA, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, HEADER_MENU_PROGRAMONES, HEADER_MENU_USAR_OBJ, OPCIONES_MENU_BASE, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_FIN_PARTIDA, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
+from parametros import ENERGIA_ENTRENAMIENTO, HEADER_MENU_ENTRENADOR, HEADER_MENU_FIN_PARTIDA, \
+    HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, HEADER_MENU_PROGRAMONES, HEADER_MENU_USAR_OBJ, \
+    OPCIONES_MENU_BASE, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_FIN_PARTIDA, \
+    OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, \
+    RUTA_PROGRAMONES
 from menus import Menu
 from liga import LigaProgramon
 from archivos import cargar_archivo
@@ -11,7 +15,7 @@ def main():
     print('\nBienvenid@ al DCCampeonato Programon!\n')
     liga = LigaProgramon(datos)
     while liga.ronda_actual < 4:
-        # TODO: La liga se reinicia cada vez que se llega al menu incio
+        # TODO: La liga se reiniciara cada vez que se llega al menu incio
         # liga = LigaProgramon(datos)
         menus = menus_fijos(liga)
         menu_inicio(menus, liga)
@@ -87,7 +91,7 @@ def cargar_datos():
     programones = cargar_archivo(RUTA_PROGRAMONES)
     evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
     objetos = cargar_archivo(RUTA_OBJETOS)
-    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
+    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])
     datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
     return datos
 
@@ -108,7 +112,7 @@ def menu_usar_obj(menu_programones, liga, ind_jug):
         menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj)
 
 
-def menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj): # TODO: Volver solo un paso atrás
+def menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj):
     opcion = revisar_volver_salir(menu_programones)
     if opcion == 'volver':
         pass
@@ -151,7 +155,7 @@ def menu_simular_ronda(menus, liga, indice_jugador):
 
 
 def menu_entrenar(menu_programones, liga, ind_jug):
-    if liga.entrenadores[ind_jug].energia < ENERGIA_ENTRENAMIENTO:  # TODO: segun wsp si no hay suficiente energ se gasta igual
+    if liga.entrenadores[ind_jug].energia < ENERGIA_ENTRENAMIENTO:
         print(f'Entrenar a un programon cuesta {ENERGIA_ENTRENAMIENTO}\
  de energia pero solo tienes {liga.entrenadores[ind_jug].energia}')
     else:
@@ -183,8 +187,6 @@ def menu_fin(menu_fin):
 
 def salir():  # TODO: Preguntar si segur@ salir
     exit('Gracias por jugar!')
-
-
 
 
 if __name__ == '__main__':

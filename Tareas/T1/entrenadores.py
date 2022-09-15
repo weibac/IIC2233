@@ -1,5 +1,6 @@
 from objetos import Baya, Caramelo, Pocion
-from parametros import GASTO_ENERGIA_BAYA, GASTO_ENERGIA_CARAMELO, GASTO_ENERGIA_POCION, MAX_ENERGIA, MIN_ENERGIA, PROB_EXITO_BAYA, PROB_EXITO_CARAMELO, PROB_EXITO_POCION
+from parametros import GASTO_ENERGIA_BAYA, GASTO_ENERGIA_CARAMELO, GASTO_ENERGIA_POCION,\
+     MAX_ENERGIA, MIN_ENERGIA, PROB_EXITO_BAYA, PROB_EXITO_CARAMELO, PROB_EXITO_POCION
 from programones import ProgramonAgua, ProgramonFuego, ProgramonPlanta
 from random import random, choice
 from typing import List
