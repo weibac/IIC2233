@@ -15,6 +15,8 @@ OPCIONES_MENU_OBJETOS = ['Baya', 'Poción', 'Caramelo', 'Volver', 'Salir']
 HEADER_MENU_INICIO = 'Menú inicio: Selecciona a tu entrenador!'
 HEADER_MENU_USAR_OBJ = 'Objetos disponibles:'
 HEADER_MENU_PROGRAMONES = 'Elige uno de tus programones:'
+HEADER_MENU_FIN_PARTIDA = 'Quieres jugar otra vez?'
+OPCIONES_MENU_FIN_PARTIDA = ['Volver al menú de inicio', 'Salir']
 
 
 # Entrenadores

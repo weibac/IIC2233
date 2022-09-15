@@ -26,7 +26,7 @@ class LigaProgramon:
             # Desempaquetar entrenadores
             entrenador_1 = self.entrenadores[orden_luchar[iterador - 1]]
             entrenador_2 = self.entrenadores[orden_luchar[iterador]]
-            print(f'Entrentamiento {iterador // 2 + 1}')
+            print(f'Enfrentamiento {iterador // 2 + 1}')
             print(f'{entrenador_1.nombre} se enfrenta a {entrenador_2.nombre}')
             # Elegir programones
             if orden_luchar[iterador - 1] == indice_jugador:
@@ -56,3 +56,9 @@ class LigaProgramon:
             self.entrenadores[orden_luchar[iterador]] = entrenador_2
             print('')
             iterador += 2
+        # Revisar si el usuario gano o perdio
+        if self.entrenadores[indice_jugador].nombre in self.perdedores:
+            usuario_perdio = True
+        else:
+            usuario_perdio = False
+        return usuario_perdio

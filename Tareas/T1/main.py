@@ -1,8 +1,9 @@
-from parametros import ENERGIA_ENTRENAMIENTO, HEADER_MENU_ENTRENADOR, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, HEADER_MENU_PROGRAMONES, HEADER_MENU_USAR_OBJ, OPCIONES_MENU_BASE, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
+from parametros import ENERGIA_ENTRENAMIENTO, HEADER_MENU_ENTRENADOR, HEADER_MENU_FIN_PARTIDA, HEADER_MENU_INICIO, HEADER_MENU_OBJETOS, HEADER_MENU_PROGRAMONES, HEADER_MENU_USAR_OBJ, OPCIONES_MENU_BASE, OPCIONES_MENU_ENTRENADOR, OPCIONES_MENU_FIN_PARTIDA, OPCIONES_MENU_OBJETOS, RUTA_ENTRENADORES, RUTA_EVOLUCIONES, RUTA_OBJETOS, RUTA_PROGRAMONES
 from menus import Menu
 from liga import LigaProgramon
 from archivos import cargar_archivo
 from collections import namedtuple
+from sys import exit
 
 
 def setup():
@@ -25,6 +26,7 @@ def setup():
         opciones_menu_inicio.append(opcion)
     menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
 
+    menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
     menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
     menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
 
@@ -40,11 +42,20 @@ def setup():
     menu_programones = Menu(HEADER_MENU_PROGRAMONES, opciones_menu_programones)
 
     # Empaquetar menus
-    MenusTuple = namedtuple('menus', ['inicio', 'entrenador', 'programones', 'objetos'])
-    menus = MenusTuple(menu_inicio, menu_entrenador, menu_programones, menu_objetos)
+    MenusTuple = namedtuple('menus', ['inicio', 'fin', 'entrenador', 'programones', 'objetos'])
+    menus = MenusTuple(menu_inicio, menu_fin, menu_entrenador, menu_programones, menu_objetos)
 
     return liga, menus, indice_jugador
 
+
+def salir():
+    exit('Gracias por jugar!')
+
+
+def menu_fin(menu_fin):
+    accion = menu_fin.seleccionar_opcion()
+    if accion == 2:
+        salir()
 
 def menu_entrenar(menu_programones, liga, ind_jug):
     if liga.entrenadores[ind_jug].energia < ENERGIA_ENTRENAMIENTO:  # TODO: segun wsp si no hay suficiente energ se gasta igual
@@ -54,6 +65,16 @@ def menu_entrenar(menu_programones, liga, ind_jug):
         indice_programon = menu_programones.seleccionar_opcion() - 1
         liga.entrenadores[ind_jug].programones[indice_programon].entrenamiento()
         liga.entrenadores[ind_jug].energia -= ENERGIA_ENTRENAMIENTO
+
+
+def menu_simular_ronda(menus, liga, indice_jugador):
+    indice_programon = menus.programones.seleccionar_opcion() - 1
+    usuario_perdio = liga.simular_ronda(indice_jugador, indice_programon)
+    if usuario_perdio:
+        print(f'Oh no! {liga.entrenadores[indice_jugador].nombre}, te han derrotado!\n')
+        menu_fin(menus.fin)
+    else:
+        print(f'{liga.entrenadores[indice_jugador].nombre}, has superado esta ronda! :D\n')
 
 
 def menu_objetos(menu_objetos, liga, indice_jugador):
@@ -88,8 +109,7 @@ def menu_entrenador(menus, liga, indice_jugador):
     if accion == 1:
         menu_entrenar(menus.programones, liga, indice_jugador)
     elif accion == 2:
-        indice_programon = menus.programones.seleccionar_opcion() - 1
-        liga.simular_ronda(indice_jugador, indice_programon)
+        menu_simular_ronda(menus, liga, indice_jugador)
     elif accion == 3:
         liga.resumen_campeonato()  # TODO
     elif accion == 4:
