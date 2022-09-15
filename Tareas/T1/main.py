@@ -83,20 +83,21 @@ def menu_usar_obj(menu_programones, liga, ind_jug):
     objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
 
 
-def menu_entrenador(menus, liga, ind_jug):
+def menu_entrenador(menus, liga, indice_jugador):
     accion = menus.entrenador.seleccionar_opcion()
     if accion == 1:
-        menu_entrenar(menus.programones, liga, ind_jug)
+        menu_entrenar(menus.programones, liga, indice_jugador)
     elif accion == 2:
-        liga.simular_ronda()  # TODO
+        indice_programon = menus.programones.seleccionar_opcion() - 1
+        liga.simular_ronda(indice_jugador, indice_programon)
     elif accion == 3:
         liga.resumen_campeonato()  # TODO
     elif accion == 4:
-        menu_objetos(menus.objetos, liga, ind_jug)
+        menu_objetos(menus.objetos, liga, indice_jugador)
     elif accion == 5:
-        menu_usar_obj(menus.programones, liga, ind_jug)
+        menu_usar_obj(menus.programones, liga, indice_jugador)
     elif accion == 6:
-        liga.entrenadores[ind_jug].estado_entrenador()  # TODO
+        liga.entrenadores[indice_jugador].estado_entrenador()  # TODO
     elif accion == 7:
         pass
     elif accion == 8:
