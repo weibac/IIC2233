@@ -8,7 +8,7 @@ class Menu():
         # TODO: Si al final no se usa eliminar opciones_dict
         self.opciones_dict = {a + 1: self.opciones[a] for a in range(len(self.opciones))}
         self.len_opciones = [len(opciones[a]) + 4 + ((a + 1) // 10) for a in range(len(opciones))]
-        self.ancho = max(self.len_opciones)
+        self.ancho = max(self.len_opciones + [len(self.header)])
         self.espacio_izq = int((self.ancho - len(self.header)) / 2)
         self.espacio_der = self.espacio_izq + 1
 
@@ -18,6 +18,7 @@ class Menu():
         while not valido:
             print(self)
             inp = input('Por favor selecciona una opción: ')
+            print('')
             if not inp.isdigit():
                 print('Las opciones pueden ser solo números\n')
             elif int(inp) not in opciones:
