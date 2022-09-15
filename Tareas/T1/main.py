@@ -17,36 +17,6 @@ def main():
         menu_inicio(menus, liga)
 
 
-def menus_fijos(liga):
-    # Crear menus fijos independientes de entrenador jugador
-    opciones_menu_inicio = []  # TODO: tal vez cargar desde datos en vez de liga
-    for entrenador in liga.entrenadores:
-        nombres_programones = [programon.nombre for programon in entrenador.programones]
-        opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
-        opciones_menu_inicio.append(opcion)
-    opciones_menu_inicio.append('Salir')
-    menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
-
-    menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
-    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
-    menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
-
-    # Empaquetar menus
-    menus = (menu_inicio, menu_fin, menu_entrenador, menu_objetos)
-    return menus
-
-
-def cargar_datos():
-    # Cargar archivos a base datos (named tuple)
-    entrenadores = cargar_archivo(RUTA_ENTRENADORES)
-    programones = cargar_archivo(RUTA_PROGRAMONES)
-    evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
-    objetos = cargar_archivo(RUTA_OBJETOS)
-    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
-    datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
-    return datos
-
-
 def menu_inicio(menus, liga):
     # Jugador selecciona su entrenador
     opcion = menus[0].seleccionar_opcion()
@@ -80,17 +50,46 @@ def menu_entrenador(menus, liga, indice_jugador):
         elif accion == 2:
             menu_simular_ronda(menus, liga, indice_jugador)
         elif accion == 3:
-            liga.resumen_campeonato()  # TODO
+            liga.resumen_campeonato()
         elif accion == 4:
             menu_objetos(menus.objetos, liga, indice_jugador)
         elif accion == 5:
             menu_usar_obj(menus.programones, liga, indice_jugador)
         elif accion == 6:
-            liga.entrenadores[indice_jugador].estado_entrenador()  # TODO
+            liga.entrenadores[indice_jugador].estado_entrenador()
         elif accion == 7:
             pass
         elif accion == 8:
             salir()
+
+
+def menus_fijos(liga):
+    # Crear menus fijos independientes de entrenador jugador
+    opciones_menu_inicio = []  # TODO: tal vez cargar desde datos en vez de liga
+    for entrenador in liga.entrenadores:
+        nombres_programones = [programon.nombre for programon in entrenador.programones]
+        opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
+        opciones_menu_inicio.append(opcion)
+    opciones_menu_inicio.append('Salir')
+    menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
+    menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
+    menu_entrenador = Menu(HEADER_MENU_ENTRENADOR, OPCIONES_MENU_ENTRENADOR)
+    menu_objetos = Menu(HEADER_MENU_OBJETOS, OPCIONES_MENU_OBJETOS)
+
+    # Empaquetar menus
+    menus = (menu_inicio, menu_fin, menu_entrenador, menu_objetos)
+    return menus
+
+
+def cargar_datos():
+    # Cargar archivos a base datos (named tuple)
+    entrenadores = cargar_archivo(RUTA_ENTRENADORES)
+    programones = cargar_archivo(RUTA_PROGRAMONES)
+    evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
+    objetos = cargar_archivo(RUTA_OBJETOS)
+    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
+    datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
+    return datos
 
 
 def menu_usar_obj(menu_programones, liga, ind_jug):
@@ -166,16 +165,6 @@ def menu_entrenar(menu_programones, liga, ind_jug):
             print('')
 
 
-def salir():  # TODO: Preguntar si segur@ salir
-    exit('Gracias por jugar!')
-
-
-def menu_fin(menu_fin):
-    accion = menu_fin.seleccionar_opcion()
-    if accion == 2:
-        salir()
-
-
 def revisar_volver_salir(menu):
     opcion = menu.seleccionar_opcion() - 1
     if opcion == len(menu.opciones) - 2:
@@ -184,6 +173,18 @@ def revisar_volver_salir(menu):
         salir()
     else:
         return opcion
+
+
+def menu_fin(menu_fin):
+    accion = menu_fin.seleccionar_opcion()
+    if accion == 2:
+        salir()
+
+
+def salir():  # TODO: Preguntar si segur@ salir
+    exit('Gracias por jugar!')
+
+
 
 
 if __name__ == '__main__':

@@ -65,7 +65,7 @@ class LigaProgramon:
             self.entrenadores[orden_luchar[iterador]] = entrenador_2
             print('')
             iterador += 2
-        # Revisar si el usuario gano o perdio
+        # Revisar si el usuario perdio
         if self.entrenadores[indice_jugador].nombre in self.perdedores:
             usuario_perdio = True
         else:
