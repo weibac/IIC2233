@@ -14,6 +14,7 @@ class LigaProgramon:
         pass
 
     def simular_ronda(self, indice_jugador, indice_programon):  # TODO: print numero ronda
+        self.ronda_actual += 1
         # Definir orden en el que luchan los entrenadores
         orden_luchar = []
         for a in range(len(self.entrenadores)):
