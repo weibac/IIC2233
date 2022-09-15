@@ -31,7 +31,7 @@ MIN_AUMENTO_ENTRENAMIENTO = 2  # TODO: REBALANCEAR
 MAX_AUMENTO_ENTRENAMIENTO = 5  # TODO: REBALANCEAR
 MIN_AUMENTO_EXPERIENCIA = 100  # TODO: REBALANCEAR
 MAX_AUMENTO_EXPERIENCIA = 100  # TODO: REBALANCEAR
-# TODO: Dicen por wsp que en una issue dicen que los aumentos 
+# TODO: Dicen por wsp que en una issue dicen que los aumentos
 # son distintos para cada atributo programon (ex.: ataque, defensa)
 
 # Megaevolución programones

@@ -82,7 +82,7 @@ class Entrenador:
             prob_exito = PROB_EXITO_CARAMELO
             gasto = GASTO_ENERGIA_CARAMELO
             objetos_posibles = self.caramelos_posibles
-        if gasto > self.energia: # TODO: segun wsp si no hay suficiente energia se gasta igual
+        if gasto > self.energia:  # TODO: segun wsp si no hay suficiente energia se gasta igual
             print(f'Crear un objeto {tipo} cuesta\
                   {gasto} de energia pero solo tienes {self.energia}')
         elif prob_exito > random():

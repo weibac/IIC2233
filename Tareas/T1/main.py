@@ -11,7 +11,7 @@ def setup():
     programones = cargar_archivo(RUTA_PROGRAMONES)
     evoluciones = cargar_archivo(RUTA_EVOLUCIONES)
     objetos = cargar_archivo(RUTA_OBJETOS)
-    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros 
+    DatosTuple = namedtuple('datos_archivos', ['entrens', 'progmnes', 'evols', 'objs'])  # TODO: Tal vez poner los nombres enteros
     datos = DatosTuple(entrenadores, programones, evoluciones, objetos)
 
     # Init liga
@@ -79,8 +79,8 @@ def menu_usar_obj(menu_programones, liga, ind_jug):
 
     ind_obj = menu_usar_obj.seleccionar_opcion() - 1
     ind_prog = menu_programones.seleccionar_opcion() - 1
-    objeto_select = liga.entrenadores[ind_jug].objetos[ind_obj]
-    objeto_select.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
+    objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
+    objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
 
 
 def menu_entrenador(menus, liga, ind_jug):
