@@ -16,7 +16,7 @@ class Recolector(Thread):
         self.energia = ENERGIA_RECOLECTOR
         self.oro = 0
         # Completar
-        super.__init__()
+        super().__init__()
         self.daemon = True
 
     def run(self) -> None:
@@ -37,7 +37,7 @@ class Recolector(Thread):
 
     def ingresar_oro(self) -> None:
         # Completar
-        self.centro_urbano += self.oro
+        self.centro_urbano.oro += self.oro
         self.oro = 0
         self.log('ha depositado su oro')
         self.log(f'hay {self.centro_urbano.oro} de oro en el centro urbano')
@@ -53,7 +53,7 @@ class Constructor(Thread):
         self.nombre = nombre
         self.centro_urbano = centro_urbano
         # Completar
-        super.__init__()
+        super().__init__()
         self.daemon = True
 
     def run(self) -> None:

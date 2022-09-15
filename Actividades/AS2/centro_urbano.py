@@ -6,16 +6,17 @@ from threading import Lock
 class CentroUrbano:
 
     def __init__(self) -> None:
-        self.oro = ORO_INICIAL
-        self.chozas = 0
         # Completar
         self.lock_oro = Lock()
         self.lock_chozas = Lock()
+        # Tuve que bajarlos para que iniciara bien
+        self.__oro = ORO_INICIAL
+        self.__chozas = 0
 
     @property
     def oro(self):
         with self.lock_oro:
-            return self.oro
+            return self.__oro
 
     @oro.setter
     def oro(self, value):
@@ -25,7 +26,7 @@ class CentroUrbano:
     @property
     def chozas(self):
         with self.lock_chozas:
-            return self.chozas
+            return self.__chozas
 
     @chozas.setter
     def chozas(self, value):
