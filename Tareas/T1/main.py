@@ -48,7 +48,7 @@ def setup():
     return liga, menus, indice_jugador
 
 
-def salir():
+def salir(): # TODO: Preguntar si segur@ salir
     exit('Gracias por jugar!')
 
 
@@ -56,6 +56,7 @@ def menu_fin(menu_fin):
     accion = menu_fin.seleccionar_opcion()
     if accion == 2:
         salir()
+
 
 def menu_entrenar(menu_programones, liga, ind_jug):
     if liga.entrenadores[ind_jug].energia < ENERGIA_ENTRENAMIENTO:  # TODO: segun wsp si no hay suficiente energ se gasta igual
@@ -88,7 +89,7 @@ def menu_objetos(menu_objetos, liga, indice_jugador):
     elif opcion == 4:
         pass
     elif opcion == 5:
-        pass
+        salir()
 
 
 def menu_usar_obj(menu_programones, liga, ind_jug):
@@ -98,10 +99,16 @@ def menu_usar_obj(menu_programones, liga, ind_jug):
     opciones_menu_usar_obj += OPCIONES_MENU_BASE
     menu_usar_obj = Menu(HEADER_MENU_USAR_OBJ, opciones_menu_usar_obj)
 
-    ind_obj = menu_usar_obj.seleccionar_opcion() - 1
-    ind_prog = menu_programones.seleccionar_opcion() - 1
-    objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
-    objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
+    opcion = menu_usar_obj.seleccionar_opcion() - 1
+    if opcion == len(opciones_menu_usar_obj) - 2:
+        pass
+    elif opcion == len(opciones_menu_usar_obj) - 1:
+        salir()
+    else:
+        ind_prop = opcion - 1
+        ind_prog = menu_programones.seleccionar_opcion() - 1
+        objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
+        objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
 
 
 def menu_entrenador(menus, liga, indice_jugador):
@@ -121,14 +128,15 @@ def menu_entrenador(menus, liga, indice_jugador):
     elif accion == 7:
         pass
     elif accion == 8:
-        pass
+        salir()
 
 
 def main():
     print('\nBienvenid@ al DCCampeonato Programon!\n')
     liga, menus, indice_jugador = setup()
     # Idea para el flujo: menu_entrenador función recursiva con caso base hay un campeón y lo retorna
-    menu_entrenador(menus, liga, indice_jugador)
+    while liga.ronda_actual < 4:
+        menu_entrenador(menus, liga, indice_jugador)
 
 
 if __name__ == '__main__':
