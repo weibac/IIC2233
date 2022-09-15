@@ -73,10 +73,13 @@ def menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj): # TODO: Volver 
     if opcion == 'volver':
         pass
     else:
+        # Usar objeto
         ind_prog = opcion
         objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
         objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
         liga.entrenadores[ind_jug].objetos.remove(objeto_seleccionado)
+        print('')
+
 
 def menu_usar_obj(menu_programones, liga, ind_jug):
     # Construir menu lista objetos
@@ -117,7 +120,6 @@ def menu_entrenador(menus, liga, indice_jugador):
 
 
 def menu_inicio(menus, liga):
-
     # Jugador selecciona su entrenador
     opcion = menus[0].seleccionar_opcion()
     if opcion == len(menus[0].opciones):
@@ -138,6 +140,7 @@ def menu_inicio(menus, liga):
     menus = MenusTuple(*menus, menu_programones)
 
     menu_entrenador(menus, liga, indice_jugador)
+
 
 def cargar_datos():
     # Cargar archivos a base datos (named tuple)
@@ -166,7 +169,6 @@ def menus_fijos(liga):
 
     # Empaquetar menus
     menus = (menu_inicio, menu_fin, menu_entrenador, menu_objetos)
-
     return menus
 
 
@@ -176,7 +178,7 @@ def main():
     liga = LigaProgramon(datos)
     while liga.ronda_actual < 4:
         # TODO: La liga se reinicia cada vez que se llega al menu incio
-        #liga = LigaProgramon(datos)
+        # liga = LigaProgramon(datos)
         menus = menus_fijos(liga)
         menu_inicio(menus, liga)
 
