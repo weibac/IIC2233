@@ -1,20 +1,28 @@
 from entrenadores import Entrenador
 from random import randint, shuffle
-from math import log2
 
 
 class LigaProgramon:
     def __init__(self, datos) -> None:
         self.entrenadores = [Entrenador(datos, **datos.entrens[nom]) for nom in datos.entrens]
         self.perdedores = []
-        self.ronda_actual = 0
+        self.ronda_actual = 1
         self.campeon = None
 
-    def resumen_campeonato(self):  # TODO
-        pass
+    def resumen_campeonato(self):
+        participantes = []
+        participando = []
+        for entrenador in self.entrenadores:
+            if entrenador.nombre not in self.perdedores:
+                participando.append(entrenador.nombre)
+            participantes.append(entrenador.nombre)
+        print('Resumen campeonato:')
+        print(f'Participantes: {", ".join(participantes)}')
+        print(f'Ronda actual: {self.ronda_actual}')
+        print(f'Siguen compitiendo: {", ".join(participando)}')
+        print()
 
     def simular_ronda(self, indice_jugador, indice_programon):  # TODO: print numero ronda
-        self.ronda_actual += 1
         # Definir orden en el que luchan los entrenadores
         orden_luchar = []
         for a in range(len(self.entrenadores)):
@@ -62,4 +70,5 @@ class LigaProgramon:
             usuario_perdio = True
         else:
             usuario_perdio = False
+        self.ronda_actual += 1
         return usuario_perdio

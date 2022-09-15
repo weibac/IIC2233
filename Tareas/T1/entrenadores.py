@@ -68,6 +68,7 @@ class Entrenador:
             print(f'La energía bajó de {energia_antigua} a {self.__energia}')
 
     def estado_entrenador(self):
+        # Parametros en f strings
         str_objetos = ', '.join([objeto.nombre for objeto in self.objetos])
         tabla_programones = BeautifulTable()
         for programon in self.programones:
@@ -78,6 +79,7 @@ class Entrenador:
             linea_tabla.append(programon.vida)
             tabla_programones.rows.append(linea_tabla)
         tabla_programones.columns.header = ['Nombre', 'Tipo', 'Nivel', 'Vida']
+        # Prints
         print('\nEstado entrenador:')
         print(f'Nombre: {self.nombre}')
         print(f'Energía: {self.energia}')

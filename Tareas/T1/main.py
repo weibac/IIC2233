@@ -124,6 +124,7 @@ def menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj): # TODO: Volver 
 
 def menu_objetos(menu_objetos, liga, indice_jugador):
     opcion = menu_objetos.seleccionar_opcion()
+    print('')
     if opcion == 1:
         liga.entrenadores[indice_jugador].crear_objeto('baya')
     elif opcion == 2:
