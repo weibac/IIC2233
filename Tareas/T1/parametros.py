@@ -7,7 +7,7 @@ RUTA_OBJETOS = ('datos', 'objetos.csv')
 # Menus
 OPCIONES_MENU_BASE = ['Volver', 'Salir']
 HEADER_MENU_ENTRENADOR = 'Menú entrenador'
-OPCIONES_MENU_ENTRENADOR = ['Entrenamiento', 'Simular ronda', 'Resumen campeonato',
+OPCIONES_MENU_ENTRENADOR = ['Entrenar programon', 'Simular ronda', 'Resumen campeonato',
                             'Crear objeto', 'Utilizar objeto', 'Estado entrenador',
                             'Volver', 'Salir']
 HEADER_MENU_OBJETOS = 'Menú objetos'
@@ -26,10 +26,13 @@ MIN_NIVEL = 1
 MAX_NIVEL = 100
 MIN_EXPERIENCIA = 0
 MAX_EXPERIENCIA = 100
+ENERGIA_ENTRENAMIENTO = 20
 MIN_AUMENTO_ENTRENAMIENTO = 2  # TODO: REBALANCEAR
 MAX_AUMENTO_ENTRENAMIENTO = 5  # TODO: REBALANCEAR
-MIN_AUMENTO_EXPERIENCIA = 50  # TODO: REBALANCEAR
-MAX_AUMENTO_EXPERIENCIA = 80  # TODO: REBALANCEAR
+MIN_AUMENTO_EXPERIENCIA = 100  # TODO: REBALANCEAR
+MAX_AUMENTO_EXPERIENCIA = 100  # TODO: REBALANCEAR
+# TODO: Dicen por wsp que en una issue dicen que los aumentos 
+# son distintos para cada atributo programon (ex.: ataque, defensa)
 
 # Megaevolución programones
 MEGA_VIDA = 52
