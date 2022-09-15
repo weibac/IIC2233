@@ -1,3 +1,4 @@
+from copyreg import constructor
 from centro_urbano import CentroUrbano
 from time import sleep
 from trabajadores import Recolector, Constructor
@@ -26,7 +27,19 @@ class Simulacion:
 
     def nuevo_dia(self) -> None:
         # Completar
-        pass
+        recolector_1 = Recolector('Juan', self.centro_urbano)
+        recolector_2 = Recolector('José', self.centro_urbano)
+        constructor_1 = Constructor('Pedro', self.centro_urbano)
+        constructor_2 = Constructor('Pablo', self.centro_urbano)
+        recolector_1.start()
+        recolector_2.start()
+        constructor_1.start()
+        constructor_2.start()
+        recolector_1.join()
+        recolector_2.join()
+        constructor_1.join()
+        constructor_2.join()
+        print('Ha terminado el día y...')
 
     def nueva_noche(self) -> None:
         print("\n¡Ha comenzado la noche!\n")
