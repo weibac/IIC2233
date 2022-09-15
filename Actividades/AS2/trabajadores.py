@@ -34,13 +34,16 @@ class Recolector(Thread):
         self.log(f'ha recolectado {ORO_RECOLECTADO} monedas de oro')
         self.energia -= 1
         sleep(TIEMPO_RECOLECCION)
+        self.log(f'ha terminado su trabajo de recolección')
 
     def ingresar_oro(self) -> None:
         # Completar
+        self.centro_urbano.lock_oro.acquire()
         self.centro_urbano.oro += self.oro
         self.oro = 0
         self.log('ha depositado su oro')
-        self.log(f'hay {self.centro_urbano.oro} de oro en el centro urbano')
+        self.log(f'ahora hay {self.centro_urbano.oro} de oro en el centro urbano')
+        self.centro_urbano.lock_oro.release()
 
     def dormir(self) -> None:
         self.log("ha terminado su turno, procede a mimir")
@@ -58,9 +61,11 @@ class Constructor(Thread):
 
     def run(self) -> None:
         while self.retirar_oro():
+            self.centro_urbano.lock_chozas.acquire()
             self.log("está construyendo una choza de bárbaros")
             sleep(TIEMPO_CONSTRUCCION)
             self.construir_choza()
+            self.centro_urbano.lock_chozas.release()
         self.log("terminó su trabajo por el día")
 
     def log(self, mensage: str) -> None:
@@ -68,15 +73,18 @@ class Constructor(Thread):
 
     def retirar_oro(self) -> bool:
         # Completar
+        self.centro_urbano.lock_chozas.acquire()
         if self.centro_urbano.oro >= ORO_CHOZA:
             self.centro_urbano.oro -= ORO_CHOZA
             self.log(f'ha retirado {ORO_CHOZA} de oro y ahora queda {self.centro_urbano.oro}')
+            self.centro_urbano.lock_chozas.release()
             return True
         else:
             self.log(f'los {self.centro_urbano.oro} de oro disponibles no son suficientes')
+            self.centro_urbano.lock_chozas.release()
             return False
 
     def construir_choza(self) -> None:
         # Completar
         self.centro_urbano.chozas += 1
-        print(f'ha construido una choza. Ahora hay {self.centro_urbano.chozas}')
+        self.log(f'ha construido una choza. Ahora hay {self.centro_urbano.chozas} chozas')
