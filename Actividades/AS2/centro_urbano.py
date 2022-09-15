@@ -9,29 +9,27 @@ class CentroUrbano:
         self.oro = ORO_INICIAL
         self.chozas = 0
         # Completar
-
-    lock_oro = Lock()
+        self.lock_oro = Lock()
+        self.lock_chozas = Lock()
 
     @property
-    def oro(self, lock_oro):
-        with lock_oro:
+    def oro(self):
+        with self.lock_oro:
             return self.oro
 
     @oro.setter
-    def oro(self, value, lock_oro):
-        with lock_oro:
+    def oro(self, value):
+        with self.lock_oro:
             self.oro = value
 
-    lock_chozas = Lock()
-
     @property
-    def chozas(self, lock_chozas):
-        with lock_chozas:
+    def chozas(self):
+        with self.lock_chozas:
             return self.chozas
 
     @chozas.setter
-    def chozas(self, value, lock_chozas):
-        with lock_chozas:
+    def chozas(self, value):
+        with self.lock_chozas:
             self.chozas = value
 
     @property
