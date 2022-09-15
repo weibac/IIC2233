@@ -50,23 +50,35 @@ def menu_objetos(menu_objetos, liga, indice_jugador):
         salir()
 
 
+def menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj): # TODO: Volver solo un paso atrás
+    opcion = menu_programones.seleccionar_opcion() - 1
+    if opcion == len(menu_programones.opciones) - 2:
+        pass
+    elif opcion == len(menu_programones.opciones) - 1:
+        salir()
+    else:
+        ind_prog = opcion
+        objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
+        objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
+
+
 def menu_usar_obj(menu_programones, liga, ind_jug):
+    # Construir menu lista objetos
     opciones_menu_usar_obj = []
     for objeto in liga.entrenadores[ind_jug].objetos:
         opciones_menu_usar_obj.append(objeto.nombre.capitalize())
     opciones_menu_usar_obj += OPCIONES_MENU_BASE
     menu_usar_obj = Menu(HEADER_MENU_USAR_OBJ, opciones_menu_usar_obj)
-
+    # Usuario selecciona un objeto, volver o salir
     opcion = menu_usar_obj.seleccionar_opcion() - 1
     if opcion == len(opciones_menu_usar_obj) - 2:
         pass
     elif opcion == len(opciones_menu_usar_obj) - 1:
         salir()
     else:
-        ind_prop = opcion - 1
-        ind_prog = menu_programones.seleccionar_opcion() - 1
-        objeto_seleccionado = liga.entrenadores[ind_jug].objetos[ind_obj]
-        objeto_seleccionado.aplicar(liga.entrenadores[ind_jug].programones[ind_prog])
+        # Usuario selecciona un programon, volver o salir
+        ind_obj = opcion - 1
+        menu_sel_prog_obj(menu_programones, liga, ind_jug, ind_obj)
 
 
 def menu_entrenador(menus, liga, indice_jugador):
@@ -109,6 +121,7 @@ def setup():
         nombres_programones = [programon.nombre for programon in entrenador.programones]
         opcion = f'{entrenador.nombre}: {", ".join(nombres_programones)}'
         opciones_menu_inicio.append(opcion)
+    opciones_menu_inicio.append('Salir')
     menu_inicio = Menu(HEADER_MENU_INICIO, opciones_menu_inicio)
 
     menu_fin = Menu(HEADER_MENU_FIN_PARTIDA, OPCIONES_MENU_FIN_PARTIDA)
@@ -123,8 +136,12 @@ def setup():
 
 def menu_inicio(menus, liga):
     # Jugador selecciona su entrenador
-    indice_jugador = menus[0].seleccionar_opcion() - 1
-    print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}\n')
+    opcion = menus[0].seleccionar_opcion()
+    if opcion == len(menus[0].opciones):
+        salir()
+    else:
+        indice_jugador = opcion - 1
+        print(f'Has seleccionado a: {liga.entrenadores[indice_jugador].nombre}\n')
 
     # Crear y empaquetar menu fijo dependiente de entrenador jugador (menu_programones)
     opciones_menu_programones = []
