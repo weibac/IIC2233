@@ -23,7 +23,7 @@ class DCCubitos(QApplication):
         self.pelota = Pelota()
         self.logica_inicio = LogicaInicio()
         self.logica_juego = LogicaJuego(self.plataforma, self.pelota)
-        
+
         # Conectar Señales
         self.conectar_inicio()
         self.conectar_juego()
@@ -31,11 +31,23 @@ class DCCubitos(QApplication):
 
     def conectar_inicio(self):
         # COMPLETAR
-        pass
+        self.ventana_inicio.senal_enviar_login.connect(
+            self.logica_inicio.comprobar_usuario)
+
+        self.logica_inicio.senal_respuesta_validacion.connect(
+            self.ventana_inicio.recibir_validacion)
+        self.logica_inicio.senal_abrir_juego.connect(
+            self.ventana_juego.mostrar_ventana)
 
     def conectar_juego(self):
         # COMPLETAR
+        self.ventana_juego.senal_iniciar_juego.connect(
+            self.logica_juego.iniciar)
+        self.ventana_juego.senal_tecla.connect(
+            self.logica_juego.mover_plataforma)
 
+        self.logica_juego.senal_mover_plataforma.connect(
+            self.ventana_juego.mover_plataforma)
 
         # Señales ya conectadas: no modificar
         self.logica_juego.senal_cargar_datos_iniciales.connect(
@@ -46,7 +58,7 @@ class DCCubitos(QApplication):
 
         self.logica_juego.senal_enviar_datos.connect(
             self.ventana_juego.actualizar_datos)
-        
+
         self.logica_juego.senal_eliminar_bloque.connect(
             self.ventana_juego.eliminar_bloque)
 
@@ -61,7 +73,7 @@ class DCCubitos(QApplication):
 
         self.logica_juego.senal_terminar_juego.connect(
             self.ventana_postjuego.abrir)
-        
+
     def conectar_postjuego(self):
         self.ventana_postjuego.senal_abrir_inicio.connect(
             self.ventana_inicio.show)

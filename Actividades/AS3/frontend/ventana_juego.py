@@ -89,9 +89,10 @@ class VentanaJuego(window_name, base_class):
 
     def mostrar_ventana(self, usuario):
         # COMPLETAR
-        pass
+        self.show()
+        self.senal_iniciar_juego.emit(usuario)
 
     def keyPressEvent(self, event):
         # COMPLETAR
-        pass
-
+        tecla = event.text().lower()
+        self.senal_tecla.emit(tecla)

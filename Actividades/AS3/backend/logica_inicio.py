@@ -13,4 +13,13 @@ class LogicaInicio(QObject):
 
     def comprobar_usuario(self, usuario, contrasena):
         # COMPLETAR
-        pass
+        set_respuesta = set()
+        valido = False
+        if not usuario.isalnum():
+            set_respuesta.add('usuario')
+        if contrasena in p.CONTRASENAS_PROHIBIDAS:
+            set_respuesta.add('contraseña')
+        if set_respuesta == set():
+            valido = True
+            self.senal_abrir_juego.emit(usuario)
+        self.senal_respuesta_validacion.emit(valido, set_respuesta)

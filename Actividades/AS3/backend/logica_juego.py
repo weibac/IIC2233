@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSignal, QTimer, QEventLoop
 
-from backend.elementos_juego import Bloque
+from backend.elementos_juego import Bloque, Plataforma
 import parametros as p
 
 
@@ -60,7 +60,15 @@ class LogicaJuego(QObject):
 
     def configurar_timers(self):
         # COMPLETAR
-        pass
+        self.timer_juego.setInterval(p.TIEMPO_JUEGO)
+        self.timer_juego.timeout.connect(self.terminar_juego)
+        self.timer_juego.setSingleShot(True)
+
+        self.timer_actualizar_juego.setInterval(p.ACTUALIZAR_JUEGO)
+        self.timer_actualizar_juego.timeout.connect(self.actualizar_juego)
+
+        self.timer_pelota.setInterval(p.ACTUALIZAR_PELOTA)
+        self.timer_pelota.timeout.connect(self.mover_pelota)
 
     def iniciar(self, usuario):
         self.timer_juego.start()
@@ -75,7 +83,11 @@ class LogicaJuego(QObject):
 
     def mover_plataforma(self, tecla: str):
         # COMPLETAR
-        pass
+        if tecla in {p.TECLA_IZQUIERDA, p.TECLA_DERECHA}:
+            nuevas_coords = self.plataforma.mover(tecla)
+            self.senal_mover_plataforma.emit(nuevas_coords)
+        elif tecla == p.TECLA_CHEATCODE_KO:
+            self.cheatcode()
 
     def mover_pelota(self):
         nueva_pos = self.pelota.mover()
@@ -147,7 +159,7 @@ class LogicaJuego(QObject):
             'Tiempo': str(p.TIEMPO_JUEGO)
         })
 
-    def cheatcode(self):
+    def cheatcode(self):  # Feo hacer trampa :(
         for bloque in self.bloques:
             if bloque.activo:
                 bloque.activo = False
