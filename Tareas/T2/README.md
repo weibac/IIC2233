@@ -1,4 +1,4 @@
-# Tarea X: Nombre de la tarea :school_satchel:
+# Tarea 2: DCCruz vs Zombies :zombie::seedling::sunflower:
 
 
 Un buen ```README.md``` puede marcar una gran diferencia en la facilidad con la que corregimos una tarea, y consecuentemente cómo funciona su programa, por lo en general, entre más ordenado y limpio sea éste, mejor será 
@@ -17,14 +17,38 @@ en cierta línea del código o comentar una función>
 
 ### Cosas implementadas y no implementadas :white_check_mark: :x:
 
-* <Nombre item pauta<sub>1</sub>>: Hecha completa
-* <Nombre item pauta<sub>2</sub>>: Me faltó hacer <insertar qué cosa faltó>
-    * <Nombre subitem pauta<sub>2.1</sub>>: Hecha completa 
-    * <Nombre subitem pauta<sub>2.2</sub>>: Me faltó hacer <insertar qué cosa faltó>
-    * ...
-* <Nombre item pauta<sub>3</sub>>: Me faltó hacer <insertar qué cosa faltó>
-* ...
-* <Nombre item pauta<sub>n</sub>>: Me faltó hacer <insertar qué cosa faltó>
+Explicación: mantén el emoji correspondiente, de manera honesta, para cada item. Si quieres, también puedes agregarlos a los títulos:
+- ❌ si **NO** completaste lo pedido
+- ✅ si completaste **correctamente** lo pedido
+- 🟠 si el item está **incompleto** o tiene algunos errores
+#### Ventanas: 39 pts (40%)
+##### ❌✅🟠 Ventana de Inicio
+##### ❌✅🟠 Ventana de Ranking	
+##### ❌✅🟠 Ventana principal
+##### ❌✅🟠 Ventana de juego	
+##### ❌✅🟠 Ventana post-ronda
+#### Mecánicas de juego: 46 pts (47%)			
+##### ❌✅🟠 Plantas
+##### ❌✅🟠 Zombies
+##### ❌✅🟠 Escenarios		
+##### ❌✅🟠 Fin de ronda	
+##### ❌✅🟠 Fin de juego	
+#### Interacción con el usuario: 22 pts (23%)
+##### ❌✅🟠 Clicks	
+##### ❌✅🟠 Animaciones
+#### Cheatcodes: 8 pts (8%)
+##### ❌✅🟠 Pausa
+##### ❌✅🟠 S + U + N
+##### ❌✅🟠 K + I + L
+#### Archivos: 4 pts (4%)
+##### ❌✅🟠 Sprites
+##### ❌✅🟠 Parametros.py
+##### ❌✅🟠 K + I + L
+#### Bonus: 9 décimas máximo
+##### ❌✅🟠 Crazy Cruz Dinámico
+##### ❌✅🟠 Pala
+##### ❌✅🟠 Drag and Drop Tienda
+##### ❌✅🟠 Música juego
 
 ## Ejecución :computer:
 El módulo principal de la tarea a ejecutar es  ```archivo.py```. Además se debe crear los siguientes archivos y directorios adicionales:
@@ -95,4 +119,4 @@ Para realizar mi tarea saqué código de:
 
 
 ## Descuentos
-La guía de descuentos se encuentra [link](https://github.com/IIC2233/syllabus/blob/master/Tareas/Descuentos.md).
+La guía de descuentos se encuentra [link](https://github.com/IIC2233/Syllabus/blob/master/Tareas/Descuentos.md).
