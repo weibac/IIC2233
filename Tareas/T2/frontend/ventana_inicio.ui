@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ventana_menu</class>
- <widget class="QWidget" name="ventana_menu">
+ <class>ventana_inicio</class>
+ <widget class="QWidget" name="ventana_inicio">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>465</height>
+    <width>650</width>
+    <height>450</height>
    </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -18,8 +21,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>638</width>
-     <height>485</height>
+     <width>650</width>
+     <height>450</height>
     </rect>
    </property>
    <property name="text">
@@ -37,7 +40,7 @@
     <rect>
      <x>0</x>
      <y>35</y>
-     <width>641</width>
+     <width>651</width>
      <height>381</height>
     </rect>
    </property>
@@ -132,6 +135,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="boton_jugar">
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>Jugar</string>
         </property>
@@ -169,6 +175,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="boton_ranking">
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>Ranking</string>
         </property>
@@ -206,6 +215,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="boton_salir">
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>Salir</string>
         </property>
