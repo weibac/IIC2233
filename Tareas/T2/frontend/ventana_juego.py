@@ -13,6 +13,12 @@ class VentanaJuego(window_name, base_class):
         super().__init__()
         self.setupUi(self)
 
-    # Recibe señal
-    def poner_fondo(self):
-        pass
+    def mostrar_ventana(self, nombre, escenario):
+        self.nombre = nombre
+        # Poner fondo escenario
+        if escenario == 'abuela':
+            pixeles_fondo_escenario = QPixmap(p.RUTA_FONDO_DIA)
+        elif escenario == 'nocturna':
+            pixeles_fondo_escenario = QPixmap(p.RUTA_FONDO_NOCHE)
+        self.fondo_escenario.setPixmap(pixeles_fondo_escenario)
+        self.show()
