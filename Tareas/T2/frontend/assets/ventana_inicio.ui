@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Ventana de inicio</string>
   </property>
   <widget class="QLabel" name="fondo">
    <property name="geometry">
@@ -29,7 +29,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../sprites/Fondos/fondoMenu.png</pixmap>
+    <pixmap>../../sprites/Fondos/fondoMenu.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -66,7 +66,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../sprites/Elementos de juego/logo.png</pixmap>
+         <pixmap>../../sprites/Elementos de juego/logo.png</pixmap>
         </property>
        </widget>
       </item>

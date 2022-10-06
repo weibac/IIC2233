@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Ventana de juego</string>
   </property>
   <widget class="QLabel" name="fondo_escenario">
    <property name="geometry">
