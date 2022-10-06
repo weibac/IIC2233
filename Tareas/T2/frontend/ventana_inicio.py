@@ -37,5 +37,5 @@ class VentanaInicio(window_name, base_class):
             self.line_edit_username.setPlaceholderText(msg_error)
         elif error == 'alfanum':
             self.line_edit_username.setText('')
-            msg_error = 'el nombre puede ocntener solo letras y numeros'
+            msg_error = 'el nombre puede contener solo letras y numeros'
             self.line_edit_username.setPlaceholderText(msg_error)
