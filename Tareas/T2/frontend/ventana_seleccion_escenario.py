@@ -3,12 +3,12 @@ from PyQt5 import uic
 
 import parametros as p
 
-window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_SELECCION_ESCENARIO)
+window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_SEL_ESCENARIO)
 
 
 class VentanaSeleccionEscenario(window_name, base_class):
 
-    senal_enviar_escenario = pyqtSignal(str, str)
+    senal_iniciar_juego = pyqtSignal(str, str)
 
     def __init__(self):
         super().__init__()
@@ -24,7 +24,7 @@ class VentanaSeleccionEscenario(window_name, base_class):
             escenario = 'abuela'
         elif self.boton_salida_nocturna.isChecked():
             escenario = 'nocturna'
-        self.senal_enviar_escenario.emit(self.nombre, escenario)
+        self.senal_iniciar_juego.emit(self.nombre, escenario)
         self.hide()
 
     def mostrar_ventana(self, nombre):
