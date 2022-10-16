@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QLabel
-from PyQt5.QtCore import pyqtSignal, QMimeData
-from PyQt5.QtGui import QPixmap, QDrag
+from PyQt5.QtWidgets import QWidget, QLabel, QButtonGroup
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 
 import parametros as p
@@ -32,6 +32,16 @@ class VentanaJuego(window_name, base_class):
         self.labels_papas = {}
         self.labels_zombies = {}
 
+        # Tienda
+        self.botones_tienda = QButtonGroup(self)
+        self.botones_tienda.addButton(self.boton_girasol)
+        self.botones_tienda.addButton(self.boton_lanzag)
+        self.botones_tienda.addButton(self.boton_lanzag_h)
+        self.botones_tienda.addButton(self.boton_girasol)
+        
+
+        self.quiere_comprar = None
+
     def mostrar_ventana(self, nombre, escenario):
         # Poner fondo escenario
         if escenario == 'abuela':
@@ -39,19 +49,6 @@ class VentanaJuego(window_name, base_class):
         elif escenario == 'nocturna':
             pixeles_fondo_escenario = QPixmap(p.RUTA_FONDO_NOCHE)
         self.fondo_escenario.setPixmap(pixeles_fondo_escenario)
-        # Inicializar botones drag & Drop plantas
-        self.drag_girasol = DragDropPlanta(self)
-        self.drag_girasol.setPixmap(self.assets_girasoles[1])
-        self.drag_girasol.setGeometry(10, 20, 80, 80)
-        self.drag_lanzag = DragDropPlanta(self)
-        self.drag_lanzag.setPixmap(self.assets_lanzag[1])
-        self.drag_lanzag.setGeometry(10, 130, 80, 80)
-        self.drag_lanzag_hielo = DragDropPlanta(self)
-        self.drag_lanzag_hielo.setPixmap(self.assets_lanzag_h[1])
-        self.drag_lanzag_hielo.setGeometry(10, 240, 80, 80)
-        self.drag_papa = DragDropPlanta(self)
-        self.drag_papa.setPixmap(self.assets_papas[1])
-        self.drag_papa.setGeometry(10, 350, 80, 80)
         self.show()
 
     def crear_zombie_label(self, id: int, apariencia: tuple, posicion: tuple):
@@ -66,17 +63,6 @@ class VentanaJuego(window_name, base_class):
         self.labels_zombies[id].setPixmap(self.assets_zombies[apariencia])
         self.labels_zombies[id].move(*posicion)
         print(f'zombie {id} movido a {posicion}')
-
-
-class DragDropPlanta(QLabel):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setScaledContents(True)
-
-    def mouseMoveEvent(self, ev) -> None:
-        mime_data = QMimeData()
-        drag = QDrag(self)
-        drag.setMimeData(mime_data)
-        drag.setHotSpot(ev.pos())
-        # drag.exec_(Qt.MoveAction)
+    
+    def mousePressEvent(self, event):
+        if event.x 
