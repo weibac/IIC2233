@@ -11,24 +11,51 @@ class MetaClass(type(ABC), type(QObject)):
 
 
 class Planta(ABC, QObject, metaclass=MetaClass):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
-        self._x = x
-        self._y = y
 
 
-class Lanzaguizantes(Planta):
+class Girasol(Planta):
 
     id = 0
 
-    def __init__(self, x, y, tipo):
-        super().__init__(x, y)
-        self.id = Lanzaguizantes.id
-        Lanzaguizantes.id += 1
-        self.tipo = tipo
+    def __init__(self):
+        super().__init__()
+        self.id = Girasol.id
+        Girasol.id += 1
+
+
+class Lanzaguisantes(Planta):
+
+    id = 0
+
+    def __init__(self):
+        super().__init__()
+        self.id = Lanzaguisantes.id
+        Lanzaguisantes.id += 1
         self.estado = 'Rep'  # de reposo tmb puede ser Dis de disparando
-        self.timer_disparo = QTimer(self, id)
+        self.timer_disparo = QTimer(self)
         self.timer_disparo.setInterval(p.INTERVALO_DISPARO)
+
+
+class LanzaguisantesH(Lanzaguisantes):
+
+    id = 0
+
+    def __init__(self):
+        super().__init__()
+        self.id = LanzaguisantesH.id
+        LanzaguisantesH.id += 1
+
+
+class Papa(Planta):
+
+    id = 0
+
+    def __init__(self):
+        super().__init__()
+        self.id = Papa.id
+        Papa.id += 1
 
 
 class Proyectil(QObject):

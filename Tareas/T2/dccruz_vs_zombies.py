@@ -46,6 +46,12 @@ class DccCruzVsZombies(QApplication):
         self.logica_juego.senal_actualizar_sprite_zombie.connect(
             self.ventana_juego.actualizar_zombie_label)
 
+        # Señales de funcionamiento
+        self.ventana_juego.senal_quiere_planta.connect(
+            self.logica_juego.revisar_comprar_planta)
+        self.logica_juego.senal_respuesta_compra_planta.connect(
+            self.ventana_juego.crear_planta_label)
+
     def iniciar(self):
         # self.ventana_test.show()
         self.ventana_inicio.show()

@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal, QTimer
 
-from backend.elementos_juego import Lanzaguizantes, Zombie, Proyectil, Planta
+from backend.elementos_juego import Girasol, Lanzaguisantes, LanzaguisantesH, Papa, Zombie, \
+ Proyectil
 from aparicion_zombies import intervalo_aparicion
 import parametros as p
 
@@ -9,16 +10,23 @@ class LogicaJuego(QObject):
 
     senal_crear_sprite_zombie = pyqtSignal(int, tuple, tuple)
     senal_actualizar_sprite_zombie = pyqtSignal(int, tuple, tuple)
+    senal_respuesta_compra_planta = pyqtSignal(str, int, int, int)
 
     def __init__(self):
         super().__init__()
 
         self.ronda = 0
+        self.soles = 200  # TEST
+
+        self.casillas = [['' for _ in range(10)] for _ in range(2)]
 
         # Dicts elementos
-        self.plantas = {}
-        self.lanzaguisantes = {}
+        self.girasoles = {}
+        self.lanzags = {}
+        self.lanzags_h = {}
+        self.papas = {}
         self.proyectiles = {}
+        self.proyectiles_h = {}
         self.zombies = {}
 
         # Timers
@@ -49,16 +57,42 @@ class LogicaJuego(QObject):
         apariencia, ubicacion = self.datos_sprite_zombie(zombie.id)
         self.senal_crear_sprite_zombie.emit(zombie.id, apariencia, ubicacion)
 
-    def crear_lanzaguisante(self):
-        lanzag = Lanzaguizantes()
-        lanzag.timer_disparo.timeout.connect(self.disparo)
-        self.lanzaguisantes[lanzag.id] = lanzag
-        self.lanzaguisantes[lanzag.id].timer_disparo.start()
-
+    def revisar_comprar_planta(self, planta, x_casilla, y_casilla):
+        if planta == 'girasol':
+            costo = p.COSTO_GIRASOL
+        elif planta == 'lanzag':
+            costo = p.COSTO_LANZAGUISANTE
+        elif planta == 'lanzag_h':
+            costo = p.COSTO_LANZAGUISANTE_HIELO
+        elif planta == 'papa':
+            costo = p.COSTO_PAPA
+        if self.casillas[y_casilla][x_casilla] != '':
+            self.senal_respuesta_compra_planta.emit('casilla ocupada', 0, 0, 0)
+        elif costo > self.soles:
+            self.senal_respuesta_compra_planta.emit('soles insuficientes', 0, 0, 0)
+        else:
+            if planta == 'girasol':
+                girasol = Girasol()
+                id = girasol.id
+                self.girasoles[id] = girasol
+            elif planta == 'lanzag':
+                lanzag = Lanzaguisantes()
+                id = lanzag.id
+                self.lanzags[id] = lanzag
+            elif planta == 'lanzag_h':
+                lanzag_h = LanzaguisantesH()
+                id = lanzag_h.id
+                self.lanzags_h[id] = lanzag_h
+            elif planta == 'papa':
+                papa = Papa()
+                id = papa.id
+                self.papas[id] = papa
+            self.casillas[y_casilla][x_casilla] = (planta, id)
+            self.soles -= costo
+            self.senal_respuesta_compra_planta.emit(planta, id, x_casilla, y_casilla)
 
     def disparo(id):
         pass
-
 
     def pausar(self):
         # Parar todos los timers
@@ -74,7 +108,6 @@ class LogicaJuego(QObject):
             self.correr_zombie(id)
 
     def correr_zombie(self, id):
-        print('zombie corriendo')
         if self.zombies[id].estado == 'Cam':
             self.zombies[id].x -= self.zombies[id].paso
             self.zombies[id].frame_caminar = (self.zombies[id].frame_caminar + 1) % 2

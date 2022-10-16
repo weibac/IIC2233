@@ -7,6 +7,9 @@ ANCHO_PANTALLA_JUEGO = 900
 ANCHO_ZOMBIE = 40
 ALTO_ZOMBIE = 100
 
+ANCHO_PLANTA = 30
+ALTO_PLANTA= 75
+
 # Tiempo maestro (ms)
 TICK = 20
 # Los intervalos están en milisegundos
