@@ -31,19 +31,20 @@ class LogicaJuego(QObject):
         self.zombies = {}
 
         # Timers
-        # self.timer_creacion_zombie = QTimer()
-        # self.timer_creacion_zombie.setInterval()
+        self.timers_lanzag = {}
+        self.timers_lanzag_h = {}
+        self.timer_creacion_zombie = QTimer()
         # self.timer_creacion_sol = QTimer()
         # self.timer_creacion_sol.setInterval()
 
         self.timer_actualizar = QTimer()
         self.timer_actualizar.setInterval(p.TICK)
         self.timer_actualizar.timeout.connect(self.actualizar_elementos)
-    
+
     @property
     def soles(self):
         return self._soles
-    
+
     @soles.setter
     def soles(self, value):
         self._soles = value
@@ -52,13 +53,23 @@ class LogicaJuego(QObject):
     def iniciar_juego(self, nombre, escenario):
         self.nombre = nombre
         self.escenario = escenario
+        if escenario == 'abuela':
+            self.ponderador = p.PONDERADOR_DIURNO
+        elif escenario == 'nocturna':
+            self.ponderador = p.PONDERADOR_NOCTURNO
+        self.nueva_ronda()
+
+    def nueva_ronda(self):
+        self.ronda += 1
         self.crear_zombie()
         self.crear_zombie()
-        self.comenzar_tiempo()  # TODO sacar esto solo para test
+        self.timer_creacion_zombie.setInterval(
+            int(intervalo_aparicion(self.ronda, self.ponderador)))
 
     def comenzar_tiempo(self):
         # Comenzar todos los timers
         # Incluyendo los de las entidades
+        
         self.timer_actualizar.start()
 
     def crear_zombie(self):
@@ -88,11 +99,19 @@ class LogicaJuego(QObject):
             elif planta == 'lanzag':
                 lanzag = Lanzaguisantes()
                 id = lanzag.id
+                timer = QTimer()
+                timer.setInterval(p.INTERVALO_DISPARO)
+                timer.start()
                 self.lanzags[id] = lanzag
+                self.timers_lanzag[id] = timer
             elif planta == 'lanzag_h':
                 lanzag_h = LanzaguisantesH()
                 id = lanzag_h.id
+                timer = QTimer()
+                timer.setInterval(p.INTERVALO_DISPARO)
+                timer.start()
                 self.lanzags_h[id] = lanzag_h
+                self.timers_lanzag_h[id] = timer
             elif planta == 'papa':
                 papa = Papa()
                 id = papa.id
@@ -105,8 +124,7 @@ class LogicaJuego(QObject):
         pass
 
     def pausar(self):
-        # Parar todos los timers
-        pass
+        self.timer_actualizar.stop()
 
     def actualizar_elementos(self):
         # self.correr_plantas

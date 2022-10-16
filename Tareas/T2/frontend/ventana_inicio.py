@@ -24,7 +24,7 @@ class VentanaInicio(window_name, base_class):
     def enviar_login(self):
         nombre = self.line_edit_username.text()
         self.senal_enviar_login.emit(nombre)
-    
+
     def abrir_ranking(self):
         self.senal_abrir_ranking.emit()
         self.hide()

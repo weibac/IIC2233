@@ -503,7 +503,7 @@ background-color: rgb(57, 150, 0);</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="boton_iniciar">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -539,7 +539,7 @@ background-color: rgb(57, 150, 0);</string>
      <string>Avanzar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="boton_pausa">
     <property name="geometry">
      <rect>
       <x>630</x>

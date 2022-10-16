@@ -34,8 +34,6 @@ class Lanzaguisantes(Planta):
         self.id = Lanzaguisantes.id
         Lanzaguisantes.id += 1
         self.estado = 'Rep'  # de reposo tmb puede ser Dis de disparando
-        self.timer_disparo = QTimer(self)
-        self.timer_disparo.setInterval(p.INTERVALO_DISPARO)
 
 
 class LanzaguisantesH(Lanzaguisantes):
@@ -116,7 +114,7 @@ class Zombie(QObject):
 
     @x.setter
     def x(self, value):
-        if value <= 100:
+        if value <= 245:
             # perder
             pass
         else:

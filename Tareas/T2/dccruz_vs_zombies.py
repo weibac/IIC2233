@@ -59,6 +59,10 @@ class DccCruzVsZombies(QApplication):
             self.ventana_juego.actualizar_soles)
 
         # Señales de funcionamiento
+        self.ventana_juego.senal_iniciar_ronda.connect(
+            self.logica_juego.comenzar_tiempo)
+        self.ventana_juego.senal_pausa.connect(
+            self.logica_juego.pausar)
         self.ventana_juego.senal_quiere_planta.connect(
             self.logica_juego.revisar_comprar_planta)
         self.logica_juego.senal_respuesta_compra_planta.connect(

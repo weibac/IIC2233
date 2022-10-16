@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QButtonGroup
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 
@@ -10,6 +10,8 @@ window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_JUEGO)
 
 class VentanaJuego(window_name, base_class):
 
+    senal_iniciar_ronda = pyqtSignal()
+    senal_pausa = pyqtSignal()
     senal_quiere_planta = pyqtSignal(str, int, int)
 
     def __init__(self):
@@ -37,6 +39,10 @@ class VentanaJuego(window_name, base_class):
         self.botones_tienda.addButton(self.boton_lanzag_h)
         self.botones_tienda.addButton(self.boton_girasol)
 
+        # Otros botones
+        self.boton_iniciar.clicked.connect(self.iniciar_ronda)
+        self.boton_pausa.clicked.connect(self.pausar)
+
         self.quiere_planta = None
 
     def mostrar_ventana(self, nombre, escenario):
@@ -47,6 +53,12 @@ class VentanaJuego(window_name, base_class):
             pixeles_fondo_escenario = QPixmap(p.RUTA_FONDO_NOCHE)
         self.fondo_escenario.setPixmap(pixeles_fondo_escenario)
         self.show()
+
+    def iniciar_ronda(self):
+        self.senal_iniciar_ronda.emit()
+    
+    def pausar(self):
+        self.senal_pausa.emit()
 
     def crear_planta_label(self, planta, id, x_casilla, y_casilla):
         p_label = QLabel(self)
