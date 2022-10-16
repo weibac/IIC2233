@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSignal, QTimer
 
-from backend.elementos_juego import Zombie, Proyectil, Planta
+from backend.elementos_juego import Lanzaguizantes, Zombie, Proyectil, Planta
 from aparicion_zombies import intervalo_aparicion
 import parametros as p
 
@@ -17,6 +17,7 @@ class LogicaJuego(QObject):
 
         # Dicts elementos
         self.plantas = {}
+        self.lanzaguisantes = {}
         self.proyectiles = {}
         self.zombies = {}
 
@@ -42,6 +43,23 @@ class LogicaJuego(QObject):
         # Incluyendo los de las entidades
         self.timer_actualizar.start()
 
+    def crear_zombie(self):
+        zombie = Zombie()
+        self.zombies[zombie.id] = zombie
+        apariencia, ubicacion = self.datos_sprite_zombie(zombie.id)
+        self.senal_crear_sprite_zombie.emit(zombie.id, apariencia, ubicacion)
+
+    def crear_lanzaguisante(self):
+        lanzag = Lanzaguizantes()
+        lanzag.timer_disparo.timeout.connect(self.disparo)
+        self.lanzaguisantes[lanzag.id] = lanzag
+        self.lanzaguisantes[lanzag.id].timer_disparo.start()
+
+
+    def disparo(id):
+        pass
+
+
     def pausar(self):
         # Parar todos los timers
         pass
@@ -55,18 +73,12 @@ class LogicaJuego(QObject):
         for id in range(len(self.zombies)):
             self.correr_zombie(id)
 
-    def crear_zombie(self):
-        zombie = Zombie()
-        self.zombies[zombie.id] = zombie
-        apariencia, ubicacion = self.datos_sprite_zombie(zombie.id)
-        self.senal_crear_sprite_zombie.emit(zombie.id, apariencia, ubicacion)
-
     def correr_zombie(self, id):
         print('zombie corriendo')
-        if self.zombies[id].estado == 'Caminando':
+        if self.zombies[id].estado == 'Cam':
             self.zombies[id].x -= self.zombies[id].paso
             self.zombies[id].frame_caminar = (self.zombies[id].frame_caminar + 1) % 2
-        elif self.zombies[id].estado == 'Comiendo':
+        elif self.zombies[id].estado == 'Com':
             # hacer daño
             # cambiar sprite
             pass
@@ -78,9 +90,9 @@ class LogicaJuego(QObject):
 
     def datos_sprite_zombie(self, id):
         zombie = self.zombies[id]
-        if zombie.estado == 'Caminando':
+        if zombie.estado == 'Cam':
             apariencia = (zombie.tipo, zombie.estado, zombie.frame_caminar + 1)
-        elif zombie.estado == 'Comiendo':
+        elif zombie.estado == 'Com':
             apariencia = (zombie.tipo, zombie.estado, zombie.frame_comer + 1)
         ubicacion = (int(zombie.x), int(zombie.y))
         return apariencia, ubicacion
