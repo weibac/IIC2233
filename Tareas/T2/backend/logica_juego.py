@@ -4,6 +4,7 @@ from backend.elementos_juego import Girasol, Lanzaguisantes, LanzaguisantesH, Pa
  Proyectil
 from aparicion_zombies import intervalo_aparicion
 import parametros as p
+import random
 
 
 class LogicaJuego(QObject):
@@ -12,12 +13,13 @@ class LogicaJuego(QObject):
     senal_actualizar_sprite_zombie = pyqtSignal(int, tuple, tuple)
     senal_respuesta_compra_planta = pyqtSignal(str, int, int, int)
     senal_actualizar_soles = pyqtSignal(int)
+    senal_perder = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
         self.ronda = 0
-        self._soles = 200  # TEST
+        self._soles = p.SOLES_INICIALES
 
         self.casillas = [['' for _ in range(10)] for _ in range(2)]
 
@@ -33,10 +35,12 @@ class LogicaJuego(QObject):
         # Timers
         self.timers_lanzag = {}
         self.timers_lanzag_h = {}
-        self.timer_creacion_zombie = QTimer()
+
         # self.timer_creacion_sol = QTimer()
         # self.timer_creacion_sol.setInterval()
 
+        self.timer_creacion_zombie = QTimer()
+        self.timer_creacion_zombie.timeout.connect(self.crear_zombie)
         self.timer_actualizar = QTimer()
         self.timer_actualizar.setInterval(p.TICK)
         self.timer_actualizar.timeout.connect(self.actualizar_elementos)
@@ -61,22 +65,39 @@ class LogicaJuego(QObject):
 
     def nueva_ronda(self):
         self.ronda += 1
-        self.crear_zombie()
-        self.crear_zombie()
+        self.zombies_arriba = 0
+        self.zombies_abajo = 0
         self.timer_creacion_zombie.setInterval(
-            int(intervalo_aparicion(self.ronda, self.ponderador)))
+            int(intervalo_aparicion(self.ronda, self.ponderador) * 1000))
 
     def comenzar_tiempo(self):
         # Comenzar todos los timers
         # Incluyendo los de las entidades
-        
         self.timer_actualizar.start()
+        self.timer_creacion_zombie.start()
+
+    def pausar(self):
+        self.timer_actualizar.stop()
+        self.timer_creacion_zombie.stop()
 
     def crear_zombie(self):
-        zombie = Zombie()
-        self.zombies[zombie.id] = zombie
-        apariencia, ubicacion = self.datos_sprite_zombie(zombie.id)
-        self.senal_crear_sprite_zombie.emit(zombie.id, apariencia, ubicacion)
+        if self.zombies_arriba < p.N_ZOMBIES and self.zombies_abajo < p.N_ZOMBIES:
+            if random.random() < 0.5:
+                zombie = Zombie('arriba')
+                self.zombies_arriba += 1
+            else:
+                zombie = Zombie('abajo')
+                self.zombies_abajo += 1
+        elif self.zombies_arriba < p.N_ZOMBIES:
+            zombie = Zombie('arriba')
+            self.zombies_arriba += 1
+        elif self.zombies_abajo < p.N_ZOMBIES:
+            zombie = Zombie('abajo')
+            self.zombies_abajo += 1
+        if self.zombies_arriba < p.N_ZOMBIES or self.zombies_abajo < p.N_ZOMBIES:
+            self.zombies[zombie.id] = zombie
+            apariencia, ubicacion = self.datos_sprite_zombie(zombie.id)
+            self.senal_crear_sprite_zombie.emit(zombie.id, apariencia, ubicacion)
 
     def revisar_comprar_planta(self, planta, x_casilla, y_casilla):
         if planta == 'girasol':
@@ -123,9 +144,6 @@ class LogicaJuego(QObject):
     def disparo(id):
         pass
 
-    def pausar(self):
-        self.timer_actualizar.stop()
-
     def actualizar_elementos(self):
         # self.correr_plantas
         # self.correr_proyectiles
@@ -139,6 +157,9 @@ class LogicaJuego(QObject):
         if self.zombies[id].estado == 'Cam':
             self.zombies[id].x -= self.zombies[id].paso
             self.zombies[id].frame_caminar = (self.zombies[id].frame_caminar + 1) % 2
+            if self.zombies[id].x <= 240:
+                self.pausar()
+                self.senal_perder.emit()
         elif self.zombies[id].estado == 'Com':
             # hacer daño
             # cambiar sprite

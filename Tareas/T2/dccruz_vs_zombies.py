@@ -8,6 +8,7 @@ from frontend.ventana_ranking import VentanaRanking
 from frontend.ventana_juego import VentanaJuego
 from frontend.ventana_seleccion_escenario import VentanaSeleccionEscenario
 from frontend.ventana_test import VentanaTest
+from frontend.ventana_posronda import VentanaPosronda
 
 
 class DccCruzVsZombies(QApplication):
@@ -20,6 +21,7 @@ class DccCruzVsZombies(QApplication):
         self.ventana_ranking = VentanaRanking()
         self.ventana_seleccion_escenario = VentanaSeleccionEscenario()
         self.ventana_juego = VentanaJuego()
+        self.ventana_posronda = VentanaPosronda
 
         # Instanciar Backend
         self.logica_inicio = LogicaInicio()
@@ -67,6 +69,10 @@ class DccCruzVsZombies(QApplication):
             self.logica_juego.revisar_comprar_planta)
         self.logica_juego.senal_respuesta_compra_planta.connect(
             self.ventana_juego.crear_planta_label)
+        self.logica_juego.senal_perder.connect(
+            self.ventana_juego.perder)
+        self.ventana_juego.senal_posronda.connect(
+            self.ventana_posronda.mostrar)
 
     def iniciar(self):
         # self.ventana_test.show()

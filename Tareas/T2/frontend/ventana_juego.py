@@ -3,6 +3,7 @@ from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 
+import time
 import parametros as p
 
 window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_JUEGO)
@@ -13,6 +14,7 @@ class VentanaJuego(window_name, base_class):
     senal_iniciar_ronda = pyqtSignal()
     senal_pausa = pyqtSignal()
     senal_quiere_planta = pyqtSignal(str, int, int)
+    senal_posronda = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -56,9 +58,20 @@ class VentanaJuego(window_name, base_class):
 
     def iniciar_ronda(self):
         self.senal_iniciar_ronda.emit()
-    
+
     def pausar(self):
         self.senal_pausa.emit()
+
+    def perder(self):
+        img_perder = QLabel(self)
+        img_perder.setGeometry(300, 200, 200, 200)
+        img_perder.setScaledContents(True)
+        pix_perder = QPixmap(p.RUTA_IMG_PERDER)
+        img_perder.setPixmap(pix_perder)
+        img_perder.show()
+        time.sleep(3)
+        self.senal_posronda.emit()
+        self.hide()
 
     def crear_planta_label(self, planta, id, x_casilla, y_casilla):
         p_label = QLabel(self)

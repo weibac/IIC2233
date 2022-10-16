@@ -76,7 +76,7 @@ class Zombie(QObject):
 
     id = 0
 
-    def __init__(self):
+    def __init__(self, ubicacion):
         super().__init__()
         self.id = Zombie.id
         Zombie.id += 1
@@ -85,7 +85,10 @@ class Zombie(QObject):
         self.tipo = random.choice(['Wkr', 'Rnr'])
         self.estado = 'Cam'  # Tmb puede ser Com de comiendo
         self._x = p.ANCHO_PANTALLA_JUEGO
-        self.y = 300  # TODO
+        if ubicacion == 'arriba':
+            self.y = 157
+        else:
+            self.y = 157 + 75
         if self.tipo == 'Wkr':
             self._velocidad = p.VELOCIDAD_ZOMBIE
         elif self.tipo == 'Rnr':
@@ -114,7 +117,7 @@ class Zombie(QObject):
 
     @x.setter
     def x(self, value):
-        if value <= 245:
+        if value <= 230:
             # perder
             pass
         else:

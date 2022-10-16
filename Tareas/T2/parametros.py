@@ -5,7 +5,7 @@ import os
 ANCHO_PANTALLA_JUEGO = 900
 
 ANCHO_ZOMBIE = 40
-ALTO_ZOMBIE = 100
+ALTO_ZOMBIE = 75
 
 ANCHO_PLANTA = 30
 ALTO_PLANTA = 60
@@ -67,10 +67,14 @@ RUTA_UI_VENTANA_INICIO = os.path.join('frontend', 'assets',  'ventana_inicio.ui'
 RUTA_UI_VENTANA_RANKING = os.path.join('frontend', 'assets', 'ventana_ranking.ui')
 RUTA_UI_VENTANA_SEL_ESCENARIO = os.path.join('frontend', 'assets',  'ventana_sel_escenario.ui')
 RUTA_UI_VENTANA_JUEGO = os.path.join('frontend', 'assets',  'ventana_juego.ui')
+RUTA_UI_VENTANA_POSRONDA = os.path.join('frontend', 'assets', 'ventana_posronda.ui')
+
 # fondos
 RUTA_FONDO_DIA = os.path.join('sprites', 'Fondos', 'jardinAbuela.png')
 RUTA_FONDO_NOCHE = os.path.join('sprites', 'Fondos', 'salidaNocturna.png')
 RUTA_FONDO_MENU = os.path.join('sprites', 'Fondos', 'fondoMenu.png')
+
+RUTA_IMG_PERDER = os.path.join('sprites', 'Elementos de juego', 'texto_final.png')
 # Dicts sprites
 
 SPRITES_GIRASOL = {
