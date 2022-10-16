@@ -11,12 +11,13 @@ class LogicaJuego(QObject):
     senal_crear_sprite_zombie = pyqtSignal(int, tuple, tuple)
     senal_actualizar_sprite_zombie = pyqtSignal(int, tuple, tuple)
     senal_respuesta_compra_planta = pyqtSignal(str, int, int, int)
+    senal_actualizar_soles = pyqtSignal(int)
 
     def __init__(self):
         super().__init__()
 
         self.ronda = 0
-        self.soles = 200  # TEST
+        self._soles = 200  # TEST
 
         self.casillas = [['' for _ in range(10)] for _ in range(2)]
 
@@ -38,6 +39,15 @@ class LogicaJuego(QObject):
         self.timer_actualizar = QTimer()
         self.timer_actualizar.setInterval(p.TICK)
         self.timer_actualizar.timeout.connect(self.actualizar_elementos)
+    
+    @property
+    def soles(self):
+        return self._soles
+    
+    @soles.setter
+    def soles(self, value):
+        self._soles = value
+        self.senal_actualizar_soles.emit(self._soles)
 
     def iniciar_juego(self, nombre, escenario):
         self.nombre = nombre

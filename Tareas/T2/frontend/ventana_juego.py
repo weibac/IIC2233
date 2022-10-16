@@ -1,15 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QButtonGroup
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QPixmap
 from PyQt5 import uic
 
 import parametros as p
 
 window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_JUEGO)
-
-"""
-Hacer cuadraditos clickeables en QTDesigner para cada casilla
-"""
 
 
 class VentanaJuego(window_name, base_class):
@@ -82,6 +78,9 @@ class VentanaJuego(window_name, base_class):
     def actualizar_zombie_label(self, id: int, apariencia: tuple, posicion: tuple):
         self.labels_zombies[id].setPixmap(self.assets_zombies[apariencia])
         self.labels_zombies[id].move(*posicion)
+
+    def actualizar_soles(self, soles_nuevos):
+        self.soles.setText(str(soles_nuevos))
 
     def mousePressEvent(self, event):
         if 246 <= event.x() <= 246 + 420 and 157 <= event.y() <= 157 + 125 \

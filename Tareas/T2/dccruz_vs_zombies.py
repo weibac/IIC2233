@@ -1,8 +1,10 @@
+import imp
 from PyQt5.QtWidgets import QApplication
 from backend.logica_inicio import LogicaInicio
 from backend.logica_juego import LogicaJuego
 
 from frontend.ventana_inicio import VentanaInicio
+from frontend.ventana_ranking import VentanaRanking
 from frontend.ventana_juego import VentanaJuego
 from frontend.ventana_seleccion_escenario import VentanaSeleccionEscenario
 from frontend.ventana_test import VentanaTest
@@ -15,6 +17,7 @@ class DccCruzVsZombies(QApplication):
         # Instanciar Frontend
         # self.ventana_test = VentanaTest()
         self.ventana_inicio = VentanaInicio()
+        self.ventana_ranking = VentanaRanking()
         self.ventana_seleccion_escenario = VentanaSeleccionEscenario()
         self.ventana_juego = VentanaJuego()
 
@@ -38,6 +41,11 @@ class DccCruzVsZombies(QApplication):
         self.ventana_seleccion_escenario.senal_iniciar_juego.connect(
             self.ventana_juego.mostrar_ventana)
 
+        self.ventana_inicio.senal_abrir_ranking.connect(
+            self.ventana_ranking.mostrar_ventana)
+        self.ventana_ranking.senal_volver.connect(
+            self.iniciar)
+
     def conectar_juego(self):
         # Señales para crear sprites
         self.logica_juego.senal_crear_sprite_zombie.connect(
@@ -45,6 +53,10 @@ class DccCruzVsZombies(QApplication):
         # Señales para actualizar sprites
         self.logica_juego.senal_actualizar_sprite_zombie.connect(
             self.ventana_juego.actualizar_zombie_label)
+
+        # Señales para actualizar labels
+        self.logica_juego.senal_actualizar_soles.connect(
+            self.ventana_juego.actualizar_soles)
 
         # Señales de funcionamiento
         self.ventana_juego.senal_quiere_planta.connect(

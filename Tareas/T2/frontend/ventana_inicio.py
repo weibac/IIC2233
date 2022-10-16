@@ -9,6 +9,7 @@ window_name, base_class = uic.loadUiType(p.RUTA_UI_VENTANA_INICIO)
 class VentanaInicio(window_name, base_class):
 
     senal_enviar_login = pyqtSignal(str)
+    senal_abrir_ranking = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -17,12 +18,16 @@ class VentanaInicio(window_name, base_class):
 
     def conectar_botones(self):
         self.boton_jugar.clicked.connect(self.enviar_login)
-        # self.boton_ranking.clicked.connect()
+        self.boton_ranking.clicked.connect(self.abrir_ranking)
         # self.boton_salir.clicked.connedt()
 
     def enviar_login(self):
         nombre = self.line_edit_username.text()
         self.senal_enviar_login.emit(nombre)
+    
+    def abrir_ranking(self):
+        self.senal_abrir_ranking.emit()
+        self.hide()
 
     def recibir_respuesta_login(self, valido, error):
         if valido:

@@ -8,7 +8,7 @@ ANCHO_ZOMBIE = 40
 ALTO_ZOMBIE = 100
 
 ANCHO_PLANTA = 30
-ALTO_PLANTA= 75
+ALTO_PLANTA = 60
 
 # Tiempo maestro (ms)
 TICK = 20
@@ -64,6 +64,7 @@ MAX_CARACTERES = 15
 # RUTAS
 # uis
 RUTA_UI_VENTANA_INICIO = os.path.join('frontend', 'assets',  'ventana_inicio.ui')
+RUTA_UI_VENTANA_RANKING = os.path.join('frontend', 'assets', 'ventana_ranking.ui')
 RUTA_UI_VENTANA_SEL_ESCENARIO = os.path.join('frontend', 'assets',  'ventana_sel_escenario.ui')
 RUTA_UI_VENTANA_JUEGO = os.path.join('frontend', 'assets',  'ventana_juego.ui')
 # fondos
