@@ -30,27 +30,42 @@ class Habitacion:
 
     def __str__(self):
         return f"{self.nombre}"
-    
+
+
 class Mapa:
     def __init__(self, punto_de_partida: Habitacion):
         self.punto_de_partida = punto_de_partida
         self.habitaciones_creadas = [punto_de_partida]
-        
+
     def crear_habitacion(self, id, nombre, id_vecinos, objetos): # COMPLETAR
         '''Crea una nueva habitacion, si es que no existe, y la retorna'''
-        pass
+        for habitacion in self.habitaciones_creadas:
+            if id == habitacion.id:
+                return habitacion
+        nueva_habitacion = Habitacion(id, nombre, id_vecinos, objetos)
+        self.habitaciones_creadas.append(nueva_habitacion)
+        return nueva_habitacion
 
 
 
     def registrar_vecino(self, habitacion: Habitacion, vecino: Habitacion): # COMPLETAR
         '''Conecta una habitacion con su vecino'''
-        pass
-
+        if vecino not in habitacion.conexiones:
+            habitacion.conexiones.append(vecino)
+        if habitacion not in vecino.conexiones:
+            vecino.conexiones.append(habitacion)
 
 
     def descartar_habitacion(self, habitacion: Habitacion): # COMPLETAR
         '''Elimina las conexiones de una habitacion'''
-        pass
+        for n_hab in range(self.habitaciones_creadas):
+            if self.habitaciones_creadas[n_hab].id in habitacion.id_vecinos:
+                nuevos_vecinos = []
+                for vecino in self.habitaciones_creadas[n_hab].conexiones:
+                    if vecino != habitacion:
+                        nuevos_vecinos.append(vecino)
+                self.habitaciones_creadas[n_hab].conexiones = nuevos_vecinos
+
 
 
 class Explorador:
