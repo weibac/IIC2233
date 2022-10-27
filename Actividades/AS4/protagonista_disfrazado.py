@@ -12,6 +12,7 @@ class ProtagonistaDisfrazado:
         retornaresta lista creada [dic,dic,...,dic]'''
         #COMPLETAR
         pass
+
     
     def recuperar_casas_DFS_iterativo(self, casa_inicial: Casa )->list:
         ''' añade a una lista diccionarios de la forma {"casa": Casa , "distancia":int} 
@@ -25,7 +26,21 @@ class ProtagonistaDisfrazado:
         recorriendo el grafo con el algoritmo BFS de forma iterativa para finalmente
         retornaresta lista creada [dic,dic,...,dic]'''
         #COMPLETAR
-        pass
+        stack = deque()
+        stack.append(casa_inicial)
+        lista_out = []
+        distancia = casa_inicial.distancia
+        while len(stack) > 0:
+            casa_actual = stack.popleft()
+            for dict_dist in lista_out:  # encontrar distancia
+                if casa_actual.id_padre == dict_dist['casa'].id:
+                    distancia = dict_dist['distancia'] + casa_actual.distancia
+            lista_out.append({'casa': casa_actual, 'distancia': distancia})
+            if casa_actual.hijo_izquierdo is not None:
+                stack.append(casa_actual.hijo_izquierdo)
+            if casa_actual.hijo_derecho is not None:
+                stack.append(casa_actual.hijo_derecho)
+        return lista_out
 
     def filtrar_casas(self, listado_casas:list)->list:
         '''filtra la lista de casas manteniendo solo aquellas que posean la decoración deseada,

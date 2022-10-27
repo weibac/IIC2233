@@ -56,7 +56,14 @@ class ColaDulces:
         Retorna la posición del tot protagoista en la cola. 
         Si no se encuentra en la fila, retorna -1
         """
-        #COMPLETAR
+        actual = self.primero
+        pos = 0
+        while not actual.protagonista:
+            if actual == self.ultimo:
+                return -1
+            actual = actual.siguiente
+            pos += 1
+        return pos
 
     
     def tot_se_cola(self, nombre: str, posicion: int): 
@@ -64,7 +71,24 @@ class ColaDulces:
         Crea una instancia de TrickOrTreater con el nombre recibido y
         lo inserta en la cola en la posición recibida.
         """
-        #COMPLETAR
+        tot_nuevo = TrickOrTreater(nombre)
+        tot_actual = self.primero
+        if posicion == 0:
+            tot_nuevo.siguiente = self.primero
+            self.primero = tot_nuevo
+            if tot_nuevo.siguiente is None:
+                self.ultimo = tot_nuevo
+            return
+        
+        for _ in range(posicion - 1):
+            if tot_actual is not None:
+                tot_actual = tot_actual.siguiente
+        
+        if tot_actual is not None:
+            tot_nuevo.siguiente = tot_actual.siguiente
+            tot_actual.siguiente = tot_nuevo
+            if tot_nuevo.siguiente is None:
+                self.ultimo = tot_nuevo
 
 
     def tot_se_va(self, posicion: int):
@@ -92,13 +116,23 @@ class ColaDulces:
         """
         Elimina a la primera persona de la cola y la retorna.
         """
-        #COMPLETAR
+        atendido = self.primero
+        self.primero = atendido.siguiente
+        return atendido
 
     def obtener_largo(self):
         """
         Retorna el largo de la cola como int.
         """
-        #COMPLETAR
+        if self.primero is None:
+            return 0
+        largo = 1
+        actual = self.primero
+        while actual.siguiente is not None:
+            actual = actual.siguiente
+            largo += 1
+        return largo
+
 
     def __str__(self) -> str:
         """

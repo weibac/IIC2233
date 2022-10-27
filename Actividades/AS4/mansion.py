@@ -58,7 +58,7 @@ class Mapa:
 
     def descartar_habitacion(self, habitacion: Habitacion): # COMPLETAR
         '''Elimina las conexiones de una habitacion'''
-        for n_hab in range(self.habitaciones_creadas):
+        for n_hab in range(len(self.habitaciones_creadas)):
             if self.habitaciones_creadas[n_hab].id in habitacion.id_vecinos:
                 nuevos_vecinos = []
                 for vecino in self.habitaciones_creadas[n_hab].conexiones:
