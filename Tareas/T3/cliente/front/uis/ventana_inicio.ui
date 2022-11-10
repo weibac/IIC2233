@@ -51,7 +51,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineedit_nombre">
+  <widget class="QLineEdit" name="line_edit_nombre">
    <property name="geometry">
     <rect>
      <x>240</x>
