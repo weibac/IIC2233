@@ -2,7 +2,6 @@ import json
 from os import path
 
 from cripto import encriptar, desencriptar
-from codificacion import codificar, decodificar
 
 
 def dict_json():  # Adaptada de la AF3
@@ -15,11 +14,11 @@ def dict_json():  # Adaptada de la AF3
     return diccionario_data
 
 
-def empaquetar_datos_enviar(datos):
+def encriptar_datos_enviar(datos):
     datos_serializados = json.dumps(datos)
-    return codificar(encriptar(datos_serializados))
+    return encriptar(datos_serializados)
 
 
-def desempaquetar_datos_recibidos(msg):
-    msg_desencriptado = desencriptar(decodificar(msg))
+def desencriptar_datos_recibidos(msg):
+    msg_desencriptado = desencriptar(msg)
     return json.loads(msg_desencriptado)

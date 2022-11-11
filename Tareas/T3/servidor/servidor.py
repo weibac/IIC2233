@@ -1,4 +1,10 @@
 import socket as sk
 
-from cripto import encriptar, desencriptar
-from codificacion import codificar, decodificar
+
+class Servidor:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+
+    def log(self, texto: str):
+        pass

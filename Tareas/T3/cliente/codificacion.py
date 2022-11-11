@@ -1,3 +1,10 @@
+"""
+Esto puede que sirva pero en última instancia está mal.
+El paquete inicial del largo del mensaje y cada paquete de 32 deben
+ser enviados por separado, es decir, con distintos sendall() y recv()
+"""
+
+
 def codificar(msg: bytearray):
     # Inicio indicando el largo
     msg_codificado = bytearray(len(msg).to_bytes(4, 'big'))
