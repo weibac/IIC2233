@@ -1,7 +1,3 @@
-"""
-Módulo encargado de instanciar backend y frontend; y conectar señales.
-"""
-
 from PyQt5.QtWidgets import QApplication
 from front.ventana_inicio import VentanaInicio
 from cliente.back.cliente import LogicaInicio, Cliente
@@ -9,6 +5,9 @@ from aux_json import dict_json
 
 
 class DccCardJitsu(QApplication):
+    """
+    Clase encargada de instanciar backend y frontend; y conectar señales.
+    """
     def __init__(self, argv):
         super().__init__(argv)
         self.PARAMETROS = dict_json()
