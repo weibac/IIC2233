@@ -1,5 +1,5 @@
 {
     "HOST": "localhost",
-    "PORT": 47365,
+    "PORT": 47105,
     "RUTA_UI_VENTANA_INICIO": ["cliente", "front", "uis", "ventana_inicio.ui"]
 }

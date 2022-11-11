@@ -85,7 +85,7 @@ Los supuestos que realicé durante la tarea son los siguientes:
 3. ...
 
 PD: <una última consideración (de ser necesaria) o comentario hecho anteriormente que se quiera **recalcar**>
-
+Usé un puerto (47105) distinto al que deben haber usado la mayoría de las tareas (el de la AF3) para que se pueda correr al mismo tiempo que otras tareas (aunque por supuesto no lo he probado y no estoy seguro de qué serviría. Supongo que solo quise ser original.).
 
 -------
 
