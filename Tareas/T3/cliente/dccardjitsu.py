@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication
 from front.ventana_inicio import VentanaInicio
-from cliente.back.cliente import LogicaInicio, Cliente
+from back.cliente import Cliente
+from back.logica_ventanas import LogicaVentanas
 from aux_json import dict_json
 
 
@@ -16,7 +17,7 @@ class DccCardJitsu(QApplication):
         self.ventana_inicio = VentanaInicio()
 
         # Instanciar Backend
-        self.logica_inicio = LogicaInicio()
+        self.logica_ventanas = LogicaVentanas()
         self.cliente = Cliente(self.PARAMETROS['HOST'], self.PARAMETROS['PORT'])
 
         # Conectar señales
@@ -27,8 +28,12 @@ class DccCardJitsu(QApplication):
         #     self.logica_inicio.enviar_nombre)
         self.ventana_inicio.senal_enviar_nombre.connect(
             self.cliente.enviar_datos)
-        self.logica_inicio.senal_validez_nombre.connect(
-            self.ventana_inicio.recibir_respuesta_login)
+        # self.logica_inicio.senal_validez_nombre.connect(
+        #     self.ventana_inicio.recibir_respuesta_login)
+        self.cliente.senal_manejar_respuesta.connect(
+            self.logica_ventanas.ejecutar_respuesta_servidor)
+        self.logica_ventanas.senal_nombre_invalido.connect(
+            self.ventana_inicio.recibir_nombre_invalido)
 
     def iniciar(self):
         self.ventana_inicio.show()

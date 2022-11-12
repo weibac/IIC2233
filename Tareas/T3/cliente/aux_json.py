@@ -15,10 +15,16 @@ def dict_json():  # Adaptada de la AF3
 
 
 def encriptar_datos_enviar(datos):
+    """
+    Serializa y encripta los datos para su envío
+    """
     datos_serializados = json.dumps(datos)
-    return encriptar(datos_serializados)
+    return encriptar(bytearray(datos_serializados.encode('utf-8')))
 
 
 def desencriptar_datos_recibidos(msg):
+    """
+    Desencripta y deserializa los datos recibidos
+    """
     msg_desencriptado = desencriptar(msg)
-    return json.loads(msg_desencriptado)
+    return json.loads(msg_desencriptado.decode('utf-8'))

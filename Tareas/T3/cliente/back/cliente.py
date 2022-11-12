@@ -1,5 +1,4 @@
 from PyQt5.QtCore import QObject, pyqtSignal
-
 import socket
 from threading import Thread, Lock
 
@@ -10,13 +9,13 @@ class Cliente(QObject):
     """
     Esta clase en gran parte copiada de la AF3
     """
+    senal_manejar_respuesta = pyqtSignal(dict)
 
     def __init__(self, host, port):
         super().__init__()
         self.host = host
         self.port = port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.lock_recibir = Lock()
         self.conectado = False
         self.iniciar_cliente()
 
@@ -25,14 +24,13 @@ class Cliente(QObject):
         Se encarga de conectar el socket
         """
         try:
-            self.socket_cliente.connect((self.host, self.port))
+            self.socket.connect((self.host, self.port))
             self.conectado = True
             self.comenzar_a_escuchar()
 
         except ConnectionError as e:
-            print(f"\n-ERROR: El servidor no está inicializado. {e}-")
-        except ConnectionRefusedError as e:
-            print(f"\n-ERROR: No se pudo conectar al servidor.{e}-")
+            print(f"\n- Todavía no se ha podido establecer conexión")
+            self.socket.close()
 
     def comenzar_a_escuchar(self):
         """
@@ -45,50 +43,46 @@ class Cliente(QObject):
         """
         Recibe mensajes constantes desde el servidor
         """
-        while True:
-            largo_mensaje = self.socket.recv(4)
-            for i in range(largo_mensaje // 36):
-                pass
+        try:
+            while self.conectado:
+                datos = self.recibir_datos()
+                if datos:
+                    self.senal_manejar_respuesta.emit(datos)
+        except ConnectionError as error:
+            print(f'ERROR: Se ha perdido conexión con el servidor')
+            # TODO: Reemplazar por algo con las ventanas
 
-            with self.lock_recibir:
-                self.procesar_datos_recibidos(datos)
-
-    def procesar_datos_recibidos(self, datos: dict):
-        """
-        Se encarga de procesar los mensajes del servidor.
-        """
-        comando = datos['comando']
-        if comando == '':
-            pass
+    def recibir_datos(self):
+        largo_mensaje = int.from_bytes(self.socket.recv(4), byteorder='big')
+        mensaje_recibido = bytearray()
+        # Recibir hasta el penúltimo segmento
+        for _ in range(max(largo_mensaje // 32, 1)):
+            segmento = self.socket.recv(36)
+            n_segmento = int.from_bytes(segmento[:4], byteorder='little')
+            mensaje_recibido.extend(segmento[4:])
+        # Recibir el último segmento
+        n_segmento += 1
+        largo_ultimo_seg = n_segmento * 32 - largo_mensaje
+        segmento = self.socket.recv(36)
+        mensaje_recibido.extend(segmento[4:4 + largo_ultimo_seg])
+        # Desencriptar
+        datos = desencriptar_datos_recibidos(mensaje_recibido)
+        # Enviarle los datos a logica_ventanasd
+        self.senal_manejar_respuesta.emit(datos)
 
     def enviar_datos(self, datos: dict):
         msg = encriptar_datos_enviar(datos)
         # Enviar el largo del mensaje
-        self.socket.sendall(len(msg).to_bytes(4, 'big'))
+        self.socket.sendall(len(msg).to_bytes(4, byteorder='big'))
         # Separar por segmentos y enviarlos
         i_seg = 1
-        segmento_act = bytearray(i_seg.to_bytes(4, 'little'))
-        for i in range(((len(msg) // 32) + 1) * 32):
+        segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
+        for i in range(1, ((len(msg) // 32) + 1) * 32):
             try:
-                segmento_act.extend(msg[i].to_bytes(1, 'big'))
+                segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
             except IndexError:
-                segmento_act.extend(b'\x00')
+                segmento_actual.extend(b'\x00')
             if i % 32 == 0:
-                self.socket.sendall(segmento_act)
+                self.socket.sendall(segmento_actual)
                 i_seg += 1
-                segmento_act = bytearray(i_seg.to_bytes(4, 'little'))
-
-
-class LogicaInicio(QObject):
-
-    senal_validez_nombre = pyqtSignal(bool, str)
-    senal_abrir_sala_espera = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-
-    def enviar_nombre(self):
-        pass
-
-    def recibir_respuesta_nombre(self):
-        pass
+                segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
