@@ -19,12 +19,13 @@ def encriptar(msg: bytearray) -> bytearray:
     # Calcular suma
     len_b = len(bytes_b)
     if len_b % 2 == 0:
-        mitad = len_b // 2
+        mitad = (len_b // 2) - 1
         central = bytes_b[mitad:mitad + 2]
-        suma = int(bytes_a[0]) + int(central[0]) + int(central[1])
+        suma_central = int(central[0]) + int(central[1])
     else:
-        central = bytes_b[(len_b - 1) / 2]
-        suma = int(bytes_a[0]) + int(central)
+        central = bytes_b[(len_b - 1) // 2]
+        suma_central = int(central)
+    suma = int(bytes_a[0]) + suma_central + int(bytes_c[-1])
     # Hacer operaciones según resultado suma
     out_array = bytearray()
     if suma % 2 == 0:
