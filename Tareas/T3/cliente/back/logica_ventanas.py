@@ -17,4 +17,5 @@ class LogicaVentanas(QObject):
             if datos['valido']:
                 pass  # TODO
             else:
+                print(f"nombre invalido. motivo: {datos['motivo']}")
                 self.senal_nombre_invalido.emit(datos)

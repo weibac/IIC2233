@@ -14,7 +14,7 @@ def dict_json():  # Adaptada de la AF3
     return diccionario_data
 
 
-def encriptar_datos_enviar(datos):
+def encriptar_datos_enviar(datos: dict) -> bytearray:
     """
     Serializa y encripta los datos para su envío
     """
@@ -22,7 +22,7 @@ def encriptar_datos_enviar(datos):
     return encriptar(bytearray(datos_serializados.encode('utf-8')))
 
 
-def desencriptar_datos_recibidos(msg):
+def desencriptar_datos_recibidos(msg: bytearray) -> dict:
     """
     Desencripta y deserializa los datos recibidos
     """

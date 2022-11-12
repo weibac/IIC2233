@@ -11,7 +11,9 @@ class LogicaJuego:
         comando = datos['comando']
 
         if comando == 'validar nombre':
-            self.validar_nombre(datos['nombre'])
+            respuesta = self.validar_nombre(datos['nombre'])
+
+        return respuesta
 
     def validar_nombre(self, nombre):
         motivo = ''
@@ -21,7 +23,8 @@ class LogicaJuego:
         elif not nombre.isalnum():
             motivo = 'El nombre debe ser alfanumerico'
         elif nombre in self.nombres:
-            motivo = 'Ya hay alguien conectado con ese nombre'  # TODO: Sacar nombres de desconectados
+            motivo = 'Ya hay alguien conectado con ese nombre'  
+            # TODO: Sacar nombres de desconectados
         if motivo == '':
             valido = True
         respuesta = {'comando': 'validar nombre',

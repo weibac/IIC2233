@@ -81,29 +81,56 @@ class Servidor:
                 raise ConnectionResetError
             # Responder según los datos
             respuesta = self.logica_juego.ejecutar_comando(datos)
+            print(respuesta)
             if respuesta:
                 self.enviar_datos(respuesta, client_socket)
         except ConnectionError as error:
             self.log(f'Ocurrió un error de conexión con el cliente: {error}')
             # TODO
 
+    # def recibir_datos(self, client_socket):
+    #     largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
+    #     print(f'largo mensaje: {largo_mensaje}')
+    #     mensaje_recibido = bytearray()
+    #     # Recibir hasta el penúltimo segmento
+    #     for _ in range(max(largo_mensaje // 32, 1)):
+    #         segmento = client_socket.recv(36)  # TODO: Aparentemente recibe más veces de las que debería.
+    #         n_segmento = int.from_bytes(segmento[:4], byteorder='little')
+    #         print(f'recibido segmento n°{n_segmento}')
+    #         mensaje_recibido.extend(segmento[4:])
+    #     # Recibir el último segmento
+    #     segmento = client_socket.recv(36)
+    #     n_segmento = int.from_bytes(segmento[:4], byteorder='little')
+    #     largo_ultimo_seg = n_segmento * 32 - largo_mensaje
+    #     print(f'recibido segmento n°{n_segmento}. Es el último.')
+    #     mensaje_recibido.extend(segmento[4:4 + largo_ultimo_seg])
+    #     # Desencriptar
+    #     datos = desencriptar_datos_recibidos(mensaje_recibido)
+    #     print(datos)
+    #     return datos
+
     def recibir_datos(self, client_socket):
         largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
         print(f'largo mensaje: {largo_mensaje}')
+        if largo_mensaje % 32 == 0:
+            n_segmentos = largo_mensaje // 32
+        else:
+            n_segmentos = (largo_mensaje // 32) + 1
         mensaje_recibido = bytearray()
-        # Recibir hasta el penúltimo segmento
-        for _ in range(max(largo_mensaje // 32, 1)):
+        for i_seg in range(1, n_segmentos + 1):
             segmento = client_socket.recv(36)
             n_segmento = int.from_bytes(segmento[:4], byteorder='little')
-            print(f'recibido segmento n°{n_segmento}')
-            mensaje_recibido.extend(segmento[4:])
-        # Recibir el último segmento
-        n_segmento += 1
-        largo_ultimo_seg = n_segmento * 32 - largo_mensaje
-        segmento = client_socket.recv(36)
-        mensaje_recibido.extend(segmento[4:4 + largo_ultimo_seg])
+            segmento = segmento[4:]
+            if i_seg == n_segmentos and largo_mensaje % 32 != 0:
+                largo_ultimo_seg = (n_segmentos * 32) - largo_mensaje
+                segmento = segmento[:largo_ultimo_seg]
+                print(f'recibido segmento n°{n_segmento}. Era el ultimo')
+            else:
+                print(f'recibido segmento n°{n_segmento}')
+            mensaje_recibido.extend(segmento)
         # Desencriptar
         datos = desencriptar_datos_recibidos(mensaje_recibido)
+        print(datos)
         return datos
 
     def enviar_datos(self, datos: dict, client_socket):
@@ -113,7 +140,7 @@ class Servidor:
         # Separar por segmentos y enviarlos
         i_seg = 1
         segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
-        for i in range(1, ((len(msg) // 32) + 1) * 32):
+        for i in range(1, (((len(msg) // 32) + 1) * 32) + 1):
             try:
                 segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
             except IndexError:
