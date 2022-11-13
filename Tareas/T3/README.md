@@ -32,10 +32,10 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 ##### ❌✅🟠 Consistencia		
 ##### ❌✅🟠 Logs
 #### Manejo de Bytes: 27 pts (20%)
-##### ❌✅🟠 Codificación			
-##### ❌✅🟠 Decodificación			
-##### ❌✅🟠 Encriptación		
-##### ❌✅🟠 Desencriptación	
+##### ✅ Codificación			
+##### ✅ Decodificación			
+##### ✅ Encriptación		
+##### ✅ Desencriptación	
 ##### ❌✅🟠 Integración
 #### Interfaz Gráfica: 27 pts (20%)	
 ##### ❌✅🟠 Ventana inicio		

@@ -122,7 +122,7 @@ class Servidor:
             n_segmento = int.from_bytes(segmento[:4], byteorder='little')
             segmento = segmento[4:]
             if i_seg == n_segmentos and largo_mensaje % 32 != 0:
-                largo_ultimo_seg = (n_segmentos * 32) - largo_mensaje
+                largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
                 segmento = segmento[:largo_ultimo_seg]
                 print(f'recibido segmento n°{n_segmento}. Era el ultimo')
             else:
@@ -135,20 +135,47 @@ class Servidor:
 
     def enviar_datos(self, datos: dict, client_socket):
         msg = encriptar_datos_enviar(datos)
+        largo_mensaje = len(msg)
         # Enviar el largo del mensaje
-        client_socket.sendall(len(msg).to_bytes(4, byteorder='big'))
-        # Separar por segmentos y enviarlos
-        i_seg = 1
-        segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
-        for i in range(1, (((len(msg) // 32) + 1) * 32) + 1):
-            try:
-                segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
-            except IndexError:
-                segmento_actual.extend(b'\x00')
-            if i % 32 == 0:
-                client_socket.sendall(segmento_actual)
-                i_seg += 1
-                segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
+        client_socket.sendall(largo_mensaje.to_bytes(4, byteorder='big'))
+        if largo_mensaje % 32 == 0:
+            n_segmentos = largo_mensaje // 32
+        else:
+            n_segmentos = (largo_mensaje // 32) + 1
+        for i_seg in range(1, n_segmentos + 1):
+            segmento = bytearray()
+            segmento.extend(i_seg.to_bytes(4, byteorder='little'))
+            if i_seg == n_segmentos and largo_mensaje % 32 != 0:
+                largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
+                for i_byte in range(32):
+                    if i_byte + 1 > largo_ultimo_seg:
+                        segmento.extend(b'\x00')
+                    else:
+                        segmento.extend(msg[0].to_bytes(1, byteorder='big'))
+                        msg = msg[1:]
+            else:
+                for i_byte in range(32):
+                    segmento.extend(msg[0].to_bytes(1, byteorder='big'))
+                    msg = msg[1:]
+            print(f'largo: {len(segmento)} contenido:{segmento}')
+            client_socket.sendall(segmento)
+
+    # def enviar_datos(self, datos: dict, client_socket):
+    #     msg = encriptar_datos_enviar(datos)
+    #     # Enviar el largo del mensaje
+    #     client_socket.sendall(len(msg).to_bytes(4, byteorder='big'))
+    #     # Separar por segmentos y enviarlos
+    #     i_seg = 1
+    #     segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
+    #     for i in range(1, (((len(msg) // 32) + 1) * 32) + 1):
+    #         try:
+    #             segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
+    #         except IndexError:
+    #             segmento_actual.extend(b'\x00')
+    #         if i % 32 == 0:
+    #             client_socket.sendall(segmento_actual)
+    #             i_seg += 1
+    #             segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
 
     def log(self, texto: str):
         print(f'| {texto: ^60s} |')
