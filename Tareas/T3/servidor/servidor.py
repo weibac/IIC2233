@@ -80,20 +80,21 @@ class Servidor(QObject):
         para para obtener la respuesta del servidor. Luego la envía.
         """
         self.log("Servidor", "empieza a escuchar", f"al cliente de id {id_cliente}")
-        try:
-            datos = self.recibir_datos(client_socket)
-            if not datos:
-                raise ConnectionResetError
-            datos['id'] = id_cliente
-            # Responder según los datos
-            respuesta = self.logica_juego.ejecutar_comando(datos)
-            respuesta['id'] = id_cliente
-            print(respuesta)
-            if respuesta:
-                self.enviar_datos(respuesta, id_cliente, client_socket)
-        except ConnectionError as error:
-            self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
-            # TODO desconexión repentina
+        while True:
+            try:
+                datos = self.recibir_datos(client_socket)
+                if not datos:
+                    raise ConnectionResetError
+                datos['id'] = id_cliente
+                # Responder según los datos
+                respuesta = self.logica_juego.ejecutar_comando(datos)
+                respuesta['id'] = id_cliente
+                print(respuesta)
+                if respuesta:
+                    self.enviar_datos(respuesta, id_cliente, client_socket)
+            except ConnectionError as error:
+                self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
+                # TODO desconexión repentina
 
     # def recibir_datos(self, client_socket):
     #     largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
