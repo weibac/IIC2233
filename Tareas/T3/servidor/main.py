@@ -8,11 +8,11 @@ if __name__ == "__main__":
 
     try:
         while True:
-            input("[Presione Ctrl+C para cerrar]".center(64, " ") + "\n")
+            input("[Presione Ctrl+C para cerrar]".center(80, " ") + "\n")
     except KeyboardInterrupt:
         print("\n\n")
         print("Cerrando servidor...".center(80, " "))
-        print("".center(82, "-"))
-        print("".center(82, "-") + "\n")
+        print("".center(80, "-"))
+        print("".center(80, "-") + "\n")
         servidor.socket_servidor.close()
         sys.exit()

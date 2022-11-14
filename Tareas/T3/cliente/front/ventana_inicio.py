@@ -28,3 +28,6 @@ class VentanaInicio(window_name, base_class):
     def recibir_nombre_invalido(self, datos: dict):
         self.line_edit_nombre.setText('')
         self.line_edit_nombre.setPlaceholderText(datos['motivo'])
+
+    def recibir_nombre_valido(self, datos: dict):
+        self.hide()

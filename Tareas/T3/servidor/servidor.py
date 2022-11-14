@@ -18,7 +18,7 @@ class Servidor:
         self.sockets = {}
         self.logica_juego = LogicaJuego(self)
         self.id_cliente = 0
-        print('-' * 64)
+        print('-' * 80)
         self.bind_and_listen()
         self.accept_connections()
 
@@ -36,11 +36,6 @@ class Servidor:
     def accept_connections(self):
         """
         Inicia el thread que aceptará clientes.
-
-        Aunque podríamos aceptar clientes en el thread principal de la
-        instancia, es útil hacerlo en un thread aparte. Esto nos
-        permitirá realizar la lógica en la parte del servidor sin dejar
-        de aceptar clientes. Por ejemplo, seguir procesando archivos.
         """
         thread = threading.Thread(target=self.accept_connections_thread, daemon=True)
         thread.start()
@@ -70,9 +65,8 @@ class Servidor:
     def listen_client_thread(self, id_cliente, client_socket):
         """
         Es ejecutado como thread que escuchará a un cliente en particular.
-
-        Implementa las funcionalidades del protocolo de comunicación
-        que permiten recuperar la informacion enviada.
+        Llama a recibir_datos para recibir los datos, y luego llama a logica_juego.ejecutar_comando
+        para para obtener la respuesta del servidor. Luego la envía.
         """
         self.log(f"Empezando a escuchar al cliente de id {id_cliente}...")
         try:
@@ -86,7 +80,7 @@ class Servidor:
                 self.enviar_datos(respuesta, client_socket)
         except ConnectionError as error:
             self.log(f'Ocurrió un error de conexión con el cliente: {error}')
-            # TODO
+            # TODO desconexión repentina
 
     # def recibir_datos(self, client_socket):
     #     largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
@@ -110,8 +104,11 @@ class Servidor:
     #     return datos
 
     def recibir_datos(self, client_socket):
+        """
+        Recibe los datos implementando el sistema de codificación especificado en el enunciado.
+        Llama a desencriptar_datos_recibidos del módulo aux_json.
+        """
         largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
-        print(f'largo mensaje: {largo_mensaje}')
         if largo_mensaje % 32 == 0:
             n_segmentos = largo_mensaje // 32
         else:
@@ -124,9 +121,6 @@ class Servidor:
             if i_seg == n_segmentos and largo_mensaje % 32 != 0:
                 largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
                 segmento = segmento[:largo_ultimo_seg]
-                print(f'recibido segmento n°{n_segmento}. Era el ultimo')
-            else:
-                print(f'recibido segmento n°{n_segmento}')
             mensaje_recibido.extend(segmento)
         # Desencriptar
         datos = desencriptar_datos_recibidos(mensaje_recibido)
@@ -134,6 +128,11 @@ class Servidor:
         return datos
 
     def enviar_datos(self, datos: dict, client_socket):
+        """
+        Recibe los datos de respuesta implementando
+        el sistema de codificación especificado en el enunciado.
+        Llama a encriptar_datos_enviar del módulo aux_json.
+        """
         msg = encriptar_datos_enviar(datos)
         largo_mensaje = len(msg)
         # Enviar el largo del mensaje
@@ -157,7 +156,6 @@ class Servidor:
                 for i_byte in range(32):
                     segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                     msg = msg[1:]
-            print(f'largo: {len(segmento)} contenido:{segmento}')
             client_socket.sendall(segmento)
 
     # def enviar_datos(self, datos: dict, client_socket):
@@ -178,5 +176,5 @@ class Servidor:
     #             segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
 
     def log(self, texto: str):
-        print(f'| {texto: ^60s} |')
-        print('-' * 64)
+        print(f'| {texto: ^76s} |')
+        print('-' * 80)

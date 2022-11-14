@@ -74,7 +74,6 @@ class Cliente(QObject):
 
     def recibir_datos(self):
         largo_mensaje = int.from_bytes(self.socket.recv(4), byteorder='big')
-        print(f'largo mensaje: {largo_mensaje}')
         if largo_mensaje % 32 == 0:
             n_segmentos = largo_mensaje // 32
         else:
@@ -87,15 +86,12 @@ class Cliente(QObject):
             if i_seg == n_segmentos and largo_mensaje % 32 != 0:
                 largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
                 segmento = segmento[:largo_ultimo_seg]
-                print(f'recibido segmento n°{n_segmento}. Era el ultimo')
-            else:
-                print(f'recibido segmento n°{n_segmento}')
             mensaje_recibido.extend(segmento)
         # Desencriptar
         datos = desencriptar_datos_recibidos(mensaje_recibido)
         print(datos)
         return datos
-    
+
     def enviar_datos(self, datos: dict):
         msg = encriptar_datos_enviar(datos)
         largo_mensaje = len(msg)
@@ -120,7 +116,6 @@ class Cliente(QObject):
                 for i_byte in range(32):
                     segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                     msg = msg[1:]
-            print(f'largo: {len(segmento)} contenido:{segmento}')
             self.socket.sendall(segmento)
 
     # def enviar_datos(self, datos: dict):
