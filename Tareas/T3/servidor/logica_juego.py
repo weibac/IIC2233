@@ -35,6 +35,8 @@ class LogicaJuego(QObject):
         valido = False
         if self.sala_llena:
             motivo = 'Sorry, pero el juego está lleno :('
+            self.parent.log(f'cliente id {id_cliente}', 'quiere entrar s espera',
+                            'no entra (estaba llena)')
         elif not 0 < len(nombre) < 11:
             motivo = 'El nombre debe tener entre 1 y 10 caracteres'
         elif not nombre.isalnum():
@@ -46,6 +48,8 @@ class LogicaJuego(QObject):
         if motivo == '':
             valido = True
             self.incorporar_jugador(nombre, id_cliente)
+            self.parent.log(f'cliente id {id_cliente}', 'quiere entrar s espera',
+                            'y entra (no estaba llena)')
         respuesta = {'comando': 'validar nombre',
                      'valido': valido,
                      'motivo': motivo,
@@ -55,6 +59,8 @@ class LogicaJuego(QObject):
                      'log_yn': True,
                      'log_msg': [f'cliente id {id_cliente}',
                                  f'ingresa nombre {nombre}', f'valido? {valido}']}
+        if self.sala_llena:
+            respuesta['log_yn'] = False
         return respuesta
 
     def respuesta_usuario_sale(self, datos):
