@@ -32,22 +32,6 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="boton_volver">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>340</y>
-     <width>90</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="mouseTracking">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>PushButton</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -146,13 +130,6 @@ color:  rgb(255, 255, 255);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <zorder>fondo</zorder>
-  <zorder>label</zorder>
-  <zorder>boton_volver</zorder>
-  <zorder>label_boton</zorder>
-  <zorder>label_jug_1</zorder>
-  <zorder>label_jug_2</zorder>
-  <zorder>label_timer</zorder>
  </widget>
  <resources/>
  <connections/>
