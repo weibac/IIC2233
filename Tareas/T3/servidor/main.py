@@ -12,7 +12,8 @@ if __name__ == "__main__":
 
     try:
         while True:
-            input("[Presione Ctrl+C para cerrar]".center(80, " ") + "\n")
+            msg = "[Presione Ctrl+C para cerrar]".center(80, " ") + "\n" + "".center(80, "-") + "\n"
+            input(msg)
     except KeyboardInterrupt:
         print("\n\n")
         print("Cerrando servidor...".center(80, " "))

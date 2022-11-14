@@ -25,6 +25,7 @@ class Servidor(QObject):
         #     self.pre_enviar_datos)
         self.id_cliente = 0
         print('-' * 80)
+        self.log('Sujeto', 'Verbo', 'Detalles')
         self.bind_and_listen()
         self.accept_connections()
 
@@ -60,7 +61,7 @@ class Servidor(QObject):
         while True:
             try:
                 client_socket, direccion = self.socket_servidor.accept()
-                self.log(f'Usuario con cliente de direccion {direccion} ha sido aceptad@')
+                self.log('Servidor', 'acepta nuevo cliente', f'{direccion}, id {self.id_cliente}')
                 listening_client_thread = threading.Thread(
                     target=self.listen_client_thread,
                     args=(self.id_cliente, client_socket),
@@ -78,7 +79,7 @@ class Servidor(QObject):
         Llama a recibir_datos para recibir los datos, y luego llama a logica_juego.ejecutar_comando
         para para obtener la respuesta del servidor. Luego la envía.
         """
-        self.log(f"Empezando a escuchar al cliente de id {id_cliente}...")
+        self.log("Servidor", "empieza a escuchar", f"al cliente de id {id_cliente}")
         try:
             datos = self.recibir_datos(client_socket)
             if not datos:
