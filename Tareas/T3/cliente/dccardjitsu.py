@@ -45,6 +45,12 @@ class DccCardJitsu(QApplication):
     def conectar_espera(self):
         self.logica_ventanas.senal_iniciar_cuenta.connect(
             self.ventana_espera.iniciar_cuenta)
+        self.ventana_espera.senal_usuario_vuelve.connect(
+            self.ventana_inicio.show)
+        self.ventana_espera.senal_usuario_vuelve.connect(
+            self.cliente.enviar_datos)
+        self.logica_ventanas.senal_parar_cuenta.connect(
+            self.ventana_espera.parar_cuenta)
 
     def iniciar(self):
         self.ventana_inicio.show()

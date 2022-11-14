@@ -150,14 +150,10 @@ class Servidor(QObject):
         Este método se llama solo cuando el servidor envía un mensaje por iniciativa propia,
         no para respuestas a requests del cliente.
         """
-        print('Pre enviar datos ejecutada')
         id_cliente = datos['id']
-        print(id_cliente)
-        print(self.sockets[id_cliente])
         client_socket = self.sockets[id_cliente]
         with self.locks[id_cliente]:
             self.enviar_datos(datos, id_cliente, client_socket)
-            print('pre enviar datos llamo a enviar datos')
 
     def enviar_datos(self, datos: dict, id_cliente, client_socket):
         """

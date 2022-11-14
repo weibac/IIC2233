@@ -64,7 +64,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="label_boton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -149,7 +149,7 @@ color:  rgb(255, 255, 255);</string>
   <zorder>fondo</zorder>
   <zorder>label</zorder>
   <zorder>boton_volver</zorder>
-  <zorder>label_2</zorder>
+  <zorder>label_boton</zorder>
   <zorder>label_jug_1</zorder>
   <zorder>label_jug_2</zorder>
   <zorder>label_timer</zorder>

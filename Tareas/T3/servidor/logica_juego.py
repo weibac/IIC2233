@@ -22,6 +22,8 @@ class LogicaJuego(QObject):
 
         if comando == 'validar nombre':
             respuesta = self.validar_nombre(datos['nombre'], datos['id'])
+        elif comando == 'salir sala espera':
+            respuesta = self.respuesta_usuario_sale(datos)
 
         if 'log_yn' not in respuesta.keys():
             respuesta['log_yn'] = False
@@ -53,6 +55,21 @@ class LogicaJuego(QObject):
                      'log_yn': True,
                      'log_msg': [f'cliente id {id_cliente}',
                                  f'ingresa nombre {nombre}', f'valido? {valido}']}
+        return respuesta
+
+    def respuesta_usuario_sale(self, datos):
+        # Esto (respuesta) se envia de vuelta al cliente que se fue
+        respuesta = datos
+        # Y esto otro (datos cambiado) al otro cliente
+        if respuesta['id'] == self.jugador_1['id']:
+            datos['id'] = self.jugador_2['id']
+            datos['comando'] = 'el otro cliente se fue'
+            datos['quien se fue'] = 'jugador 1'
+        elif respuesta['id'] == self.jugador_2['id']:
+            datos['id'] = self.jugador_1['id']
+            datos['comando'] = 'el otro cliente se fue'
+            datos['quien se fue'] = 'jugador 2'
+        self.parent.pre_enviar_datos(datos)
         return respuesta
 
     def incorporar_jugador(self, nombre, id_cliente):

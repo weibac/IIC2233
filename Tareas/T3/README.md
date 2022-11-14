@@ -39,7 +39,7 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 ##### ❌✅🟠 Integración
 #### Interfaz Gráfica: 27 pts (20%)	
 ##### ✅ Ventana inicio		
-##### ❌✅🟠 Sala de Espera			
+##### ✅ Sala de Espera			
 ##### ❌✅🟠 Ventana de juego							
 ##### ❌✅🟠 Ventana final
 #### Reglas de DCCard-Jitsu: 17 pts (13%)
@@ -85,7 +85,8 @@ Los supuestos que realicé durante la tarea son los siguientes:
 3. ...
 
 PD: <una última consideración (de ser necesaria) o comentario hecho anteriormente que se quiera **recalcar**>
-Usé un puerto (47105) distinto al que deben haber usado la mayoría de las tareas (el de la AF3) para que se pueda correr al mismo tiempo que otras tareas (aunque por supuesto no lo he probado y no estoy seguro de qué serviría. Supongo que solo quise ser original.).
+- Usé un puerto (47105) distinto al que deben haber usado la mayoría de las tareas (el de la AF3) para que se pueda correr al mismo tiempo que otras tareas (aunque por supuesto no lo he probado y no estoy seguro de qué serviría. Supongo que solo quise ser original.).
+- Cada vez que veas una variable de nombre ```p```, esta es un diccionario con los parámetros importados del JSON.
 
 -------
 
