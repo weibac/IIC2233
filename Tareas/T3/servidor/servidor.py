@@ -37,7 +37,7 @@ class Servidor(QObject):
         """
         self.socket_servidor.bind((self.host, self.port))
         self.socket_servidor.listen()
-        self.log(f"Servidor escuchando en {self.host}:{self.port}...")
+        self.log("Servidor", "empieza a escuchar", f"en {self.host}:{self.port}")
 
     def accept_connections(self):
         """
@@ -55,7 +55,7 @@ class Servidor(QObject):
         También hacemos un lock para que no hable al mismo tiempo que se
         están mandando mensajes como iniciativa del servidor.
         """
-        self.log("Servidor aceptando conexiones...")
+        self.log("Servidor", "aceptando conexiones", "")
 
         while True:
             try:
@@ -70,7 +70,7 @@ class Servidor(QObject):
                 self.locks[self.id_cliente] = threading.Lock()
                 self.id_cliente += 1
             except ConnectionError as error:
-                self.log(f'Se ha producido un error de conexión: {error}')
+                self.log('', 'error de conexión', f'{error}')
 
     def listen_client_thread(self, id_cliente, client_socket):
         """
@@ -91,7 +91,7 @@ class Servidor(QObject):
             if respuesta:
                 self.enviar_datos(respuesta, id_cliente, client_socket)
         except ConnectionError as error:
-            self.log(f'Ocurrió un error de conexión con el cliente: {error}')
+            self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
             # TODO desconexión repentina
 
     # def recibir_datos(self, client_socket):
@@ -200,6 +200,6 @@ class Servidor(QObject):
     #             i_seg += 1
     #             segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
 
-    def log(self, texto: str):
-        print(f'| {texto: ^76s} |')
+    def log(self, sujeto, verbo, detalles):
+        print(f'| {sujeto: ^15s}|{verbo: ^25s}|{detalles: ^34s} |')
         print('-' * 80)
