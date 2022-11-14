@@ -42,6 +42,7 @@ class VentanaEspera(window_name, base_class):
                 self.label_jug_2.setText(datos['jugador 2'])
 
     def iniciar_cuenta(self, datos):
+        print('iniciando cuenta')
         if datos['jugador 1'] is not None:
             self.label_jug_1.setText(datos['jugador 1'])
         if datos['jugador 2'] is not None:

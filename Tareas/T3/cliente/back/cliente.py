@@ -48,6 +48,7 @@ class Cliente(QObject):
                 datos = self.recibir_datos()
                 if datos:
                     self.senal_manejar_respuesta.emit(datos)
+                    print('senal manejar respuesta enviada')
         except ConnectionError as error:
             print(f'ERROR: Se ha perdido conexión con el servidor')
             # TODO: Reemplazar por algo con las ventanas

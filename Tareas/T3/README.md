@@ -38,7 +38,7 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 ##### ✅ Desencriptación	
 ##### ❌✅🟠 Integración
 #### Interfaz Gráfica: 27 pts (20%)	
-##### ❌✅🟠 Ventana inicio		
+##### ✅ Ventana inicio		
 ##### ❌✅🟠 Sala de Espera			
 ##### ❌✅🟠 Ventana de juego							
 ##### ❌✅🟠 Ventana final

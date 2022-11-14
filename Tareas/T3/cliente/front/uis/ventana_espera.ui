@@ -129,9 +129,9 @@ color:  rgb(255, 255, 255);</string>
   <widget class="QLabel" name="label_timer">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>40</x>
      <y>50</y>
-     <width>91</width>
+     <width>521</width>
      <height>81</height>
     </rect>
    </property>
@@ -140,7 +140,7 @@ color:  rgb(255, 255, 255);</string>
 color:  rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>10</string>
+    <string>Esperando al jug. 2 ...</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

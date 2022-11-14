@@ -93,7 +93,8 @@ class Servidor(QObject):
                         self.log(*respuesta['log_msg'])
                     # print(respuesta)
                     respuesta['id'] = id_cliente
-                    self.enviar_datos(respuesta, id_cliente, client_socket)
+                    with self.locks[id_cliente]:
+                        self.enviar_datos(respuesta, id_cliente, client_socket)
             except ConnectionError as error:
                 self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
                 # TODO desconexión repentina
@@ -151,8 +152,12 @@ class Servidor(QObject):
         """
         print('Pre enviar datos ejecutada')
         id_cliente = datos['id']
+        print(id_cliente)
+        print(self.sockets[id_cliente])
         client_socket = self.sockets[id_cliente]
-        self.enviar_datos(datos, id_cliente, client_socket)
+        with self.locks[id_cliente]:
+            self.enviar_datos(datos, id_cliente, client_socket)
+            print('pre enviar datos llamo a enviar datos')
 
     def enviar_datos(self, datos: dict, id_cliente, client_socket):
         """
@@ -160,32 +165,31 @@ class Servidor(QObject):
         el sistema de codificación especificado en el enunciado.
         Llama a encriptar_datos_enviar del módulo aux_json.
         """
-        with self.locks[id_cliente]:
-            msg = encriptar_datos_enviar(datos)
-            largo_mensaje = len(msg)
-            # Enviar el largo del mensaje
-            client_socket.sendall(largo_mensaje.to_bytes(4, byteorder='big'))
-            # Enviar el contenido por segmentos
-            if largo_mensaje % 32 == 0:
-                n_segmentos = largo_mensaje // 32
-            else:
-                n_segmentos = (largo_mensaje // 32) + 1
-            for i_seg in range(1, n_segmentos + 1):
-                segmento = bytearray()
-                segmento.extend(i_seg.to_bytes(4, byteorder='little'))
-                if i_seg == n_segmentos and largo_mensaje % 32 != 0:
-                    largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
-                    for i_byte in range(32):
-                        if i_byte + 1 > largo_ultimo_seg:
-                            segmento.extend(b'\x00')
-                        else:
-                            segmento.extend(msg[0].to_bytes(1, byteorder='big'))
-                            msg = msg[1:]
-                else:
-                    for i_byte in range(32):
+        msg = encriptar_datos_enviar(datos)
+        largo_mensaje = len(msg)
+        # Enviar el largo del mensaje
+        client_socket.sendall(largo_mensaje.to_bytes(4, byteorder='big'))
+        # Enviar el contenido por segmentos
+        if largo_mensaje % 32 == 0:
+            n_segmentos = largo_mensaje // 32
+        else:
+            n_segmentos = (largo_mensaje // 32) + 1
+        for i_seg in range(1, n_segmentos + 1):
+            segmento = bytearray()
+            segmento.extend(i_seg.to_bytes(4, byteorder='little'))
+            if i_seg == n_segmentos and largo_mensaje % 32 != 0:
+                largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
+                for i_byte in range(32):
+                    if i_byte + 1 > largo_ultimo_seg:
+                        segmento.extend(b'\x00')
+                    else:
                         segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                         msg = msg[1:]
-                client_socket.sendall(segmento)
+            else:
+                for i_byte in range(32):
+                    segmento.extend(msg[0].to_bytes(1, byteorder='big'))
+                    msg = msg[1:]
+            client_socket.sendall(segmento)
 
     # def enviar_datos(self, datos: dict, client_socket):
     #     msg = encriptar_datos_enviar(datos)

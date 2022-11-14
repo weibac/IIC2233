@@ -28,7 +28,7 @@ class LogicaJuego(QObject):
 
         return respuesta
 
-    def validar_nombre(self, nombre, id):
+    def validar_nombre(self, nombre, id_cliente):
         motivo = ''
         valido = False
         if self.sala_llena:
@@ -43,7 +43,7 @@ class LogicaJuego(QObject):
         # Si el nombre es valido
         if motivo == '':
             valido = True
-            self.incorporar_jugador(nombre, id)
+            self.incorporar_jugador(nombre, id_cliente)
         respuesta = {'comando': 'validar nombre',
                      'valido': valido,
                      'motivo': motivo,
@@ -51,34 +51,32 @@ class LogicaJuego(QObject):
                      'jugador 2': self.jugador_2['nombre'],
                      'iniciar cuenta': self.sala_llena,
                      'log_yn': True,
-                     'log_msg': [f'cliente id {id}',
+                     'log_msg': [f'cliente id {id_cliente}',
                                  f'ingresa nombre {nombre}', f'valido? {valido}']}
         return respuesta
 
-    def incorporar_jugador(self, nombre, id):
+    def incorporar_jugador(self, nombre, id_cliente):
         self.nombres_ocupados.add(nombre.upper())
         if self.jugador_1['nombre'] is None and self.jugador_2['nombre'] is None:
             self.jugador_1['nombre'] = nombre
-            self.jugador_1['id'] = id
+            self.jugador_1['id'] = id_cliente
         elif self.jugador_1['nombre'] is None:
             self.jugador_1['nombre'] = nombre
-            self.jugador_1['id'] = id
+            self.jugador_1['id'] = id_cliente
             self.sala_llena = True
             avisar_otro_jug_cuenta = {
                 'comando': 'iniciar cuenta',
                 'id': self.jugador_2['id'],
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
-            self.senal_hablar_cliente.emit(avisar_otro_jug_cuenta)
-            print('senal hablar cliente emitida')
+            self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)
         elif self.jugador_2['nombre'] is None:
             self.jugador_2['nombre'] = nombre
-            self.jugador_2['id'] = id
+            self.jugador_2['id'] = id_cliente
             self.sala_llena = True
             avisar_otro_jug_cuenta = {
                 'comando': 'iniciar cuenta',
-                'id': self.jugador_2['id'],
+                'id': self.jugador_1['id'],
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
-            self.senal_hablar_cliente.emit(avisar_otro_jug_cuenta)
-            print('senal hablar cliente emitida')
+            self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)

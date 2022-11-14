@@ -14,7 +14,7 @@ class LogicaVentanas(QObject):
 
     def ejecutar_respuesta_servidor(self, datos: dict):
         """
-        Se encarga de actuar seǵun los comandos recibidos del servidor.
+        Se encarga de actuar según los comandos recibidos del servidor.
         """
         comando = datos['comando']
         if comando == 'validar nombre':
@@ -23,5 +23,6 @@ class LogicaVentanas(QObject):
             else:
                 print(f"nombre invalido. motivo: {datos['motivo']}")
                 self.senal_nombre_invalido.emit(datos)
-        if comando == 'iniciar cuenta':
+        elif comando == 'iniciar cuenta':
+            print('Logica ventanas recibio datos con iniciar cuenta')
             self.senal_iniciar_cuenta.emit(datos)
