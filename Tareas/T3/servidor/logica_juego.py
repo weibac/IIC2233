@@ -17,11 +17,14 @@ class LogicaJuego(QObject):
         self.nombres_ocupados = set()
         self.sala_llena = False
 
-    def ejecutar_comando(self, datos):
+    def ejecutar_comando(self, datos: dict):
         comando = datos['comando']
 
         if comando == 'validar nombre':
             respuesta = self.validar_nombre(datos['nombre'], datos['id'])
+
+        if 'log_yn' not in respuesta.keys():
+            respuesta['log_yn'] = False
 
         return respuesta
 
@@ -46,7 +49,10 @@ class LogicaJuego(QObject):
                      'motivo': motivo,
                      'jugador 1': self.jugador_1['nombre'],
                      'jugador 2': self.jugador_2['nombre'],
-                     'iniciar cuenta': self.sala_llena}
+                     'iniciar cuenta': self.sala_llena,
+                     'log_yn': True,
+                     'log_msg': [f'cliente id {id}',
+                                 f'ingresa nombre {nombre}', f'valido? {valido}']}
         return respuesta
 
     def incorporar_jugador(self, nombre, id):

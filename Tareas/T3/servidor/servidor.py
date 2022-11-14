@@ -88,9 +88,11 @@ class Servidor(QObject):
                 datos['id'] = id_cliente
                 # Responder según los datos
                 respuesta = self.logica_juego.ejecutar_comando(datos)
-                respuesta['id'] = id_cliente
-                print(respuesta)
                 if respuesta:
+                    if respuesta['log_yn']:
+                        self.log(*respuesta['log_msg'])
+                    # print(respuesta)
+                    respuesta['id'] = id_cliente
                     self.enviar_datos(respuesta, id_cliente, client_socket)
             except ConnectionError as error:
                 self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
@@ -138,7 +140,7 @@ class Servidor(QObject):
             mensaje_recibido.extend(segmento)
         # Desencriptar
         datos = desencriptar_datos_recibidos(mensaje_recibido)
-        print(datos)
+        # print(datos)
         return datos
 
     def pre_enviar_datos(self, datos: dict):
