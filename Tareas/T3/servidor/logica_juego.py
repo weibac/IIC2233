@@ -1,10 +1,19 @@
+from PyQt5.QtCore import pyqtSignal, QObject
 
 
-class LogicaJuego:
+class LogicaJuego(QObject):
+
+    senal_hablar_cliente = pyqtSignal(dict)
+
     def __init__(self, parent):
+        super().__init__()
         self.parent = parent
-        self.jugador_1 = None
-        self.jugador_2 = None
+        self.jugador_1 = {
+            'nombre': None,
+            'id': None}
+        self.jugador_2 = {
+            'nombre': None,
+            'id': None}
         self.nombres_ocupados = set()
         self.sala_llena = False
 
@@ -12,11 +21,11 @@ class LogicaJuego:
         comando = datos['comando']
 
         if comando == 'validar nombre':
-            respuesta = self.validar_nombre(datos['nombre'])
+            respuesta = self.validar_nombre(datos['nombre'], datos['id'])
 
         return respuesta
 
-    def validar_nombre(self, nombre):
+    def validar_nombre(self, nombre, id):
         motivo = ''
         valido = False
         if self.sala_llena:
@@ -31,25 +40,39 @@ class LogicaJuego:
         # Si el nombre es valido
         if motivo == '':
             valido = True
-            self.incorporar_jugador(nombre)
+            self.incorporar_jugador(nombre, id)
         respuesta = {'comando': 'validar nombre',
                      'valido': valido,
-                     'motivo': motivo}
+                     'motivo': motivo,
+                     'jugador 1': self.jugador_1['nombre'],
+                     'jugador 2': self.jugador_2['nombre'],
+                     'iniciar cuenta': self.sala_llena}
         return respuesta
 
-    def incorporar_jugador(self, nombre):
+    def incorporar_jugador(self, nombre, id):
         self.nombres_ocupados.add(nombre.upper())
-        if self.jugador_1 is None and self.jugador_2 is None:
-            self.jugador_1 = nombre
-        elif self.jugador_1 is None:
-            self.jugador_1 = nombre
+        if self.jugador_1['nombre'] is None and self.jugador_2['nombre'] is None:
+            self.jugador_1['nombre'] = nombre
+            self.jugador_1['id'] = id
+        elif self.jugador_1['nombre'] is None:
+            self.jugador_1['nombre'] = nombre
+            self.jugador_1['id'] = id
             self.sala_llena = True
-            self.cuenta_regresiva_inicio()
-        elif self.jugador_2 is None:
-            self.jugador_2 = nombre
+            avisar_otro_jug_cuenta = {
+                'comando': 'iniciar cuenta',
+                'id': self.jugador_2['id'],
+                'jugador 1': self.jugador_1['nombre'],
+                'jugador 2': self.jugador_2['nombre']}
+            self.senal_hablar_cliente.emit(avisar_otro_jug_cuenta)
+            print('senal hablar cliente emitida')
+        elif self.jugador_2['nombre'] is None:
+            self.jugador_2['nombre'] = nombre
+            self.jugador_2['id'] = id
             self.sala_llena = True
-            self.cuenta_regresiva_inicio()
-        
-    def cuenta_regresiva_inicio(self):
-        pass
-
+            avisar_otro_jug_cuenta = {
+                'comando': 'iniciar cuenta',
+                'id': self.jugador_2['id'],
+                'jugador 1': self.jugador_1['nombre'],
+                'jugador 2': self.jugador_2['nombre']}
+            self.senal_hablar_cliente.emit(avisar_otro_jug_cuenta)
+            print('senal hablar cliente emitida')

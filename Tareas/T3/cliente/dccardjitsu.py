@@ -24,6 +24,7 @@ class DccCardJitsu(QApplication):
 
         # Conectar señales
         self.conectar_inicio()
+        self.conectar_espera()
 
     def conectar_inicio(self):
         # self.ventana_inicio.senal_enviar_nombre.connect(
@@ -40,6 +41,10 @@ class DccCardJitsu(QApplication):
             self.ventana_inicio.recibir_nombre_valido)
         self.logica_ventanas.senal_nombre_valido.connect(
             self.ventana_espera.iniciar_ventana)
+
+    def conectar_espera(self):
+        self.logica_ventanas.senal_iniciar_cuenta.connect(
+            self.ventana_espera.iniciar_cuenta)
 
     def iniciar(self):
         self.ventana_inicio.show()

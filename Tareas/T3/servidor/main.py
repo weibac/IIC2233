@@ -6,6 +6,10 @@ if __name__ == "__main__":
     PARAMETROS = dict_json()
     servidor = Servidor(PARAMETROS['HOST'], PARAMETROS['PORT'])
 
+    # Conectar señales
+    servidor.logica_juego.senal_hablar_cliente.connect(
+        servidor.pre_enviar_datos)
+
     try:
         while True:
             input("[Presione Ctrl+C para cerrar]".center(80, " ") + "\n")

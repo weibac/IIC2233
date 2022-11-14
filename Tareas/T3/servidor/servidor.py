@@ -2,21 +2,27 @@ import socket
 import threading
 from sys import exit
 
+from PyQt5.QtCore import pyqtSignal, QObject
+
 from aux_json import encriptar_datos_enviar, desencriptar_datos_recibidos
 from logica_juego import LogicaJuego
 
 
-class Servidor:
+class Servidor(QObject):
     """
     Esta clase en gran parte copiada de los apuntes de la semana 9, tercer jupyter notebook.
     El resto en su mayoría fue copiado de la AF3.
     """
     def __init__(self, host, port):
+        super().__init__()
         self.host = host
         self.port = port
         self.socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sockets = {}
+        self.locks = {}
         self.logica_juego = LogicaJuego(self)
+        # self.logica_juego.senal_hablar_cliente.connect(
+        #     self.pre_enviar_datos)
         self.id_cliente = 0
         print('-' * 80)
         self.bind_and_listen()
@@ -45,22 +51,26 @@ class Servidor:
         Es arrancado como thread para aceptar clientes.
 
         Cada vez que aceptamos un nuevo cliente, iniciamos un
-        thread nuevo encargado de manejar el socket para ese cliente.
+        thread nuevo encargado de responder requests para ese cliente.
+        También hacemos un lock para que no hable al mismo tiempo que se
+        están mandando mensajes como iniciativa del servidor.
         """
         self.log("Servidor aceptando conexiones...")
 
-        try:
-            client_socket, direccion = self.socket_servidor.accept()
-            self.log(f'Usuario con cliente de direccion {direccion} ha sido aceptad@')
-            listening_client_thread = threading.Thread(
-                target=self.listen_client_thread,
-                args=(self.id_cliente, client_socket),
-                daemon=True)
-            listening_client_thread.start()
-            self.sockets[self.id_cliente] = client_socket
-            self.id_cliente += 1
-        except ConnectionError as error:
-            self.log(f'Se ha producido un error de conexión: {error}')
+        while True:
+            try:
+                client_socket, direccion = self.socket_servidor.accept()
+                self.log(f'Usuario con cliente de direccion {direccion} ha sido aceptad@')
+                listening_client_thread = threading.Thread(
+                    target=self.listen_client_thread,
+                    args=(self.id_cliente, client_socket),
+                    daemon=True)
+                listening_client_thread.start()
+                self.sockets[self.id_cliente] = client_socket
+                self.locks[self.id_cliente] = threading.Lock()
+                self.id_cliente += 1
+            except ConnectionError as error:
+                self.log(f'Se ha producido un error de conexión: {error}')
 
     def listen_client_thread(self, id_cliente, client_socket):
         """
@@ -73,11 +83,13 @@ class Servidor:
             datos = self.recibir_datos(client_socket)
             if not datos:
                 raise ConnectionResetError
+            datos['id'] = id_cliente
             # Responder según los datos
             respuesta = self.logica_juego.ejecutar_comando(datos)
+            respuesta['id'] = id_cliente
             print(respuesta)
             if respuesta:
-                self.enviar_datos(respuesta, client_socket)
+                self.enviar_datos(respuesta, id_cliente, client_socket)
         except ConnectionError as error:
             self.log(f'Ocurrió un error de conexión con el cliente: {error}')
             # TODO desconexión repentina
@@ -88,7 +100,7 @@ class Servidor:
     #     mensaje_recibido = bytearray()
     #     # Recibir hasta el penúltimo segmento
     #     for _ in range(max(largo_mensaje // 32, 1)):
-    #         segmento = client_socket.recv(36)  # TODO: Aparentemente recibe más veces de las que debería.
+    #         segmento = client_socket.recv(36)
     #         n_segmento = int.from_bytes(segmento[:4], byteorder='little')
     #         print(f'recibido segmento n°{n_segmento}')
     #         mensaje_recibido.extend(segmento[4:])
@@ -127,36 +139,49 @@ class Servidor:
         print(datos)
         return datos
 
-    def enviar_datos(self, datos: dict, client_socket):
+    def pre_enviar_datos(self, datos: dict):
+        """
+        Obtiene parámetros necesarios para enviar_datos y lo llama.
+        Este método se llama solo cuando el servidor envía un mensaje por iniciativa propia,
+        no para respuestas a requests del cliente.
+        """
+        print('Pre enviar datos ejecutada')
+        id_cliente = datos['id']
+        client_socket = self.sockets[id_cliente]
+        self.enviar_datos(datos, id_cliente, client_socket)
+
+    def enviar_datos(self, datos: dict, id_cliente, client_socket):
         """
         Recibe los datos de respuesta implementando
         el sistema de codificación especificado en el enunciado.
         Llama a encriptar_datos_enviar del módulo aux_json.
         """
-        msg = encriptar_datos_enviar(datos)
-        largo_mensaje = len(msg)
-        # Enviar el largo del mensaje
-        client_socket.sendall(largo_mensaje.to_bytes(4, byteorder='big'))
-        if largo_mensaje % 32 == 0:
-            n_segmentos = largo_mensaje // 32
-        else:
-            n_segmentos = (largo_mensaje // 32) + 1
-        for i_seg in range(1, n_segmentos + 1):
-            segmento = bytearray()
-            segmento.extend(i_seg.to_bytes(4, byteorder='little'))
-            if i_seg == n_segmentos and largo_mensaje % 32 != 0:
-                largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
-                for i_byte in range(32):
-                    if i_byte + 1 > largo_ultimo_seg:
-                        segmento.extend(b'\x00')
-                    else:
+        with self.locks[id_cliente]:
+            msg = encriptar_datos_enviar(datos)
+            largo_mensaje = len(msg)
+            # Enviar el largo del mensaje
+            client_socket.sendall(largo_mensaje.to_bytes(4, byteorder='big'))
+            # Enviar el contenido por segmentos
+            if largo_mensaje % 32 == 0:
+                n_segmentos = largo_mensaje // 32
+            else:
+                n_segmentos = (largo_mensaje // 32) + 1
+            for i_seg in range(1, n_segmentos + 1):
+                segmento = bytearray()
+                segmento.extend(i_seg.to_bytes(4, byteorder='little'))
+                if i_seg == n_segmentos and largo_mensaje % 32 != 0:
+                    largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
+                    for i_byte in range(32):
+                        if i_byte + 1 > largo_ultimo_seg:
+                            segmento.extend(b'\x00')
+                        else:
+                            segmento.extend(msg[0].to_bytes(1, byteorder='big'))
+                            msg = msg[1:]
+                else:
+                    for i_byte in range(32):
                         segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                         msg = msg[1:]
-            else:
-                for i_byte in range(32):
-                    segmento.extend(msg[0].to_bytes(1, byteorder='big'))
-                    msg = msg[1:]
-            client_socket.sendall(segmento)
+                client_socket.sendall(segmento)
 
     # def enviar_datos(self, datos: dict, client_socket):
     #     msg = encriptar_datos_enviar(datos)

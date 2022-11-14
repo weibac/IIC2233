@@ -6,6 +6,8 @@ class LogicaVentanas(QObject):
     senal_nombre_invalido = pyqtSignal(dict)
     senal_nombre_valido = pyqtSignal(dict)
 
+    senal_iniciar_cuenta = pyqtSignal(dict)
+
     def __init__(self) -> None:
         super().__init__()
         self.nombre = None
@@ -21,3 +23,5 @@ class LogicaVentanas(QObject):
             else:
                 print(f"nombre invalido. motivo: {datos['motivo']}")
                 self.senal_nombre_invalido.emit(datos)
+        if comando == 'iniciar cuenta':
+            self.senal_iniciar_cuenta.emit(datos)
