@@ -101,6 +101,7 @@ class Servidor(QObject):
                     respuesta['id'] = id_cliente
                     with self.locks[id_cliente]:
                         self.enviar_datos(respuesta, id_cliente, client_socket)
+            # Aquí se maneja desconexión repentina
             except IndexError:
                 self.log(f'cliente id {id_cliente}', 'error de conexión', 'descartando conexión...')
                 error = True

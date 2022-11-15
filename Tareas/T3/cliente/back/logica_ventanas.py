@@ -10,8 +10,8 @@ class LogicaVentanas(QObject):
     senal_parar_cuenta = pyqtSignal(dict)
     senal_iniciar_partida = pyqtSignal(dict)
 
-    senal_ganar = pyqtSignal()
-    senal_perder = pyqtSignal()
+    senal_ganar = pyqtSignal(dict)
+    senal_perder = pyqtSignal(dict)
 
     def __init__(self) -> None:
         super().__init__()
@@ -35,6 +35,6 @@ class LogicaVentanas(QObject):
         elif comando == 'iniciar partida':
             self.senal_iniciar_partida.emit(datos)
         elif comando == 'ganar':
-            self.senal_ganar.emit()
+            self.senal_ganar.emit(datos)
         elif comando == 'perder':
-            self.senal_perder.emit()
+            self.senal_perder.emit(datos)

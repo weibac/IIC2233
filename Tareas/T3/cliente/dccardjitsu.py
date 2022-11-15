@@ -33,6 +33,7 @@ class DccCardJitsu(QApplication):
         # Conectar señales
         self.conectar_inicio()
         self.conectar_espera()
+        self.conectar_juego()
         self.conectar_desconexion_repentina()
 
     def conectar_inicio(self):
@@ -67,12 +68,25 @@ class DccCardJitsu(QApplication):
         self.logica_ventanas.senal_iniciar_partida.connect(
             self.ventana_juego.iniciar_ventana)
 
+    def conectar_juego(self):
+        self.logica_ventanas.senal_ganar.connect(
+            self.ventana_juego.terminar)
+        self.logica_ventanas.senal_ganar.connect(
+            self.ventana_final.iniciar_ventana)
+        self.logica_ventanas.senal_perder.connect(
+            self.ventana_juego.terminar)
+        self.logica_ventanas.senal_perder.connect(
+            self.ventana_final.iniciar_ventana)
+
     def conectar_desconexion_repentina(self):
         self.cliente.senal_desconexion_repentina.connect(
             self.ventana_inicio.desconexion_repentina)
         self.cliente.senal_desconexion_repentina.connect(
             self.ventana_espera.desconexion_repentina)
-        # TODO: El resto de ventanas
+        self.cliente.senal_desconexion_repentina.connect(
+            self.ventana_juego.desconexion_repentina)
+        self.cliente.senal_desconexion_repentina.connect(
+            self.ventana_final.desconexion_repentina)
         self.cliente.senal_desconexion_repentina.connect(
             self.terminar)
 

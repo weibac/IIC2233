@@ -173,6 +173,28 @@ color:  rgb(255, 255, 255);</string>
    </property>
    <layout class="QVBoxLayout" name="layout_elem_opo"/>
   </widget>
+  <widget class="QLabel" name="label_desconexion_repentina">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>300</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(255, 0, 0);
+font-size: 30px;</string>
+   </property>
+   <property name="text">
+    <string>ERROR
+Servidor caído</string>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>label_3</zorder>
   <zorder>label_2</zorder>
@@ -183,6 +205,7 @@ color:  rgb(255, 255, 255);</string>
   <zorder>pushButton</zorder>
   <zorder>verticalLayoutWidget</zorder>
   <zorder>verticalLayoutWidget_2</zorder>
+  <zorder>label_desconexion_repentina</zorder>
  </widget>
  <resources/>
  <connections/>

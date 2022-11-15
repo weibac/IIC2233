@@ -111,6 +111,7 @@ class LogicaJuego(QObject):
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
             self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)
+            self.jugando = True
         elif self.jugador_2['nombre'] is None:
             self.jugador_2['nombre'] = nombre
             self.jugador_2['id'] = id_cliente
@@ -121,6 +122,7 @@ class LogicaJuego(QObject):
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
             self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)
+            self.jugando = True
 
     def cuenta_termino(self, datos: dict):
         respuesta = datos

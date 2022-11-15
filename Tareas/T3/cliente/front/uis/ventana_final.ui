@@ -64,7 +64,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_timer">
+  <widget class="QLabel" name="label_mensaje">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -104,6 +104,28 @@ color:  rgb(0, 0, 0);</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_desconexion_repentina">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>300</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(255, 0, 0);
+font-size: 30px;</string>
+   </property>
+   <property name="text">
+    <string>ERROR
+Servidor caído</string>
    </property>
   </widget>
  </widget>
