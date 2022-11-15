@@ -17,7 +17,6 @@ class LogicaVentanas(QObject):
 
     def __init__(self) -> None:
         super().__init__()
-        self.nombre = None
 
     def ejecutar_respuesta_servidor(self, datos: dict):
         """
