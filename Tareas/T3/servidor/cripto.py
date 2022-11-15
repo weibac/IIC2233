@@ -38,7 +38,7 @@ def encriptar(msg: bytearray) -> bytearray:
 def desencriptar(msg: bytearray) -> bytearray:
     # Completar con el proceso de desencriptación
     # Obtener largos a, b y c
-    len_original = len(msg) - 1  # Sin en \x00 o \x01 del principio
+    len_original = len(msg) - 1  # Sin el \x00 o \x01 del principio
     if len_original % 3 == 0:
         len_a = len_original // 3
         len_b = len_original // 3

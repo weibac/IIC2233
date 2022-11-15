@@ -56,27 +56,6 @@ class Cliente(QObject):
             self.conectado = False
             self.senal_desconexion_repentina.emit()
             print(f'ERROR: Se ha perdido conexión con el servidor')
-            # TODO: Reemplazar por algo con las ventanas
-
-    # def recibir_datos(self):
-    #     largo_mensaje = int.from_bytes(self.socket.recv(4), byteorder='big')
-    #     mensaje_recibido = bytearray()
-    #     # Recibir hasta el penúltimo segmento
-    #     for _ in range(max(largo_mensaje // 32, 1)):
-    #         segmento = self.socket.recv(36)
-    #         n_segmento = int.from_bytes(segmento[:4], byteorder='little')
-    #         print(f'recibido segmento n°{n_segmento}')
-    #         mensaje_recibido.extend(segmento[4:])
-    #     # Recibir el último segmento
-    #     segmento = self.socket.recv(36)
-    #     n_segmento = int.from_bytes(segmento[:4], byteorder='little')
-    #     largo_ultimo_seg = n_segmento * 32 - largo_mensaje
-    #     print(f'recibido segmento n°{n_segmento}. Es el último.')
-    #     mensaje_recibido.extend(segmento[4:4 + largo_ultimo_seg])
-    #     # Desencriptar
-    #     datos = desencriptar_datos_recibidos(mensaje_recibido)
-    #     # Enviarle los datos a logica_ventanasd
-    #     self.senal_manejar_respuesta.emit(datos)
 
     def recibir_datos(self):
         largo_mensaje = int.from_bytes(self.socket.recv(4), byteorder='big')
@@ -123,20 +102,3 @@ class Cliente(QObject):
                     segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                     msg = msg[1:]
             self.socket.sendall(segmento)
-
-    # def enviar_datos(self, datos: dict):
-    #     msg = encriptar_datos_enviar(datos)
-    #     # Enviar el largo del mensaje
-    #     self.socket.sendall(len(msg).to_bytes(4, byteorder='big'))
-    #     # Separar por segmentos y enviarlos
-    #     i_seg = 1
-    #     segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
-    #     for i in range(1, (((len(msg) // 32) + 1) * 32) + 1):
-    #         try:
-    #             segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
-    #         except IndexError:
-    #             segmento_actual.extend(b'\x00')
-    #         if i % 32 == 0:
-    #             self.socket.sendall(segmento_actual)
-    #             i_seg += 1
-    #             segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))

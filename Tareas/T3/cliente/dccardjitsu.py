@@ -37,12 +37,8 @@ class DccCardJitsu(QApplication):
         self.conectar_desconexion_repentina()
 
     def conectar_inicio(self):
-        # self.ventana_inicio.senal_enviar_nombre.connect(
-        #     self.logica_inicio.enviar_nombre)
         self.ventana_inicio.senal_enviar_nombre.connect(
             self.cliente.enviar_datos)
-        # self.logica_inicio.senal_validez_nombre.connect(
-        #     self.ventana_inicio.recibir_respuesta_login)
         self.cliente.senal_manejar_respuesta.connect(
             self.logica_ventanas.ejecutar_respuesta_servidor)
         self.logica_ventanas.senal_nombre_invalido.connect(

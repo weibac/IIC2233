@@ -49,8 +49,6 @@ class VentanaEspera(window_name, base_class):
             self.label_jug_2.setText(datos['jugador 2'])
         self.tiempo_restante = p['CUENTA_REGRESIVA_INICIO']
         self.timer_cuenta.start()
-        # sleep(11)
-        # self.timer_cuenta.stop()
 
     def parar_cuenta(self, datos: dict):
         self.timer_cuenta.stop()

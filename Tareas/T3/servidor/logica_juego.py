@@ -24,7 +24,6 @@ class LogicaJuego(QObject):
 
     def ejecutar_comando(self, datos: dict):
         comando = datos['comando']
-
         if comando == 'validar nombre':
             respuesta = self.validar_nombre(datos['nombre'], datos['id'])
         elif comando == 'salir sala espera':
@@ -50,7 +49,6 @@ class LogicaJuego(QObject):
             motivo = 'El nombre debe ser alfanumerico'
         elif nombre.upper() in self.nombres_ocupados:
             motivo = 'Ya hay alguien conectado con ese nombre'
-            # TODO: Sacar nombres de desconectados
         # Si el nombre es valido
         if motivo == '':
             valido = True

@@ -1,8 +1,7 @@
 import socket
 import threading
-from sys import exit
 
-from PyQt5.QtCore import pyqtSignal, QObject
+from PyQt5.QtCore import QObject
 
 from aux_json import encriptar_datos_enviar, desencriptar_datos_recibidos
 from logica_juego import LogicaJuego
@@ -21,8 +20,6 @@ class Servidor(QObject):
         self.sockets = {}
         self.locks = {}
         self.logica_juego = LogicaJuego(self)
-        # self.logica_juego.senal_hablar_cliente.connect(
-        #     self.pre_enviar_datos)
         self.id_cliente = 0
         print('-' * 80)
         self.log('Sujeto', 'Verbo', 'Detalles')
@@ -108,27 +105,6 @@ class Servidor(QObject):
                 client_socket.close()
                 self.logica_juego.desconexion_repentina(id_cliente)
 
-    # def recibir_datos(self, client_socket):
-    #     largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
-    #     print(f'largo mensaje: {largo_mensaje}')
-    #     mensaje_recibido = bytearray()
-    #     # Recibir hasta el penúltimo segmento
-    #     for _ in range(max(largo_mensaje // 32, 1)):
-    #         segmento = client_socket.recv(36)
-    #         n_segmento = int.from_bytes(segmento[:4], byteorder='little')
-    #         print(f'recibido segmento n°{n_segmento}')
-    #         mensaje_recibido.extend(segmento[4:])
-    #     # Recibir el último segmento
-    #     segmento = client_socket.recv(36)
-    #     n_segmento = int.from_bytes(segmento[:4], byteorder='little')
-    #     largo_ultimo_seg = n_segmento * 32 - largo_mensaje
-    #     print(f'recibido segmento n°{n_segmento}. Es el último.')
-    #     mensaje_recibido.extend(segmento[4:4 + largo_ultimo_seg])
-    #     # Desencriptar
-    #     datos = desencriptar_datos_recibidos(mensaje_recibido)
-    #     print(datos)
-    #     return datos
-
     def recibir_datos(self, client_socket):
         """
         Recibe los datos implementando el sistema de codificación especificado en el enunciado.
@@ -142,7 +118,6 @@ class Servidor(QObject):
         mensaje_recibido = bytearray()
         for i_seg in range(1, n_segmentos + 1):
             segmento = client_socket.recv(36)
-            n_segmento = int.from_bytes(segmento[:4], byteorder='little')
             segmento = segmento[4:]
             if i_seg == n_segmentos and largo_mensaje % 32 != 0:
                 largo_ultimo_seg = largo_mensaje - ((n_segmentos - 1) * 32)
@@ -150,7 +125,6 @@ class Servidor(QObject):
             mensaje_recibido.extend(segmento)
         # Desencriptar
         datos = desencriptar_datos_recibidos(mensaje_recibido)
-        # print(datos)
         return datos
 
     def pre_enviar_datos(self, datos: dict):
@@ -195,23 +169,6 @@ class Servidor(QObject):
                     segmento.extend(msg[0].to_bytes(1, byteorder='big'))
                     msg = msg[1:]
             client_socket.sendall(segmento)
-
-    # def enviar_datos(self, datos: dict, client_socket):
-    #     msg = encriptar_datos_enviar(datos)
-    #     # Enviar el largo del mensaje
-    #     client_socket.sendall(len(msg).to_bytes(4, byteorder='big'))
-    #     # Separar por segmentos y enviarlos
-    #     i_seg = 1
-    #     segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
-    #     for i in range(1, (((len(msg) // 32) + 1) * 32) + 1):
-    #         try:
-    #             segmento_actual.extend(msg[i - 1].to_bytes(1, byteorder='big'))
-    #         except IndexError:
-    #             segmento_actual.extend(b'\x00')
-    #         if i % 32 == 0:
-    #             client_socket.sendall(segmento_actual)
-    #             i_seg += 1
-    #             segmento_actual = bytearray(i_seg.to_bytes(4, byteorder='little'))
 
     def log(self, sujeto, verbo, detalles):
         print(f'| {sujeto: ^15s}|{verbo: ^25s}|{detalles: ^34s} |')
