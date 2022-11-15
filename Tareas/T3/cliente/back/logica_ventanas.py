@@ -13,6 +13,8 @@ class LogicaVentanas(QObject):
     senal_ganar = pyqtSignal(dict)
     senal_perder = pyqtSignal(dict)
 
+    senal_recibir_mensaje_chat = pyqtSignal(dict)
+
     def __init__(self) -> None:
         super().__init__()
         self.nombre = None
@@ -38,3 +40,5 @@ class LogicaVentanas(QObject):
             self.senal_ganar.emit(datos)
         elif comando == 'perder':
             self.senal_perder.emit(datos)
+        elif comando == 'recibir mensaje chat':
+            self.senal_recibir_mensaje_chat.emit(datos)

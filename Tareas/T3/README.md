@@ -22,34 +22,34 @@ Explicación: mantén el emoji correspondiente, de manera honesta, para cada ite
 - ✅ si completaste **correctamente** lo pedido
 - 🟠 si el item está **incompleto** o tiene algunos errores
 #### Networking: 26 pts (19%)
-##### ❌✅🟠 Protocolo	
-##### ❌✅🟠 Correcto uso de sockets		
-##### ❌✅🟠 Conexión	
-##### ❌✅🟠 Manejo de Clientes	
+##### ✅ Protocolo	
+##### ✅ Correcto uso de sockets		
+##### ✅ Conexión	
+##### ✅ Manejo de Clientes	
 ##### ✅ Desconexión Repentina
 #### Arquitectura Cliente - Servidor: 31 pts (23%)			
-##### ❌✅🟠 Roles			
-##### ❌✅🟠 Consistencia		
-##### ❌✅🟠 Logs
+##### ✅ Roles			
+##### ✅ Consistencia		
+##### 🟠 Logs: no están implementados los logs de las funcionalidades no implementadas
 #### Manejo de Bytes: 27 pts (20%)
 ##### ✅ Codificación			
 ##### ✅ Decodificación			
 ##### ✅ Encriptación		
 ##### ✅ Desencriptación	
-##### ❌✅🟠 Integración
+##### ❌✅🟠 Integración: no sé qué es esto sorry
 #### Interfaz Gráfica: 27 pts (20%)	
 ##### ✅ Ventana inicio		
 ##### ✅ Sala de Espera			
-##### ❌✅🟠 Ventana de juego							
-##### ❌✅🟠 Ventana final
+##### 🟠 Ventana de juego: está ahí, pero no permite jugar						
+##### ✅ Ventana final
 #### Reglas de DCCard-Jitsu: 17 pts (13%)
-##### ❌✅🟠 Inicio del juego			
-##### ❌✅🟠 Ronda				
-##### ❌✅🟠 Termino del juego
+##### 🟠 Inicio del juego: muestra la ventana cuando se cumplen condiciones	
+##### ❌ Ronda				
+##### 🟠 Termino del juego: solo para desconexión repentina
 #### Archivos: 8 pts (6%)
-##### ❌✅🟠 Parámetros (JSON)		
-##### ❌✅🟠 Cartas.py	
-##### ❌✅🟠 Cripto.py
+##### ✅ Parámetros (JSON)		
+##### 🟠 Cartas.py:	no se usa
+##### ✅ Cripto.py
 #### Bonus: 8 décimas máximo
 ##### ❌✅🟠 Cheatcodes	
 ##### ❌✅🟠 Bienestar	

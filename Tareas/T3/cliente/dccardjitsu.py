@@ -6,6 +6,7 @@ from front.ventana_inicio import VentanaInicio
 from front.ventana_espera import VentanaEspera
 from front.ventana_juego import VentanaJuego
 from front.ventana_final import VentanaFinal
+from front.ventana_chat import VentanaChat
 
 from back.cliente import Cliente
 from back.logica_ventanas import LogicaVentanas
@@ -25,6 +26,7 @@ class DccCardJitsu(QApplication):
         self.ventana_espera = VentanaEspera()
         self.ventana_juego = VentanaJuego()
         self.ventana_final = VentanaFinal()
+        self.ventana_chat = VentanaChat()
 
         # Instanciar Backend
         self.logica_ventanas = LogicaVentanas()
@@ -35,6 +37,7 @@ class DccCardJitsu(QApplication):
         self.conectar_espera()
         self.conectar_juego()
         self.conectar_desconexion_repentina()
+        self.conectar_chat()
 
     def conectar_inicio(self):
         self.ventana_inicio.senal_enviar_nombre.connect(
@@ -84,7 +87,19 @@ class DccCardJitsu(QApplication):
         self.cliente.senal_desconexion_repentina.connect(
             self.ventana_final.desconexion_repentina)
         self.cliente.senal_desconexion_repentina.connect(
+            self.ventana_chat.desconexion_repentina)
+        self.cliente.senal_desconexion_repentina.connect(
             self.terminar)
+
+    def conectar_chat(self):
+        self.ventana_juego.senal_abrir_chat.connect(
+            self.ventana_chat.iniciar_ventana)
+        self.ventana_juego.senal_abrir_chat.connect(
+            self.cliente.enviar_datos)
+        self.ventana_chat.senal_enviar_mensaje_chat.connect(
+            self.cliente.enviar_datos)
+        self.logica_ventanas.senal_recibir_mensaje_chat.connect(
+            self.ventana_chat.recibir_mensaje)
 
     def iniciar(self):
         self.ventana_inicio.show()

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Ventana de juego</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -141,10 +141,10 @@ color:  rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>330</y>
-     <width>121</width>
-     <height>41</height>
+     <x>610</x>
+     <y>320</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
@@ -195,6 +195,19 @@ font-size: 30px;</string>
 Servidor caído</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="boton_chat">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>360</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CHAT</string>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>label_3</zorder>
   <zorder>label_2</zorder>
@@ -206,6 +219,7 @@ Servidor caído</string>
   <zorder>verticalLayoutWidget</zorder>
   <zorder>verticalLayoutWidget_2</zorder>
   <zorder>label_desconexion_repentina</zorder>
+  <zorder>boton_chat</zorder>
  </widget>
  <resources/>
  <connections/>

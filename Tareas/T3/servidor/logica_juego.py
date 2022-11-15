@@ -13,10 +13,12 @@ class LogicaJuego(QObject):
     def parametros_iniciales(self):
         self.jugador_1 = {
             'nombre': None,
-            'id': None}
+            'id': None,
+            'chat_abierto': False}
         self.jugador_2 = {
             'nombre': None,
-            'id': None}
+            'id': None,
+            'chat_abierto': False}
         self.nombres_ocupados = set()
         self.sala_llena = False
         self.terminaron_de_contar = 0
@@ -30,6 +32,10 @@ class LogicaJuego(QObject):
             respuesta = self.respuesta_usuario_sale(datos)
         elif comando == 'cuenta termino':
             respuesta = self.cuenta_termino(datos)
+        elif comando == 'abrio chat':
+            respuesta = self.abrio_chat(datos)
+        elif comando == 'enviar mensaje chat':
+            respuesta = self.recibir_mensaje_chat(datos)
 
         if 'log_yn' not in respuesta.keys():
             respuesta['log_yn'] = False
@@ -152,3 +158,25 @@ class LogicaJuego(QObject):
         self.parent.pre_enviar_datos({'comando': 'ganar', 'id': ganador["id"]})
         if not desconexion_repentina:
             self.parent.pre_enviar_datos({'comando': 'perder', 'id': perdedor["id"]})
+
+    def abrio_chat(self, datos):
+        datos['comando'] = ''
+        if datos['id'] == self.jugador_1['id']:
+            self.jugador_1['chat_abierto'] = True
+        elif datos['id'] == self.jugador_2['id']:
+            self.jugador_2['chat_abierto'] = True
+        return datos
+
+    def recibir_mensaje_chat(self, datos):
+        respuesta = datos
+        respuesta_otro_jug = {
+            'comando': 'recibir mensaje chat',
+            'msg': datos['msg']}
+        if respuesta['id'] == self.jugador_1['id']:
+            respuesta_otro_jug['id'] = self.jugador_2['id']
+            respuesta_otro_jug['enviante'] = self.jugador_1['nombre']
+        elif respuesta['id'] == self.jugador_2['id']:
+            respuesta_otro_jug['id'] = self.jugador_1['id']
+            respuesta_otro_jug['enviante'] = self.jugador_2['nombre']
+        self.parent.pre_enviar_datos(respuesta_otro_jug)
+        return respuesta
