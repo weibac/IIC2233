@@ -130,8 +130,8 @@ class LogicaJuego(QObject):
             elif respuesta['id'] == self.jugador_2['id']:
                 respuesta_otro_jug['id'] = self.jugador_1['id']
             self.parent.log('partida', 'inicia',
-                            f'entre {self.jugador_1["nombre"]} id {self.jugador_1["id"]} \
-                             y {self.jugador_2["nombre"]} id {self.jugador_2["id"]}')
+                            f'entre {self.jugador_1["nombre"]} id {self.jugador_1["id"]}' +
+                            f' y {self.jugador_2["nombre"]} id {self.jugador_2["id"]}')
             self.parent.pre_enviar_datos(respuesta_otro_jug)
         else:
             self.terminaron_de_contar += 1
