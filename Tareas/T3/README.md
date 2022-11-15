@@ -154,7 +154,7 @@ Para realizar mi tarea saqué código de:
 1. \<link de código>: este hace \<lo que hace> y está implementado en el archivo <nombre.py> en las líneas <número de líneas> y hace <explicación breve de que hace>
 
 1. https://stackoverflow.com/questions/2753254/how-to-open-a-file-in-the-parent-directory-in-python-in-appengine para abrir parametros.json desde el parent directory en el archivo ```aux_json.py```.
-
+1. https://www.pythonguis.com/tutorials/qscrollarea/ Para el chat
 
 
 ## Descuentos
