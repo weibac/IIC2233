@@ -19,3 +19,5 @@ class VentanaJuego(window_name, base_class):
     def iniciar_ventana(self, datos):
         # TODO
         self.show()
+    
+    def ganar()

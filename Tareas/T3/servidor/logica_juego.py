@@ -8,6 +8,9 @@ class LogicaJuego(QObject):
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
+        self.parametros_iniciales()
+
+    def parametros_iniciales(self):
         self.jugador_1 = {
             'nombre': None,
             'id': None}
@@ -139,6 +142,13 @@ class LogicaJuego(QObject):
 
     def desconexion_repentina(self, id_cliente):
         if id_cliente == self.jugador_1['id'] and self.jugando:
-            pass  # TODO jugador 2 gana
+            self.ganar_jugador(self.jugador_2, self.jugador_1, True)
         elif id_cliente == self.jugador_2['id'] and self.jugando:
-            pass  # TODO jugador 1 gana
+            self.ganar_jugador(self.jugador_1, self.jugador_2, True)
+
+    def ganar_jugador(self, ganador, perdedor, desconexion_repentina: bool):
+        self.parametros_iniciales()
+        self.parent.log('partida', 'termina', f'gana {ganador["nombre"]} id {ganador["id"]}')
+        self.parent.pre_enviar_datos({'comando': 'ganar', 'id': ganador["id"]})
+        if not desconexion_repentina:
+            self.parent.pre_enviar_datos({'comando': 'perder', 'id': perdedor["id"]})
