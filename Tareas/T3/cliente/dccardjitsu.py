@@ -4,6 +4,9 @@ from time import sleep
 
 from front.ventana_inicio import VentanaInicio
 from front.ventana_espera import VentanaEspera
+from front.ventana_juego import VentanaJuego
+from front.ventana_final import VentanaFinal
+
 from back.cliente import Cliente
 from back.logica_ventanas import LogicaVentanas
 from aux_json import dict_json
@@ -20,6 +23,8 @@ class DccCardJitsu(QApplication):
         # Instanciar Frontend
         self.ventana_inicio = VentanaInicio()
         self.ventana_espera = VentanaEspera()
+        self.ventana_juego = VentanaJuego()
+        self.ventana_final = VentanaFinal()
 
         # Instanciar Backend
         self.logica_ventanas = LogicaVentanas()
@@ -55,6 +60,12 @@ class DccCardJitsu(QApplication):
             self.cliente.enviar_datos)
         self.logica_ventanas.senal_parar_cuenta.connect(
             self.ventana_espera.parar_cuenta)
+        self.ventana_espera.senal_cuenta_termino.connect(
+            self.cliente.enviar_datos)
+        self.logica_ventanas.senal_iniciar_partida.connect(
+            self.ventana_espera.recibir_inicio_partida)
+        self.logica_ventanas.senal_iniciar_partida.connect(
+            self.ventana_juego.iniciar_ventana)
 
     def conectar_desconexion_repentina(self):
         self.cliente.senal_desconexion_repentina.connect(

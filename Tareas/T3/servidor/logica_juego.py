@@ -16,6 +16,7 @@ class LogicaJuego(QObject):
             'id': None}
         self.nombres_ocupados = set()
         self.sala_llena = False
+        self.terminaron_de_contar = 0
         self.jugando = False
 
     def ejecutar_comando(self, datos: dict):
@@ -25,6 +26,8 @@ class LogicaJuego(QObject):
             respuesta = self.validar_nombre(datos['nombre'], datos['id'])
         elif comando == 'salir sala espera':
             respuesta = self.respuesta_usuario_sale(datos)
+        elif comando == 'cuenta termino':
+            respuesta = self.cuenta_termino(datos)
 
         if 'log_yn' not in respuesta.keys():
             respuesta['log_yn'] = False
@@ -72,10 +75,18 @@ class LogicaJuego(QObject):
         respuesta = datos
         # Y esto otro (datos cambiado) al otro cliente
         if respuesta['id'] == self.jugador_1['id']:
+            self.nombres_ocupados.remove(self.jugador_1['nombre'])
+            self.jugador_1 = {
+                'nombre': None,
+                'id': None}
             datos['id'] = self.jugador_2['id']
             datos['comando'] = 'el otro cliente se fue'
             datos['quien se fue'] = 'jugador 1'
         elif respuesta['id'] == self.jugador_2['id']:
+            self.nombres_ocupados.remove(self.jugador_2['nombre'])
+            self.jugador_2 = {
+                'nombre': None,
+                'id': None}
             datos['id'] = self.jugador_1['id']
             datos['comando'] = 'el otro cliente se fue'
             datos['quien se fue'] = 'jugador 2'
@@ -107,6 +118,24 @@ class LogicaJuego(QObject):
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
             self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)
+
+    def cuenta_termino(self, datos: dict):
+        respuesta = datos
+        if self.terminaron_de_contar == 1:
+            self.terminaron_de_contar = 0
+            respuesta['comando'] = 'iniciar partida'
+            respuesta_otro_jug = {'comando': 'iniciar partida'}
+            if respuesta['id'] == self.jugador_1['id']:
+                respuesta_otro_jug['id'] = self.jugador_2['id']
+            elif respuesta['id'] == self.jugador_2['id']:
+                respuesta_otro_jug['id'] = self.jugador_1['id']
+            self.parent.log('partida', 'inicia',
+                            f'entre {self.jugador_1["nombre"]} id {self.jugador_1["id"]} \
+                             y {self.jugador_2["nombre"]} id {self.jugador_2["id"]}')
+            self.parent.pre_enviar_datos(respuesta_otro_jug)
+        else:
+            self.terminaron_de_contar += 1
+        return respuesta
 
     def desconexion_repentina(self, id_cliente):
         if id_cliente == self.jugador_1['id'] and self.jugando:

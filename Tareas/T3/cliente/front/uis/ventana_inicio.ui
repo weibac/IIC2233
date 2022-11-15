@@ -105,9 +105,6 @@ selection-color: rgb(170, 0, 0);</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_desconexion_repentina">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -117,7 +114,7 @@ selection-color: rgb(170, 0, 0);</string>
     </rect>
    </property>
    <property name="autoFillBackground">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);
@@ -127,9 +124,6 @@ font-size: 30px;</string>
    <property name="text">
     <string>ERROR
 Servidor caído</string>
-   </property>
-   <property name="scaledContents">
-    <bool>false</bool>
    </property>
   </widget>
  </widget>

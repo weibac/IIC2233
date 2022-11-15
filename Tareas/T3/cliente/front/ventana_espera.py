@@ -71,6 +71,9 @@ class VentanaEspera(window_name, base_class):
             self.timer_cuenta.stop()
             self.senal_cuenta_termino.emit({'comando': 'cuenta termino'})
 
+    def recibir_inicio_partida(self, datos):
+        self.hide()
+
     def desconexion_repentina(self):
         self.label_desconexion_repentina.setHidden(False)
         self.label_desconexion_repentina.repaint()

@@ -1,9 +1,7 @@
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QLabel
 from PyQt5 import uic
 
 import os
-from time import sleep
 
 from aux_json import dict_json
 

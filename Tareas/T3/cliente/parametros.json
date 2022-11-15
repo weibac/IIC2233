@@ -3,5 +3,7 @@
     "PORT": 47105,
     "RUTA_UI_VENTANA_INICIO": ["front", "uis", "ventana_inicio.ui"],
     "RUTA_UI_VENTANA_ESPERA": ["front", "uis", "ventana_espera.ui"],
+    "RUTA_UI_VENTANA_JUEGO": ["front", "uis", "ventana_juego.ui"],
+    "RUTA_UI_VENTANA_FINAL": ["front", "uis", "ventana_final.ui"],
     "CUENTA_REGRESIVA_INICIO": 10
 }
