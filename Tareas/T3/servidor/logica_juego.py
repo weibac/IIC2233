@@ -16,6 +16,7 @@ class LogicaJuego(QObject):
             'id': None}
         self.nombres_ocupados = set()
         self.sala_llena = False
+        self.jugando = False
 
     def ejecutar_comando(self, datos: dict):
         comando = datos['comando']
@@ -64,6 +65,9 @@ class LogicaJuego(QObject):
         return respuesta
 
     def respuesta_usuario_sale(self, datos):
+        """
+        Maneja los casos donde un usuario apreta el botón volver en la sala de espera.
+        """
         # Esto (respuesta) se envia de vuelta al cliente que se fue
         respuesta = datos
         # Y esto otro (datos cambiado) al otro cliente
@@ -103,3 +107,9 @@ class LogicaJuego(QObject):
                 'jugador 1': self.jugador_1['nombre'],
                 'jugador 2': self.jugador_2['nombre']}
             self.parent.pre_enviar_datos(avisar_otro_jug_cuenta)
+
+    def desconexion_repentina(self, id_cliente):
+        if id_cliente == self.jugador_1['id'] and self.jugando:
+            pass  # TODO jugador 2 gana
+        elif id_cliente == self.jugador_2['id'] and self.jugando:
+            pass  # TODO jugador 1 gana

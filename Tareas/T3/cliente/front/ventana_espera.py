@@ -13,10 +13,12 @@ window_name, base_class = uic.loadUiType(os.path.join(*p['RUTA_UI_VENTANA_ESPERA
 class VentanaEspera(window_name, base_class):
 
     senal_usuario_vuelve = pyqtSignal(dict)
+    senal_cuenta_termino = pyqtSignal(dict)
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.label_desconexion_repentina.setHidden(True)
         # Boton volver
         self.label_boton.mousePressEvent = self.volver
         #  Timer actualizar cuenta regresiva
@@ -26,9 +28,7 @@ class VentanaEspera(window_name, base_class):
         self.timer_cuenta.timeout.connect(self.cuenta_regresiva)
 
     def volver(self, arg):
-        datos = {
-            'comando': 'salir sala espera'
-        }
+        datos = {'comando': 'salir sala espera'}
         self.senal_usuario_vuelve.emit(datos)
         self.hide()
 
@@ -67,3 +67,10 @@ class VentanaEspera(window_name, base_class):
             sleep(1)
             self.tiempo_restante -= 1
             self.label_timer.setText(str(self.tiempo_restante))
+        else:
+            self.timer_cuenta.stop()
+            self.senal_cuenta_termino.emit({'comando': 'cuenta termino'})
+
+    def desconexion_repentina(self):
+        self.label_desconexion_repentina.setHidden(False)
+        self.label_desconexion_repentina.repaint()

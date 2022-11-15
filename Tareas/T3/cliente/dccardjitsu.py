@@ -1,4 +1,7 @@
 from PyQt5.QtWidgets import QApplication
+
+from time import sleep
+
 from front.ventana_inicio import VentanaInicio
 from front.ventana_espera import VentanaEspera
 from back.cliente import Cliente
@@ -25,6 +28,7 @@ class DccCardJitsu(QApplication):
         # Conectar señales
         self.conectar_inicio()
         self.conectar_espera()
+        self.conectar_desconexion_repentina()
 
     def conectar_inicio(self):
         # self.ventana_inicio.senal_enviar_nombre.connect(
@@ -52,5 +56,18 @@ class DccCardJitsu(QApplication):
         self.logica_ventanas.senal_parar_cuenta.connect(
             self.ventana_espera.parar_cuenta)
 
+    def conectar_desconexion_repentina(self):
+        self.cliente.senal_desconexion_repentina.connect(
+            self.ventana_inicio.desconexion_repentina)
+        self.cliente.senal_desconexion_repentina.connect(
+            self.ventana_espera.desconexion_repentina)
+        # TODO: El resto de ventanas
+        self.cliente.senal_desconexion_repentina.connect(
+            self.terminar)
+
     def iniciar(self):
         self.ventana_inicio.show()
+
+    def terminar(self):
+        sleep(3)
+        self.quit()

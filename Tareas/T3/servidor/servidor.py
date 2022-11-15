@@ -34,7 +34,7 @@ class Servidor(QObject):
         Enlaza el socket creado con el host y puerto indicado.
 
         Primero, se enlaza el socket y luego queda esperando
-        por conexiones entrantes.
+         por conexiones entrantes.
         """
         self.socket_servidor.bind((self.host, self.port))
         self.socket_servidor.listen()
@@ -52,9 +52,9 @@ class Servidor(QObject):
         Es arrancado como thread para aceptar clientes.
 
         Cada vez que aceptamos un nuevo cliente, iniciamos un
-        thread nuevo encargado de responder requests para ese cliente.
+         thread nuevo encargado de responder requests para ese cliente.
         También hacemos un lock para que no hable al mismo tiempo que se
-        están mandando mensajes como iniciativa del servidor.
+         están mandando mensajes como iniciativa del servidor.
         """
         self.log("Servidor", "aceptando conexiones", "")
 
@@ -77,10 +77,16 @@ class Servidor(QObject):
         """
         Es ejecutado como thread que escuchará a un cliente en particular.
         Llama a recibir_datos para recibir los datos, y luego llama a logica_juego.ejecutar_comando
-        para para obtener la respuesta del servidor. Luego la envía.
+         para para obtener la respuesta del servidor. Luego la envía.
+        Nótese que al recibir una reques le agrega al diccionario recibido el par 'id': id_cliente
+         para identificar de qué cliente vino dicha request.
+        Asimismo, al enviar una respuesta, obtiene el parámetro id_cliente al cual enviarle
+         la respuesta a partir de su valor asociado a la key 'id',
+         que podría ser distinto al de la request original.
         """
         self.log("Servidor", "empieza a escuchar", f"al cliente de id {id_cliente}")
-        while True:
+        error = False
+        while not error:
             try:
                 datos = self.recibir_datos(client_socket)
                 if not datos:
@@ -95,9 +101,11 @@ class Servidor(QObject):
                     respuesta['id'] = id_cliente
                     with self.locks[id_cliente]:
                         self.enviar_datos(respuesta, id_cliente, client_socket)
-            except ConnectionError as error:
-                self.log(f'Cliente id {id_cliente}', 'error de conexión', f'{error}')
-                # TODO desconexión repentina
+            except IndexError:
+                self.log(f'cliente id {id_cliente}', 'error de conexión', 'descartando conexión...')
+                error = True
+                client_socket.close()
+                self.logica_juego.desconexion_repentina(id_cliente)
 
     # def recibir_datos(self, client_socket):
     #     largo_mensaje = int.from_bytes(client_socket.recv(4), byteorder='big')
@@ -148,7 +156,7 @@ class Servidor(QObject):
         """
         Obtiene parámetros necesarios para enviar_datos y lo llama.
         Este método se llama solo cuando el servidor envía un mensaje por iniciativa propia,
-        no para respuestas a requests del cliente.
+         no para respuestas a requests del cliente.
         """
         id_cliente = datos['id']
         client_socket = self.sockets[id_cliente]
@@ -158,7 +166,7 @@ class Servidor(QObject):
     def enviar_datos(self, datos: dict, id_cliente, client_socket):
         """
         Recibe los datos de respuesta implementando
-        el sistema de codificación especificado en el enunciado.
+         el sistema de codificación especificado en el enunciado.
         Llama a encriptar_datos_enviar del módulo aux_json.
         """
         msg = encriptar_datos_enviar(datos)

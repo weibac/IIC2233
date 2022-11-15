@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
+
 import socket
-from threading import Thread, Lock
+from threading import Thread
 
 from aux_json import encriptar_datos_enviar, desencriptar_datos_recibidos
 
@@ -10,6 +11,7 @@ class Cliente(QObject):
     Esta clase en gran parte copiada de la AF3
     """
     senal_manejar_respuesta = pyqtSignal(dict)
+    senal_desconexion_repentina = pyqtSignal()
 
     def __init__(self, host, port):
         super().__init__()
@@ -49,7 +51,10 @@ class Cliente(QObject):
                 if datos:
                     self.senal_manejar_respuesta.emit(datos)
                     print('senal manejar respuesta enviada')
-        except ConnectionError as error:
+        except IndexError:
+            self.socket.close()
+            self.conectado = False
+            self.senal_desconexion_repentina.emit()
             print(f'ERROR: Se ha perdido conexión con el servidor')
             # TODO: Reemplazar por algo con las ventanas
 

@@ -1,7 +1,10 @@
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QLabel
 from PyQt5 import uic
 
 import os
+from time import sleep
+
 from aux_json import dict_json
 
 # path_parametros = os.path.join(os.path.dirname(__file__), os.pardir,'parametros.json')
@@ -19,6 +22,7 @@ class VentanaInicio(window_name, base_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.label_desconexion_repentina.setHidden(True)
         self.boton_entrar.clicked.connect(self.enviar_nombre)
 
     def enviar_nombre(self):
@@ -31,3 +35,7 @@ class VentanaInicio(window_name, base_class):
 
     def recibir_nombre_valido(self, datos: dict):
         self.hide()
+
+    def desconexion_repentina(self):
+        self.label_desconexion_repentina.setHidden(False)
+        self.label_desconexion_repentina.repaint()
