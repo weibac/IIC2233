@@ -1,2 +1,4 @@
 sprites
 *.pdf
+servidor/codificacion.py
+cliente/codificacion.py
