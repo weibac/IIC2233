@@ -4,7 +4,7 @@ TOKENS_FILE_PATH = os.path.join('data', 'tokens.csv')
 ISSUES_FILE_PATH = os.path.join('data', 'issues.csv')
 
 ANIME_BASE_URL = 'https://backend.chan.ing.puc.cl/animeranking/v1/{}'
-ANIME_NUMERO = -1  # Completar
+ANIME_NUMERO = int('08') % 6
 REGEX_FILTRO = r'.*'  # Completar
 
 GITHUB_BASE_URL = 'https://api.github.com/repos/{}'

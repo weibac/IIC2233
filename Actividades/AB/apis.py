@@ -12,7 +12,21 @@ def get_animes() -> Tuple[int, List[Anime]]:
     # ToDo: Completar
     status_code = 404
     animes = []
-
+    # Request
+    url = ANIME_BASE_URL.format(f'AB?id={ANIME_NUMERO}')
+    response = requests.get(url)
+    status_code = response.status_code
+    animes_dict = response.json()['animes']
+    # Procesamiento
+    for a in range(len(animes_dict)):
+        anime = animes_dict[a]
+        nombre = anime['name']
+        ano = anime['season']['year']
+        tags = []
+        for b in range(len(anime['tags'])):
+            tags.append(anime['tags'][b]['name'])
+        anime = Anime(nombre, ano, tags)
+        animes.append(anime)
     return status_code, animes
 
 
