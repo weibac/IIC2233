@@ -34,6 +34,22 @@ def post_issue(token, animes: List[Anime]) -> Tuple[int, int]:
     # ToDo: Completar
     status_code = 404
     issue_number = -1
+    url = GITHUB_BASE_URL.format(f'{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/issues')
+    headers = {'Authorization': f'token {token}'}
+    issue_body = ''
+    for anime in animes:
+        print(f'{anime.nombre} ({anime.ano})\n')
+        issue_body += f'{anime.nombre} ({anime.ano})\n'
+    data = {
+        'owner': GITHUB_REPO_OWNER,
+        'repo': GITHUB_REPO_NAME,
+        'title': GITHUB_USERNAME,
+        'body': issue_body
+    }
+    data = json.dumps(data)
+    response = requests.post(url=url, headers=headers, data=data)
+    status_code = response.status_code
+    issue_number = response.json()['number']
 
     return status_code, issue_number
 
