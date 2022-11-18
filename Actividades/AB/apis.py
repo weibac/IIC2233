@@ -38,7 +38,6 @@ def post_issue(token, animes: List[Anime]) -> Tuple[int, int]:
     headers = {'Authorization': f'token {token}'}
     issue_body = ''
     for anime in animes:
-        print(f'{anime.nombre} ({anime.ano})\n')
         issue_body += f'{anime.nombre} ({anime.ano})\n'
     data = {
         'owner': GITHUB_REPO_OWNER,
@@ -57,6 +56,17 @@ def post_issue(token, animes: List[Anime]) -> Tuple[int, int]:
 def put_lock_issue(token: str, numero_issue: int) -> int:
     # ToDo: Completar
     status_code = 404
+    url = GITHUB_BASE_URL.format(f'{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/issues/{numero_issue}/lock')
+    headers = {'Authorization': f'token {token}'}
+    data = {
+        'owner': GITHUB_REPO_OWNER,
+        'repo': GITHUB_REPO_NAME,
+        'issue_number': numero_issue
+    }
+    data = json.dumps(data)
+    response = requests.post(url=url, headers=headers, data=data)
+    print(response.json())
+    status_code = response.status_code
 
     return status_code
 
@@ -64,5 +74,15 @@ def put_lock_issue(token: str, numero_issue: int) -> int:
 def delete_lock_issue(token: str, numero_issue: int) -> int:
     # ToDo: Completar
     status_code = 404
+    url = GITHUB_BASE_URL.format(f'{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/issues/{numero_issue}/lock')
+    headers = {'Authorization': f'token {token}'}
+    data = {
+        'owner': GITHUB_REPO_OWNER,
+        'repo': GITHUB_REPO_NAME,
+        'issue_number': numero_issue
+    }
+    data = json.dumps(data)
+    response = requests.post(url=url, headers=headers, data=data)
+    status_code = response.status_code
 
     return status_code
