@@ -1,3 +1,7 @@
+# weibac/IIC2233 - My assignments for IIC2233 at UC Chile
+
+[IIC2233](https://github.com/iic2233) is the advanced Python programming course at UC Chile. This is the repo I used for my doing my assignments when I was taking the course a couple years back. I left everything as-it-was (aside from inserting this little note) before making this repo public. What follows is the original README.
+
 # Repositorio de weibac
 
 Este es el repositorio que utilizarás durante el resto del curso. Tanto profesores, ayudantes y bots tenemos acceso a este y podremos ver todos los cambios que hagas en tu código. **Es tu deber darle un buen uso y solo con fines académicos.**
@@ -9,7 +13,7 @@ Todo el proceso de recolección de tareas y actividades está automatizado, por 
 ## Datos del estudiante
 
 | Nombre | Mail UC |
-| :-: | :-: | :-: |
+| :---: | :---: |
 | Milan Weibel Bacovic | milan.weibel@uc.cl |
 
 ## Sobre las entregas
